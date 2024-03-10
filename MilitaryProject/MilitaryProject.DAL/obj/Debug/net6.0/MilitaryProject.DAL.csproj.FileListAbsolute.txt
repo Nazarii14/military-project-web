@@ -1,0 +1,17 @@
+D:\Програмна інженерія\MilitaryProject\MilitaryProject.DAL\bin\Debug\net6.0\MilitaryProject.DAL.deps.json
+D:\Програмна інженерія\MilitaryProject\MilitaryProject.DAL\bin\Debug\net6.0\MilitaryProject.DAL.runtimeconfig.json
+D:\Програмна інженерія\MilitaryProject\MilitaryProject.DAL\bin\Debug\net6.0\MilitaryProject.DAL.dll
+D:\Програмна інженерія\MilitaryProject\MilitaryProject.DAL\bin\Debug\net6.0\MilitaryProject.DAL.pdb
+D:\Програмна інженерія\MilitaryProject\MilitaryProject.DAL\bin\Debug\net6.0\MilitaryProject.Domain.dll
+D:\Програмна інженерія\MilitaryProject\MilitaryProject.DAL\bin\Debug\net6.0\MilitaryProject.Domain.pdb
+D:\Програмна інженерія\MilitaryProject\MilitaryProject.DAL\obj\Debug\net6.0\MilitaryProject.DAL.csproj.AssemblyReference.cache
+D:\Програмна інженерія\MilitaryProject\MilitaryProject.DAL\obj\Debug\net6.0\MilitaryProject.DAL.GeneratedMSBuildEditorConfig.editorconfig
+D:\Програмна інженерія\MilitaryProject\MilitaryProject.DAL\obj\Debug\net6.0\MilitaryProject.DAL.AssemblyInfoInputs.cache
+D:\Програмна інженерія\MilitaryProject\MilitaryProject.DAL\obj\Debug\net6.0\MilitaryProject.DAL.AssemblyInfo.cs
+D:\Програмна інженерія\MilitaryProject\MilitaryProject.DAL\obj\Debug\net6.0\MilitaryProject.DAL.csproj.CoreCompileInputs.cache
+D:\Програмна інженерія\MilitaryProject\MilitaryProject.DAL\obj\Debug\net6.0\MilitaryProject.DAL.csproj.CopyComplete
+D:\Програмна інженерія\MilitaryProject\MilitaryProject.DAL\obj\Debug\net6.0\MilitaryProject.DAL.dll
+D:\Програмна інженерія\MilitaryProject\MilitaryProject.DAL\obj\Debug\net6.0\refint\MilitaryProject.DAL.dll
+D:\Програмна інженерія\MilitaryProject\MilitaryProject.DAL\obj\Debug\net6.0\MilitaryProject.DAL.pdb
+D:\Програмна інженерія\MilitaryProject\MilitaryProject.DAL\obj\Debug\net6.0\MilitaryProject.DAL.genruntimeconfig.cache
+D:\Програмна інженерія\MilitaryProject\MilitaryProject.DAL\obj\Debug\net6.0\ref\MilitaryProject.DAL.dll
