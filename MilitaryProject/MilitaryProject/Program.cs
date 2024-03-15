@@ -2,10 +2,21 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using MilitaryProject;
 using MilitaryProject.DAL;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+builder.Host.UseSerilog((context, loggerConfig) =>
+{
+    loggerConfig
+    .ReadFrom.Configuration(context.Configuration)
+    .Enrich.FromLogContext()
+    .Enrich.WithEnvironmentName()
+    .Enrich.WithMachineName();
+});
+
+
+
 builder.Services.AddControllersWithViews();
 
 var connection = builder.Configuration.GetConnectionString("DefaultConnection");
@@ -23,7 +34,7 @@ builder.Services.InitializeRepositories();
 builder.Services.InitializeServices();
 
 var app = builder.Build();
-
+app.UseSerilogRequestLogging();
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
