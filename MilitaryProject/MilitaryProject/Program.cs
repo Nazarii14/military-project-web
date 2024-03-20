@@ -18,6 +18,7 @@ builder.Host.UseSerilog((context, loggerConfig) =>
 
 
 builder.Services.AddControllersWithViews();
+builder.Services.AddHttpContextAccessor();
 
 var connection = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connection));
@@ -29,7 +30,6 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         options.AccessDeniedPath = new Microsoft.AspNetCore.Http.PathString("/User/Login");
     });
 
-builder.Services.AddHttpContextAccessor();
 builder.Services.InitializeRepositories();
 builder.Services.InitializeServices();
 
