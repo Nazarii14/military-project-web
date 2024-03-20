@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using MilitaryProject;
 using MilitaryProject.DAL;
 using Serilog;
+using System.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,10 +13,9 @@ builder.Host.UseSerilog((context, loggerConfig) =>
     .ReadFrom.Configuration(context.Configuration)
     .Enrich.FromLogContext()
     .Enrich.WithEnvironmentName()
-    .Enrich.WithMachineName();
+    .Enrich.WithMachineName()
+    .WriteTo.Seq(context.Configuration.GetSection("Seq:ServerUrl").Value, apiKey: context.Configuration.GetSection("Seq:ApiKey").Value);
 });
-
-
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddHttpContextAccessor();
@@ -32,9 +32,11 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 
 builder.Services.InitializeRepositories();
 builder.Services.InitializeServices();
+builder.Services.AddLogging(loggingBuilder => loggingBuilder.AddSeq());
 
 var app = builder.Build();
 app.UseSerilogRequestLogging();
+
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
