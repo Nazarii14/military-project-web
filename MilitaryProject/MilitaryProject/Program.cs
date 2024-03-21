@@ -7,6 +7,9 @@ using System.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var connection = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connection));
+
 builder.Host.UseSerilog((context, loggerConfig) =>
 {
     loggerConfig
@@ -19,9 +22,6 @@ builder.Host.UseSerilog((context, loggerConfig) =>
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddHttpContextAccessor();
-
-var connection = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connection));
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>

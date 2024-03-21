@@ -1,4 +1,5 @@
-﻿using MilitaryProject.Domain.Response;
+﻿using MilitaryProject.Domain.Entity;
+using MilitaryProject.Domain.Response;
 using MilitaryProject.Domain.ViewModels.Brigade;
 using System.Security.Claims;
 
@@ -6,10 +7,10 @@ namespace MilitaryProject.BLL.Interfaces
 {
     public interface IBrigadeService
     {
-        Task<BaseResponse<ClaimsIdentity>> Create(CreateBrigadeViewModel model);
-        // Task<BaseResponse<IEnumerable<ReadBrigadeViewModel>>> GetAll();
-        Task<BaseResponse<ClaimsIdentity>> GetById(int id);
-        Task<BaseResponse<ClaimsIdentity>> Edit(EditBrigadeViewModel model);
-        Task<BaseResponse<bool>> Delete(int id);
+        Task<BaseResponse<Brigade>> GetBrigade(int id);
+        Task<BaseResponse<List<Brigade>>> GetBrigades();
+        Task<BaseResponse<Brigade>> CreateBrigade(BrigadeViewModel model);
+        Task<BaseResponse<Brigade>> UpdateBrigade(BrigadeViewModel model);
+        Task<BaseResponse<bool>> DeleteBrigade(int id);
     }
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MilitaryProject.Domain.ViewModels.Brigade
 {
-    public class CreateBrigadeViewModel
+    public class BrigadeViewModel
     {
         public int ID { get; set; }
 

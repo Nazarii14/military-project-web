@@ -10,7 +10,7 @@ namespace MilitaryProject.DAL.Interface
     {
         Task Create(T entity);
         Task Delete (T entity);
-        Task<IEnumerable<T>> GetAll();
+        Task<List<T>> GetAll();
         Task Update (T entity);
     }
 }
