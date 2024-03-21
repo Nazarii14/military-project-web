@@ -1,0 +1,26 @@
+﻿@model MilitaryProject.Domain.ViewModels.Brigade.BrigadeViewModel
+
+@{
+    ViewData["Title"] = "Edit Brigade";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <h1 class="card-header text-center">Edit Brigade</h1>
+                <div class="card-body">
+                    <form asp-controller="Brigade" asp-action="Edit" method="post">
+                        <input type="hidden" asp-for="Id" />
+                        <div class="form-group">
+                            <label asp-for="Name">Name:</label>
+                            <input asp-for="Name" class="form-control" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                        <button type="submit" class="btn btn-primary mt-3">Update</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

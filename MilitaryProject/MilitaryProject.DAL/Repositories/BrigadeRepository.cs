@@ -31,6 +31,11 @@ namespace MilitaryProject.DAL.Repositories
         {
             return await _db.Brigades.ToListAsync();
         }
+        
+        public async Task<Brigade> GetById(int id)
+        {
+            return await _db.Brigades.FindAsync(id);
+        }
 
         public async Task Update(Brigade entity)
         {

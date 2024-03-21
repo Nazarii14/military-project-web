@@ -9,7 +9,7 @@ namespace MilitaryProject.Domain.Enum
     public enum StatusCode
     {
         OK = 200,
-        NotFount = 404,
+        NotFound = 404,
         InternalServerError = 500
     }
 }
