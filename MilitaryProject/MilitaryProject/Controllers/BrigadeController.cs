@@ -7,52 +7,52 @@ using MilitaryProject.Domain.Response;
 using MilitaryProject.Domain.Enum;
 using MilitaryProject.Domain.ViewModels.User;
 using Azure;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
+using System.Security.Claims;
 
 namespace MilitaryProject.Controllers
 {
     public class BrigadeController : Controller
     {
         private readonly IBrigadeService _brigadeService;
+
         public BrigadeController(IBrigadeService brigadeService)
         {
             _brigadeService = brigadeService;
         }
 
-        public async Task<IActionResult> GetBrigades()
+        [HttpGet]
+        public IActionResult CreateBrigade()
         {
-            var responce = await _brigadeService.GetBrigades();
-
-            if (responce.StatusCode == Domain.Enum.StatusCode.OK)
-            {
-                return View(responce.Data);
-            }
-            else
-            {
-                TempData["AlertMessage"] = responce.Description;
-                TempData["ResponseStatus"] = "Error";
-                return BadRequest(responce.Description);
-            }
+            return View(new BrigadeViewModel());
         }
 
-        public async Task<IActionResult> GetBrigade(int id)
-        {
-            var responce = await _brigadeService.GetBrigade(id);
 
-            if (responce.StatusCode == Domain.Enum.StatusCode.OK)
-            {
-                return View(responce.Data);
-            }
-            else
-            {
-                TempData["AlertMessage"] = responce.Description;
-                TempData["ResponseStatus"] = "Error";
-                return BadRequest(responce.Description);
-            }
-        }
-
+        [HttpPost]
         public async Task<IActionResult> CreateBrigade(BrigadeViewModel model)
         {
-            var responce = await _brigadeService.CreateBrigade(model);
+            if (ModelState.IsValid)
+            {
+                var response = await _brigadeService.Create(model);
+
+                if (response.StatusCode == Domain.Enum.StatusCode.OK)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    TempData["AlertMessage"] = response.Description;
+                    TempData["ResponseStatus"] = "Error";
+                }
+            }
+            return View(model);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetBrigades()
+        {
+            var responce = await _brigadeService.GetAll();
 
             if (responce.StatusCode == Domain.Enum.StatusCode.OK)
             {
@@ -66,36 +66,95 @@ namespace MilitaryProject.Controllers
             }
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetBrigade(int id)
+        {
+            var responce = await _brigadeService.GetById(id);
+
+            if (responce.StatusCode == Domain.Enum.StatusCode.OK)
+            {
+                return View(responce.Data);
+            }
+            else
+            {
+                TempData["AlertMessage"] = responce.Description;
+                TempData["ResponseStatus"] = "Error";
+                return BadRequest(responce.Description);
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Details(int id)
+        {
+            var response = await _brigadeService.GetById(id);
+
+            if (response.StatusCode == Domain.Enum.StatusCode.OK)
+            {
+                return View(response.Data);
+            }
+            else
+            {
+                TempData["AlertMessage"] = response.Description;
+                TempData["ResponseStatus"] = "Error";
+                return RedirectToAction("Index", "Home");
+            }
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            var response = await _brigadeService.GetById(id);
+
+            if (response.StatusCode == Domain.Enum.StatusCode.OK)
+            {
+                return View(response.Data);
+            }
+            else
+            {
+                TempData["AlertMessage"] = response.Description;
+                TempData["ResponseStatus"] = "Error";
+                return RedirectToAction("Index", "Home");
+            }
+        }
+
+        [HttpPost]
         public async Task<IActionResult> UpdateBrigade(BrigadeViewModel model)
         {
-            var responce = await _brigadeService.UpdateBrigade(model);
+            if (ModelState.IsValid)
+            {
+                var response = await _brigadeService.Update(model);
 
-            if (responce.StatusCode == Domain.Enum.StatusCode.OK)
-            {
-                return View(responce.Data);
+                if (response.StatusCode == Domain.Enum.StatusCode.OK)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    TempData["AlertMessage"] = response.Description;
+                    TempData["ResponseStatus"] = "Error";
+                }
             }
-            else
-            {
-                TempData["AlertMessage"] = responce.Description;
-                TempData["ResponseStatus"] = "Error";
-                return BadRequest(responce.Description);
-            }
+            return View(model);
         }
 
+        [HttpPost]
         public async Task<IActionResult> DeleteBrigade(int id)
         {
-            var responce = await _brigadeService.DeleteBrigade(id);
+            var response = await _brigadeService.Delete(id);
 
-            if (responce.StatusCode == Domain.Enum.StatusCode.OK)
+            if (response.StatusCode == Domain.Enum.StatusCode.OK)
             {
-                return View(responce.Data);
+                TempData["AlertMessage"] = "Brigade deleted successfully.";
+                TempData["ResponseStatus"] = "Success";
             }
             else
             {
-                TempData["AlertMessage"] = responce.Description;
+                TempData["AlertMessage"] = response.Description;
                 TempData["ResponseStatus"] = "Error";
-                return BadRequest(responce.Description);
             }
+
+            return RedirectToAction("Index", "Home");
         }
     }
 }
