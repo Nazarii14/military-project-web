@@ -5,89 +5,97 @@ using MilitaryProject.DAL.Repositories;
 using MilitaryProject.BLL.Services;
 using MilitaryProject.Domain.Response;
 using MilitaryProject.Domain.Enum;
+using MilitaryProject.Domain.ViewModels.User;
+using Azure;
 
 namespace MilitaryProject.Controllers
 {
     public class BrigadeController : Controller
     {
         private readonly IBrigadeService _brigadeService;
-        private readonly IMapper _mapper;
-        private readonly BrigadeRepository _brigadeRepository;
         public BrigadeController(IBrigadeService brigadeService)
         {
             _brigadeService = brigadeService;
         }
 
-        public async Task<BaseResponse<ReadBrigadeViewModel>> Read(int id)
+        public async Task<IActionResult> GetBrigades()
         {
-            var response = new BaseResponse<ReadBrigadeViewModel>();
+            var responce = await _brigadeService.GetBrigades();
 
-            try
+            if (responce.StatusCode == Domain.Enum.StatusCode.OK)
             {
-                var brigade = await _brigadeRepository.GetById(id);
-                if (brigade != null)
-                {
-                    var brigadeViewModel = _mapper.Map<ReadBrigadeViewModel>(brigade);
-                    response.Data = brigadeViewModel;
-                    response.StatusCode = Domain.Enum.StatusCode.OK;
-                }
-                else
-                {
-                    response.Description = $"Brigade with ID {id} not found.";
-                    response.StatusCode = Domain.Enum.StatusCode.NotFound;
-                }
+                return View(responce.Data);
             }
-            catch (Exception ex)
+            else
             {
-                response.Description = "Error occurred while retrieving brigade.";
-                response.StatusCode = Domain.Enum.StatusCode.InternalServerError;
+                TempData["AlertMessage"] = responce.Description;
+                TempData["ResponseStatus"] = "Error";
+                return BadRequest(responce.Description);
             }
-
-            return response;
         }
 
-        public IActionResult Create()
+        public async Task<IActionResult> GetBrigade(int id)
         {
-            var createBrigadeViewModel = new CreateBrigadeViewModel();
-            return View(createBrigadeViewModel);
-        }
+            var responce = await _brigadeService.GetBrigade(id);
 
-        [HttpPost]
-        public IActionResult Create(CreateBrigadeViewModel createBrigadeViewModel)
-        {
-            if (ModelState.IsValid)
+            if (responce.StatusCode == Domain.Enum.StatusCode.OK)
             {
-                _brigadeService.Create(createBrigadeViewModel);
-                return RedirectToAction("Index");
+                return View(responce.Data);
             }
-            return View(createBrigadeViewModel);
-        }
-
-        public IActionResult Edit(int id)
-        {
-            var brigadeViewModel = _brigadeService.GetById(id);
-            if (brigadeViewModel == null)
+            else
             {
-                return NotFound();
+                TempData["AlertMessage"] = responce.Description;
+                TempData["ResponseStatus"] = "Error";
+                return BadRequest(responce.Description);
             }
-            return View(brigadeViewModel);
         }
 
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> CreateBrigade(BrigadeViewModel model)
         {
-            var brigadeViewModel = _brigadeService.GetById(id);
-            if (brigadeViewModel == null)
+            var responce = await _brigadeService.CreateBrigade(model);
+
+            if (responce.StatusCode == Domain.Enum.StatusCode.OK)
             {
-                return NotFound();
+                return View(responce.Data);
             }
-            return View(brigadeViewModel);
+            else
+            {
+                TempData["AlertMessage"] = responce.Description;
+                TempData["ResponseStatus"] = "Error";
+                return BadRequest(responce.Description);
+            }
         }
 
-        [HttpPost, ActionName("Delete")]
-        public IActionResult ConfirmDelete(int id)
+        public async Task<IActionResult> UpdateBrigade(BrigadeViewModel model)
         {
-            _brigadeService.Delete(id);
-            return RedirectToAction("Index");
+            var responce = await _brigadeService.UpdateBrigade(model);
+
+            if (responce.StatusCode == Domain.Enum.StatusCode.OK)
+            {
+                return View(responce.Data);
+            }
+            else
+            {
+                TempData["AlertMessage"] = responce.Description;
+                TempData["ResponseStatus"] = "Error";
+                return BadRequest(responce.Description);
+            }
+        }
+
+        public async Task<IActionResult> DeleteBrigade(int id)
+        {
+            var responce = await _brigadeService.DeleteBrigade(id);
+
+            if (responce.StatusCode == Domain.Enum.StatusCode.OK)
+            {
+                return View(responce.Data);
+            }
+            else
+            {
+                TempData["AlertMessage"] = responce.Description;
+                TempData["ResponseStatus"] = "Error";
+                return BadRequest(responce.Description);
+            }
         }
     }
 }

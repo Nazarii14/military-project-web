@@ -1,4 +1,5 @@
-﻿@model MilitaryProject.Domain.ViewModels.Brigade.BrigadeViewModel
+﻿@using MilitaryProject.Domain.ViewModels.Brigade
+@model BrigadeViewModel
 
 @{
     ViewData["Title"] = "Delete Brigade";
@@ -16,7 +17,7 @@
                         <span>@Model.Name</span>
                     </div>
                     <form asp-controller="Brigade" asp-action="Delete" method="post">
-                        <input type="hidden" asp-for="Id" />
+                        <input type="hidden" asp-for="ID" />
                         <button type="submit" class="btn btn-danger mt-3">Delete</button>
                         <a asp-controller="Brigade" asp-action="Index" class="btn btn-secondary mt-3">Cancel</a>
                     </form>
