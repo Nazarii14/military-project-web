@@ -30,7 +30,7 @@ namespace MilitaryProject.DAL.Repositories
             await _db.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<User>> GetAll()
+        public async Task<List<User>> GetAll()
         {
             return await _db.Users.ToListAsync();
         }

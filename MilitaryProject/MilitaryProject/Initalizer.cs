@@ -11,11 +11,13 @@ namespace MilitaryProject
         public static void InitializeRepositories (this IServiceCollection services)
         {
             services.AddScoped<BaseRepository<User>, UserRepository>();
+            services.AddScoped<BaseRepository<Weapon>, WeaponRepository>();
         }
 
         public static void InitializeServices(this IServiceCollection services)
         {
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IWeaponService, WeaponService>();
         }
     }
 }

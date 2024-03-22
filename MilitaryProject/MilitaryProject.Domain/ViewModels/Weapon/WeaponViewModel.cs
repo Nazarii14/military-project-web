@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MilitaryProject.Domain.ViewModels.Weapon
 {
-    public class EditWeaponViewModel
+    public class WeaponViewModel
     {
         public int ID { get; set; }
 

@@ -27,14 +27,9 @@ namespace MilitaryProject.DAL.Repositories
             await _db.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<Weapon>> GetAll()
+        public async Task<List<Weapon>> GetAll()
         {
             return await _db.Weapons.ToListAsync();
-        }
-
-        public async Task<Weapon> GetById(int id)
-        {
-            return await _db.Weapons.FindAsync(id);
         }
 
         public async Task Update(Weapon entity)
