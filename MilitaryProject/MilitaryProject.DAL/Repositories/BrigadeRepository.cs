@@ -27,7 +27,7 @@ namespace MilitaryProject.DAL.Repositories
             await _db.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<Brigade>> GetAll()
+        public async Task<List<Brigade>> GetAll()
         {
             return await _db.Brigades.ToListAsync();
         }

@@ -34,6 +34,7 @@ namespace MilitaryProject.BLL.Services
                     return new BaseResponse<Weapon>
                     {
                         Description = "Weapon does not exist",
+                        StatusCode = StatusCode.NotFount
                     };
                 }
 
@@ -79,31 +80,46 @@ namespace MilitaryProject.BLL.Services
         {
             try
             {
-                var response = await _weaponRepository.GetAll();
-                var weapon = response.FirstOrDefault(b => b.Name == model.Name);
+                var existingWeapon = (await _weaponRepository.GetAll())
+                    .FirstOrDefault(w => w.Name.Equals(model.Name, StringComparison.OrdinalIgnoreCase));
 
-                if (weapon != null)
+                if (existingWeapon != null)
                 {
                     return new BaseResponse<Weapon>
                     {
-                        Description = "Weapon already exists",
+                        Description = "Weapon with the same name already exists.",
+                        StatusCode = StatusCode.InternalServerError
                     };
                 }
+
+                var weapon = new Weapon
+                {
+                    Name = model.Name,
+                    Type = model.Type,
+                    Price = model.Price,
+                    Weight = model.Weight,
+                };
+
+                await _weaponRepository.Create(weapon);
+
                 return new BaseResponse<Weapon>
                 {
                     Data = weapon,
-                    StatusCode = Domain.Enum.StatusCode.OK
+                    Description = "Weapon created successfully.",
+                    StatusCode = StatusCode.OK,
                 };
             }
             catch (Exception ex)
             {
-                return new BaseResponse<Weapon>()
+                return new BaseResponse<Weapon>
                 {
-                    Description = $"[CreateWeapon] : {ex.Message}",
-                    StatusCode = StatusCode.InternalServerError
+                    Description = $"Failed to create weapon: {ex.Message}",
+                    StatusCode = StatusCode.InternalServerError,
                 };
             }
         }
+
+
 
         public async Task<BaseResponse<Weapon>> UpdateWeapon(WeaponViewModel model)
         {
@@ -117,6 +133,7 @@ namespace MilitaryProject.BLL.Services
                     return new BaseResponse<Weapon>
                     {
                         Description = "Weapon does not exist",
+                        StatusCode = StatusCode.NotFount
                     };
                 }
 
