@@ -1,0 +1,57 @@
+﻿@model MilitaryProject.Domain.ViewModels.BrigadeStorage.BrigadeStorageViewModel
+
+@{
+    ViewData["Title"] = "Edit Brigade Storage";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <h1 class="card-header text-center">Edit Brigade Storage</h1>
+                <div class="card-body">
+                    <form asp-controller="BrigadeStorage" asp-action="UpdateBrigadeStorage" method="post">
+                        <input type="hidden" asp-for="ID" />
+                        <div class="form-group">
+                            <label asp-for="BrigadeID">Brigade ID:</label>
+                            <input asp-for="BrigadeID" class="form-control" />
+                            <span asp-validation-for="BrigadeID" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="WeaponID">Weapon ID:</label>
+                            <input asp-for="WeaponID" class="form-control" />
+                            <span asp-validation-for="WeaponID" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="AmmunitionID">Ammunition ID:</label>
+                            <input asp-for="AmmunitionID" class="form-control" />
+                            <span asp-validation-for="AmmunitionID" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="WeaponQuantity">Weapon Quantity:</label>
+                            <input asp-for="WeaponQuantity" class="form-control" />
+                            <span asp-validation-for="WeaponQuantity" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="AmmunitionQuantity">Ammunition Quantity:</label>
+                            <input asp-for="AmmunitionQuantity" class="form-control" />
+                            <span asp-validation-for="AmmunitionQuantity" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="WeaponRemainder">Weapon Remainder:</label>
+                            <input asp-for="WeaponRemainder" class="form-control" />
+                            <span asp-validation-for="WeaponRemainder" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="AmmunitionRemainder">Ammunition Remainder:</label>
+                            <input asp-for="AmmunitionRemainder" class="form-control" />
+                            <span asp-validation-for="AmmunitionRemainder" class="text-danger"></span>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary mt-3">Update</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
