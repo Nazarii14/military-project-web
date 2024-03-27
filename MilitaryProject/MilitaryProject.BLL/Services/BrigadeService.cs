@@ -57,7 +57,7 @@ namespace MilitaryProject.BLL.Services
         {
             try
             {
-                var brigade = await _brigadeRepository.GetById(id);
+                var brigade = await _brigadeRepository.Getbyid(id);
 
                 if (brigade == null)
                 {
@@ -110,7 +110,7 @@ namespace MilitaryProject.BLL.Services
         {
             try
             {
-                var brigade = await _brigadeRepository.GetById(model.ID);
+                var brigade = await _brigadeRepository.Getbyid(model.ID);
 
                 if (brigade == null)
                 {
@@ -149,7 +149,7 @@ namespace MilitaryProject.BLL.Services
         {
             try
             {
-                var brigade = await _brigadeRepository.GetById(id);
+                var brigade = await _brigadeRepository.Getbyid(id);
 
                 if (brigade == null)
                 {

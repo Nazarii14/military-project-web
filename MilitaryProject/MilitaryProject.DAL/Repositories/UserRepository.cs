@@ -30,7 +30,7 @@ namespace MilitaryProject.DAL.Repositories
             await _db.SaveChangesAsync();
         }
 
-        public async Task<User> GetById(int id)
+        public async Task<User> Getbyid(int id)
         {
             return await _db.Users.FindAsync(id);
         }

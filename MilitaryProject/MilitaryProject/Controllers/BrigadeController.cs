@@ -23,14 +23,13 @@ namespace MilitaryProject.Controllers
         }
 
         [HttpGet]
-        public IActionResult CreateBrigade()
+        public IActionResult Create()
         {
             return View(new BrigadeViewModel());
         }
 
-
         [HttpPost]
-        public async Task<IActionResult> CreateBrigade(BrigadeViewModel model)
+        public async Task<IActionResult> Create(BrigadeViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -50,19 +49,20 @@ namespace MilitaryProject.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetBrigades()
+        public async Task<IActionResult> GetAll()
         {
-            var responce = await _brigadeService.GetAll();
+            var response = await _brigadeService.GetAll();
 
-            if (responce.StatusCode == Domain.Enum.StatusCode.OK)
+            if (response.StatusCode == Domain.Enum.StatusCode.OK)
             {
-                return View(responce.Data);
+                return View(response.Data);
             }
             else
             {
-                TempData["AlertMessage"] = responce.Description;
+                TempData["AlertMessage"] = response.Description;
                 TempData["ResponseStatus"] = "Error";
-                return BadRequest(responce.Description);
+                //return RedirectToAction("Index", "Home");
+                return View(response.Description);
             }
         }
 
@@ -119,7 +119,7 @@ namespace MilitaryProject.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> UpdateBrigade(BrigadeViewModel model)
+        public async Task<IActionResult> Update(BrigadeViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -139,7 +139,7 @@ namespace MilitaryProject.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> DeleteBrigade(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             var response = await _brigadeService.Delete(id);
 
@@ -154,7 +154,7 @@ namespace MilitaryProject.Controllers
                 TempData["ResponseStatus"] = "Error";
             }
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Brigade");
         }
     }
 }
