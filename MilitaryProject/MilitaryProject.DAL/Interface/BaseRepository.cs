@@ -12,5 +12,6 @@ namespace MilitaryProject.DAL.Interface
         Task Delete (T entity);
         Task<List<T>> GetAll();
         Task Update (T entity);
+        Task<T> GetById (int id);
     }
 }

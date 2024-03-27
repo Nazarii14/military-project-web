@@ -22,7 +22,7 @@ namespace MilitaryProject.BLL.Services
             _weaponRepository = weaponRepository;
         }
 
-        public async Task<BaseResponse<Weapon>> GetWeapon(int id)
+        public async Task<BaseResponse<Weapon>> GetById(int id)
         {
             try
             {
@@ -54,7 +54,7 @@ namespace MilitaryProject.BLL.Services
             }
         }
 
-        public async Task<BaseResponse<List<Weapon>>> GetWeapons()
+        public async Task<BaseResponse<List<Weapon>>> GetAll()
         {
             try
             {
@@ -76,7 +76,7 @@ namespace MilitaryProject.BLL.Services
             }
         }
 
-        public async Task<BaseResponse<Weapon>> CreateWeapon(WeaponViewModel model)
+        public async Task<BaseResponse<Weapon>> Create(WeaponViewModel model)
         {
             try
             {
@@ -121,7 +121,7 @@ namespace MilitaryProject.BLL.Services
 
 
 
-        public async Task<BaseResponse<Weapon>> UpdateWeapon(WeaponViewModel model)
+        public async Task<BaseResponse<Weapon>> Update(WeaponViewModel model)
         {
             try
             {
@@ -137,32 +137,29 @@ namespace MilitaryProject.BLL.Services
                     };
                 }
 
-                var newWeapon = new Weapon()
-                {
-                    ID = model.ID,
-                    Name = model.Name,
-                    Type = model.Type,
-                    Price = model.Price,
-                    Weight = model.Weight,
-                };
+                weapon.Name = model.Name;
+                weapon.Type = model.Type;
+                weapon.Price = model.Price;
+                weapon.Weight = model.Weight;
+                await _weaponRepository.Update(weapon);
 
                 return new BaseResponse<Weapon>
                 {
-                    Data = weapon,
-                    StatusCode = Domain.Enum.StatusCode.OK
+                    Description = "Weapon created successfully",
+                    StatusCode = StatusCode.OK
                 };
             }
             catch (Exception ex)
             {
                 return new BaseResponse<Weapon>()
                 {
-                    Description = $"[UpdateWeapon] : {ex.Message}",
+                    Description = $"Failed to update weapon : {ex.Message}",
                     StatusCode = StatusCode.InternalServerError
                 };
             }
         }
 
-        public async Task<BaseResponse<bool>> DeleteWeapon(int id)
+        public async Task<BaseResponse<bool>> Delete(int id)
         {
             try
             {
@@ -179,17 +176,20 @@ namespace MilitaryProject.BLL.Services
                     };
                 }
 
+                await _weaponRepository.Delete(weapon);
                 return new BaseResponse<bool>
                 {
                     Data = true,
-                    StatusCode = Domain.Enum.StatusCode.OK
+                    Description = "Weapon deleted successfully",
+                    StatusCode = StatusCode.OK
                 };
             }
             catch (Exception ex)
             {
                 return new BaseResponse<bool>()
                 {
-                    Description = $"[DeleteWeapon] : {ex.Message}",
+                    Data = false,
+                    Description = $"Failed to delete weapon: {ex.Message}",
                     StatusCode = StatusCode.InternalServerError
                 };
             }

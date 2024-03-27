@@ -40,5 +40,9 @@ namespace MilitaryProject.DAL.Repositories
             _db.Users.Update(entity);
             await _db.SaveChangesAsync();
         }
+        public async Task<User> GetById(int id)
+        {
+            return await _db.Users.FindAsync(id);
+        }
     }
 }

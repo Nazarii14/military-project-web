@@ -32,7 +32,7 @@ namespace MilitaryProject.UnitTest
             var existingWeapon = new Weapon { ID = existingWeaponId };
             _mockRepository.Setup(repo => repo.GetAll()).ReturnsAsync(new List<Weapon> { existingWeapon });
 
-            var result = await _weaponService.GetWeapon(existingWeaponId);
+            var result = await _weaponService.GetById(existingWeaponId);
 
             Assert.AreEqual(Domain.Enum.StatusCode.OK, result.StatusCode);
             Assert.AreEqual(existingWeapon, result.Data);
@@ -43,7 +43,7 @@ namespace MilitaryProject.UnitTest
             int nonExistingWeaponId = -1; 
             _mockRepository.Setup(repo => repo.GetAll()).ReturnsAsync(new List<Weapon>());
 
-            var result = await _weaponService.GetWeapon(nonExistingWeaponId);
+            var result = await _weaponService.GetById(nonExistingWeaponId);
 
             Assert.AreEqual(StatusCode.NotFount, result.StatusCode);
             Assert.IsNull(result.Data);
@@ -55,7 +55,7 @@ namespace MilitaryProject.UnitTest
             var weaponsList = new List<Weapon> { new Weapon(), new Weapon(), new Weapon() };
             _mockRepository.Setup(repo => repo.GetAll()).ReturnsAsync(weaponsList);
 
-            var result = await _weaponService.GetWeapons();
+            var result = await _weaponService.GetAll();
 
             Assert.AreEqual(StatusCode.OK, result.StatusCode);
             Assert.AreEqual(weaponsList, result.Data);
@@ -66,7 +66,7 @@ namespace MilitaryProject.UnitTest
         {
             _mockRepository.Setup(repo => repo.GetAll()).ReturnsAsync(new List<Weapon>());
 
-            var result = await _weaponService.GetWeapons();
+            var result = await _weaponService.GetAll();
 
             Assert.AreEqual(StatusCode.OK, result.StatusCode);
             Assert.IsEmpty(result.Data);
@@ -84,7 +84,7 @@ namespace MilitaryProject.UnitTest
             };
             _mockRepository.Setup(repo => repo.GetAll()).ReturnsAsync(new List<Weapon>());
 
-            var result = await _weaponService.CreateWeapon(newWeaponViewModel);
+            var result = await _weaponService.Create(newWeaponViewModel);
 
             Assert.AreEqual(StatusCode.OK, result.StatusCode);
             Assert.IsNotNull(result.Data);
@@ -102,7 +102,7 @@ namespace MilitaryProject.UnitTest
             var newWeaponViewModel = new WeaponViewModel { Name = existingWeapon.Name };
             _mockRepository.Setup(repo => repo.GetAll()).ReturnsAsync(new List<Weapon> { existingWeapon });
 
-            var result = await _weaponService.CreateWeapon(newWeaponViewModel);
+            var result = await _weaponService.Create(newWeaponViewModel);
 
             Assert.AreEqual(StatusCode.InternalServerError, result.StatusCode);
             Assert.IsNull(result.Data);
@@ -127,10 +127,9 @@ namespace MilitaryProject.UnitTest
             };
             _mockRepository.Setup(repo => repo.GetAll()).ReturnsAsync(new List<Weapon> { existingWeapon });
 
-            var result = await _weaponService.UpdateWeapon(updatedWeaponViewModel);
+            var result = await _weaponService.Update(updatedWeaponViewModel);
 
             Assert.AreEqual(StatusCode.OK, result.StatusCode);
-            Assert.IsNotNull(result.Data);
         }
 
         [Test]
@@ -146,7 +145,7 @@ namespace MilitaryProject.UnitTest
             };
             _mockRepository.Setup(repo => repo.GetAll()).ReturnsAsync(new List<Weapon>());
 
-            var result = await _weaponService.UpdateWeapon(updatedWeaponViewModel);
+            var result = await _weaponService.Update(updatedWeaponViewModel);
 
             Assert.AreEqual(StatusCode.NotFount, result.StatusCode);
             Assert.IsNull(result.Data);
@@ -164,7 +163,7 @@ namespace MilitaryProject.UnitTest
             };
             _mockRepository.Setup(repo => repo.GetAll()).ReturnsAsync(new List<Weapon> { existingWeapon });
 
-            var result = await _weaponService.DeleteWeapon(existingWeapon.ID);
+            var result = await _weaponService.Delete(existingWeapon.ID);
 
             Assert.AreEqual(StatusCode.OK, result.StatusCode);
             Assert.IsTrue(result.Data);
@@ -176,7 +175,7 @@ namespace MilitaryProject.UnitTest
             var nonExistingWeaponId = -1;
             _mockRepository.Setup(repo => repo.GetAll()).ReturnsAsync(new List<Weapon>());
 
-            var result = await _weaponService.DeleteWeapon(nonExistingWeaponId);
+            var result = await _weaponService.Delete(nonExistingWeaponId);
 
             Assert.AreEqual(StatusCode.NotFount, result.StatusCode);
             Assert.IsFalse(result.Data);
