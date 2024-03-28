@@ -146,7 +146,8 @@ namespace MilitaryProject.BLL.Services
                 return new BaseResponse<Weapon>
                 {
                     Description = "Weapon created successfully",
-                    StatusCode = StatusCode.OK
+                    StatusCode = StatusCode.OK,
+                    Data = weapon
                 };
             }
             catch (Exception ex)
