@@ -1,0 +1,28 @@
+﻿@using MilitaryProject.Domain.ViewModels.Weapon
+@model WeaponViewModel
+
+@{
+    ViewData["Title"] = "Delete Weapon";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <h1 class="card-header text-center">Delete Weapon</h1>
+                <div class="card-body">
+                    <h4>Are you sure you want to delete this weapon?</h4>
+                    <div>
+                        <label>Name:</label>
+                        <span>@Model.Name</span>
+                    </div>
+                    <form asp-controller="Weapon" asp-action="Delete" method="post">
+                        <input type="hidden" asp-for="ID" />
+                        <button type="submit" class="btn btn-danger mt-3">Delete</button>
+                        <a asp-controller="Weapon" asp-action="Index" class="btn btn-secondary mt-3">Cancel</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -42,5 +42,10 @@ namespace MilitaryProject.DAL.Repositories
             _db.Brigades.Update(entity);
             await _db.SaveChangesAsync();
         }
+
+        public async Task<Brigade> GetById(int id)
+        {
+            return await _db.Brigades.FindAsync(id);
+        }
     }
 }
