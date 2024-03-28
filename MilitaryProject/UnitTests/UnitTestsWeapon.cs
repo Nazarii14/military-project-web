@@ -20,16 +20,12 @@ namespace MilitaryProject.UnitTest
     [TestFixture]
     public class UnitTestWeapon
     {
-        //private Mock<BaseRepository<Weapon>> _mockRepository;
-        //private WeaponService _weaponService;
         private WeaponService _weaponService;
         private ApplicationDbContext _dbContext;
 
         [SetUp]
         public void Setup()
         {
-            //_mockRepository = new Mock<BaseRepository<Weapon>>();
-            //_weaponService = new WeaponService(_mockRepository.Object);
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
                 .UseInMemoryDatabase(databaseName: "TestDatabase")
                 .Options;
@@ -56,14 +52,11 @@ namespace MilitaryProject.UnitTest
         [Test]
         public async Task GetWeapon_WhenWeaponExists_ReturnsWeapon()
         {
-            // Arrange
             int existingWeaponId = 1;
             var expectedWeapon = new Weapon { ID = existingWeaponId, Name = "Weapon1", Type = "Type1", Price = 100.00m, Weight = 10.5f };
 
-            // Act
             var result = await _weaponService.GetById(existingWeaponId);
 
-            // Assert
             Assert.AreEqual(StatusCode.OK, result.StatusCode);
             Assert.AreEqual(expectedWeapon.ID, result.Data.ID);
             Assert.AreEqual(expectedWeapon.Name, result.Data.Name);
