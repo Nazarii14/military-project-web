@@ -50,9 +50,34 @@ namespace MilitaryProject.Controllers
             }
         }
 
+        public async Task<IActionResult> CreateBrigade()
+        {
+            return View();
+        }
+
+        [HttpPost]
         public async Task<IActionResult> CreateBrigade(BrigadeViewModel model)
         {
-            var responce = await _brigadeService.CreateBrigade(model);
+            if (ModelState.IsValid)
+            {
+                var response = await _brigadeService.CreateBrigade(model);
+
+                if (response.StatusCode == Domain.Enum.StatusCode.OK)
+                {
+                    return RedirectToAction("GetBrigades", "Brigade");
+                }
+                else
+                {
+                    TempData["AlertMessage"] = response.Description;
+                    TempData["ResponseStatus"] = "Error";
+                }
+            }
+            return View(model);
+        }
+
+        public async Task<IActionResult> UpdateBrigade(int id)
+        {
+            var responce = await _brigadeService.GetBrigade(id);
 
             if (responce.StatusCode == Domain.Enum.StatusCode.OK)
             {
@@ -66,20 +91,24 @@ namespace MilitaryProject.Controllers
             }
         }
 
+        [HttpPost]
         public async Task<IActionResult> UpdateBrigade(BrigadeViewModel model)
         {
-            var responce = await _brigadeService.UpdateBrigade(model);
+            if (ModelState.IsValid)
+            {
+                var response = await _brigadeService.UpdateBrigade(model);
 
-            if (responce.StatusCode == Domain.Enum.StatusCode.OK)
-            {
-                return View(responce.Data);
+                if (response.StatusCode == Domain.Enum.StatusCode.OK)
+                {
+                    return RedirectToAction("GetBrigade", "Brigade", new { id = response.Data.ID });
+                }
+                else
+                {
+                    TempData["AlertMessage"] = response.Description;
+                    TempData["ResponseStatus"] = "Error";
+                }
             }
-            else
-            {
-                TempData["AlertMessage"] = responce.Description;
-                TempData["ResponseStatus"] = "Error";
-                return BadRequest(responce.Description);
-            }
+            return View(model);
         }
 
         public async Task<IActionResult> DeleteBrigade(int id)
@@ -88,14 +117,15 @@ namespace MilitaryProject.Controllers
 
             if (responce.StatusCode == Domain.Enum.StatusCode.OK)
             {
-                return View(responce.Data);
+                return RedirectToAction("GetBrigades", "Brigade");
             }
             else
             {
                 TempData["AlertMessage"] = responce.Description;
                 TempData["ResponseStatus"] = "Error";
-                return BadRequest(responce.Description);
+                return View();
             }
         }
+
     }
 }

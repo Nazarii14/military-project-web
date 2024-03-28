@@ -30,7 +30,7 @@ namespace MilitaryProject.DAL.Repositories
         public async Task<List<Brigade>> GetAll()
         {
             return await _db.Brigades.ToListAsync();
-        }      
+        }
 
         public async Task Update(Brigade entity)
         {

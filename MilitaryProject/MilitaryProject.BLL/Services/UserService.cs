@@ -57,7 +57,7 @@ namespace MilitaryProject.BLL.Services
                     {
                         Description = "User is already exist",
                     };
-                }                
+                }
 
                 user = new User()
                 {
@@ -66,7 +66,8 @@ namespace MilitaryProject.BLL.Services
                     Name = model.Name,
                     Lastname = model.Lastname,
                     Age = model.Age,
-                    Role = Role.Guest
+                    Role = Role.Guest,
+                    BrigadeID = 1
                 };
 
                 await _userRepository.Create(user);

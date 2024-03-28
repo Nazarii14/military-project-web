@@ -90,9 +90,19 @@ namespace MilitaryProject.BLL.Services
                     };
                 }
 
+                var newBrigade = new Brigade
+                {
+                    Name = model.Name,
+                    CommanderName = model.CommanderName,
+                    EstablishmentDate = model.EstablishmentDate,
+                    Location = model.Location,
+                };
+
+                await _brigadeRepository.Create(newBrigade);
+
                 return new BaseResponse<Brigade>
                 {
-                    Data = brigade,
+                    Data = newBrigade,
                     StatusCode = Domain.Enum.StatusCode.OK
                 };
             }
@@ -121,14 +131,12 @@ namespace MilitaryProject.BLL.Services
                     };
                 }
 
-                var newBrigade = new Brigade()
-                {
-                    ID = model.ID,
-                    Name = model.Name,
-                    CommanderName = model.CommanderName,
-                    EstablishmentDate = model.EstablishmentDate,
-                    Location = model.Location
-                };
+                brigade.Name = model.Name;
+                brigade.CommanderName = model.CommanderName;
+                brigade.EstablishmentDate = model.EstablishmentDate;
+                brigade.Location = model.Location;
+
+                await _brigadeRepository.Update(brigade);
 
                 return new BaseResponse<Brigade>
                 {
@@ -157,11 +165,13 @@ namespace MilitaryProject.BLL.Services
                 {
                     return new BaseResponse<bool>
                     {
-                        Data=false,
+                        Data = false,
                         Description = "Brigade does not exist",
                         StatusCode = StatusCode.NotFound
                     };
                 }
+
+                await _brigadeRepository.Delete(brigade);
 
                 return new BaseResponse<bool>
                 {
