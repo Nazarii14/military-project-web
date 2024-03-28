@@ -1,0 +1,36 @@
+﻿@using MilitaryProject.Domain.ViewModels.BrigadeStorage
+@model BrigadeStorageViewModel
+
+@{
+    ViewData["Title"] = "Delete Brigade Storage";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <h1 class="card-header text-center">Delete Brigade Storage</h1>
+                <div class="card-body">
+                    <h4>Are you sure you want to delete this brigade storage?</h4>
+                    <div>
+                        <label>Brigade ID:</label>
+                        <span>@Model.BrigadeID</span>
+                    </div>
+                    <div>
+                        <label>Weapon ID:</label>
+                        <span>@Model.WeaponID</span>
+                    </div>
+                    <div>
+                        <label>Ammunition ID:</label>
+                        <span>@Model.AmmunitionID</span>
+                    </div>
+                    <form asp-controller="BrigadeStorage" asp-action="DeleteBrigadeStorage" method="post">
+                        <input type="hidden" asp-for="ID" />
+                        <button type="submit" class="btn btn-danger mt-3">Delete</button>
+                        <a asp-controller="BrigadeStorage" asp-action="Index" class="btn btn-secondary mt-3">Cancel</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
