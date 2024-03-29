@@ -89,6 +89,39 @@ namespace MilitaryProject.BLL.Services
         {
             try
             {
+                var responseBrigade = await _brigadeRepository.GetAll();
+                var brigade = responseBrigade.FirstOrDefault(b => b.ID == model.BrigadeID);
+                if (brigade == null)
+                {
+                    return new BaseResponse<Request>
+                    {
+                        Description = "Brigade does not exist",
+                        StatusCode = StatusCode.NotFound
+                    };
+                }
+
+                var responseWeapon = await _weaponRepository.GetAll();
+                var weapon = responseWeapon.FirstOrDefault(b => b.ID == model.WeaponID);
+                if (weapon == null)
+                {
+                    return new BaseResponse<Request>
+                    {
+                        Description = "Weapon does not exist",
+                        StatusCode = StatusCode.NotFound
+                    };
+                }
+
+                var responseAmmunition = await _ammunitionRepository.GetAll();
+                var ammunition = responseAmmunition.FirstOrDefault(b => b.ID == model.AmmunitionID);
+                if (ammunition == null)
+                {
+                    return new BaseResponse<Request>
+                    {
+                        Description = "Ammunition does not exist",
+                        StatusCode = StatusCode.NotFound
+                    };
+                }
+
                 var request = new Request
                 {
                     BrigadeID = model.BrigadeID,
@@ -98,9 +131,9 @@ namespace MilitaryProject.BLL.Services
                     AmmunitionQuantity = model.AmmunitionQuantity,
                     Message = model.Message,
                     RequestStatus = model.RequestStatus,
-                    Brigade = _brigadeRepository.Getbyid(model.BrigadeID).Result,
-                    Weapon = _weaponRepository.Getbyid(model.WeaponID).Result,
-                    Ammunition = _ammunitionRepository.Getbyid(model.AmmunitionID).Result
+                    Brigade = brigade,
+                    Weapon = weapon,
+                    Ammunition = ammunition
                 };
 
                 await _requestRepository.Create(request);
