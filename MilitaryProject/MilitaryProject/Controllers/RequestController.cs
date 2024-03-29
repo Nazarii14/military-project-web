@@ -1,22 +1,22 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MilitaryProject.BLL.Interfaces;
-using MilitaryProject.Domain.ViewModels.Weapon;
+using MilitaryProject.Domain.ViewModels.Request;
 using System.Threading.Tasks;
 
 namespace MilitaryProject.Controllers
 {
-    public class WeaponController : Controller
+    public class RequestController : Controller
     {
-        private readonly IWeaponService _weaponService;
+        private readonly IRequestService _requestService;
 
-        public WeaponController(IWeaponService weaponService)
+        public RequestController(IRequestService requestService)
         {
-            _weaponService = weaponService;
+            _requestService = requestService;
         }
 
-        public async Task<IActionResult> GetWeapons()
+        public async Task<IActionResult> GetRequests()
         {
-            var response = await _weaponService.GetWeapons();
+            var response = await _requestService.GetRequests();
 
             if (response.StatusCode == Domain.Enum.StatusCode.OK)
             {
@@ -30,9 +30,9 @@ namespace MilitaryProject.Controllers
             }
         }
 
-        public async Task<IActionResult> GetWeapon(int id)
+        public async Task<IActionResult> GetRequest(int id)
         {
-            var response = await _weaponService.GetWeapon(id);
+            var response = await _requestService.GetRequest(id);
 
             if (response.StatusCode == Domain.Enum.StatusCode.OK)
             {
@@ -46,21 +46,21 @@ namespace MilitaryProject.Controllers
             }
         }
 
-        public IActionResult CreateWeapon()
+        public IActionResult CreateRequest()
         {
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateWeapon(WeaponViewModel model)
+        public async Task<IActionResult> CreateRequest(RequestViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var response = await _weaponService.CreateWeapon(model);
+                var response = await _requestService.CreateRequest(model);
 
                 if (response.StatusCode == Domain.Enum.StatusCode.OK)
                 {
-                    return RedirectToAction("GetWeapons", "Weapon");
+                    return RedirectToAction("GetRequests", "Request");
                 }
                 else
                 {
@@ -71,9 +71,9 @@ namespace MilitaryProject.Controllers
             return View(model);
         }
 
-        public async Task<IActionResult> UpdateWeapon(int id)
+        public async Task<IActionResult> UpdateRequest(int id)
         {
-            var response = await _weaponService.GetWeapon(id);
+            var response = await _requestService.GetRequest(id);
 
             if (response.StatusCode == Domain.Enum.StatusCode.OK)
             {
@@ -88,15 +88,15 @@ namespace MilitaryProject.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> UpdateWeapon(WeaponViewModel model)
+        public async Task<IActionResult> UpdateRequest(RequestViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var response = await _weaponService.UpdateWeapon(model);
+                var response = await _requestService.UpdateRequest(model);
 
                 if (response.StatusCode == Domain.Enum.StatusCode.OK)
                 {
-                    return RedirectToAction("GetWeapon", "Weapon", new { id = response.Data.ID });
+                    return RedirectToAction("GetRequest", "Request", new { id = response.Data.ID });
                 }
                 else
                 {
@@ -107,13 +107,13 @@ namespace MilitaryProject.Controllers
             return View(model);
         }
 
-        public async Task<IActionResult> DeleteWeapon(int id)
+        public async Task<IActionResult> DeleteRequest(int id)
         {
-            var response = await _weaponService.DeleteWeapon(id);
+            var response = await _requestService.DeleteRequest(id);
 
             if (response.StatusCode == Domain.Enum.StatusCode.OK)
             {
-                return RedirectToAction("GetWeapons", "Weapon");
+                return RedirectToAction("GetRequests", "Request");
             }
             else
             {

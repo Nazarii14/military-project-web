@@ -15,7 +15,6 @@ namespace MilitaryProject.Domain.ViewModels.Weapon
         public string Name { get; set; }
 
         [Display(Name = "Type")]
-
         [Required(ErrorMessage = "Type required")]
         public string Type { get; set; }
 
@@ -23,6 +22,7 @@ namespace MilitaryProject.Domain.ViewModels.Weapon
         [Required(ErrorMessage = "Price required")]
         public decimal Price { get; set; }
 
+        [Required(ErrorMessage = "Weight required")]
         [Display(Name = "Weight")]
         public float Weight { get; set; }
     }

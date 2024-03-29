@@ -22,7 +22,7 @@ namespace MilitaryProject.BLL.Services
             _weaponRepository = weaponRepository;
         }
 
-        public async Task<BaseResponse<Weapon>> GetById(int id)
+        public async Task<BaseResponse<Weapon>> GetWeapon(int id)
         {
             try
             {
@@ -34,7 +34,7 @@ namespace MilitaryProject.BLL.Services
                     return new BaseResponse<Weapon>
                     {
                         Description = "Weapon does not exist",
-                        StatusCode = StatusCode.NotFount
+                        StatusCode = StatusCode.NotFound
                     };
                 }
 
@@ -54,7 +54,7 @@ namespace MilitaryProject.BLL.Services
             }
         }
 
-        public async Task<BaseResponse<List<Weapon>>> GetAll()
+        public async Task<BaseResponse<List<Weapon>>> GetWeapons()
         {
             try
             {
@@ -76,7 +76,7 @@ namespace MilitaryProject.BLL.Services
             }
         }
 
-        public async Task<BaseResponse<Weapon>> Create(WeaponViewModel model)
+        public async Task<BaseResponse<Weapon>> CreateWeapon(WeaponViewModel model)
         {
             try
             {
@@ -121,7 +121,7 @@ namespace MilitaryProject.BLL.Services
 
 
 
-        public async Task<BaseResponse<Weapon>> Update(WeaponViewModel model)
+        public async Task<BaseResponse<Weapon>> UpdateWeapon(WeaponViewModel model)
         {
             try
             {
@@ -133,7 +133,7 @@ namespace MilitaryProject.BLL.Services
                     return new BaseResponse<Weapon>
                     {
                         Description = "Weapon does not exist",
-                        StatusCode = StatusCode.NotFount
+                        StatusCode = StatusCode.NotFound
                     };
                 }
 
@@ -160,7 +160,7 @@ namespace MilitaryProject.BLL.Services
             }
         }
 
-        public async Task<BaseResponse<bool>> Delete(int id)
+        public async Task<BaseResponse<bool>> DeleteWeapon(int id)
         {
             try
             {
@@ -173,7 +173,7 @@ namespace MilitaryProject.BLL.Services
                     {
                         Data = false,
                         Description = "Weapon does not exist",
-                        StatusCode = StatusCode.NotFount
+                        StatusCode = StatusCode.NotFound
                     };
                 }
 

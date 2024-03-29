@@ -1,0 +1,43 @@
+﻿@using MilitaryProject.Domain.ViewModels.Request
+@model List<RequestViewModel>
+
+@{
+    ViewData["Title"] = "Requests";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h2 class="text-center">Requests</h2>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Brigade ID</th>
+                        <th>Weapon ID</th>
+                        <th>Ammunition ID</th>
+                        <th>Weapon Quantity</th>
+                        <th>Ammunition Quantity</th>
+                        <th>Message</th>
+                        <th>Request Status</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var request in Model)
+                    {
+                            <tr>
+                                <td>@request.BrigadeID</td>
+                                <td>@request.WeaponID</td>
+                                <td>@request.AmmunitionID</td>
+                                <td>@request.WeaponQuantity</td>
+                                <td>@request.AmmunitionQuantity</td>
+                                <td>@request.Message</td>
+                                <td>@request.RequestStatus</td>
+                                <td><a asp-controller="Request" asp-action="DeleteRequest" asp-route-id="@request.ID">Delete</a></td>
+                            </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
