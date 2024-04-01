@@ -1,17 +1,18 @@
-﻿@using MilitaryProject.Domain.ViewModels.Brigade
-@model BrigadeViewModel
+﻿@using MilitaryProject.Domain.Entity
+@using MilitaryProject.Domain.ViewModels.Brigade
+@model Brigade
 
 @{
-    ViewData["Title"] = "Create Brigade";
+    ViewData["Title"] = "Edit";
 }
 
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="card">
-                <h1 class="card-header text-center">Create Brigade</h1>
+                <h1 class="card-header text-center">Edit Brigade</h1>
                 <div class="card-body">
-                    <form asp-controller="Brigade" asp-action="CreateBrigade" method="post">
+                    <form asp-controller="Brigade" asp-action="UpdateBrigade" method="post">
                         <div class="form-group">
                             <label asp-for="Name">Name:</label>
                             <input asp-for="Name" class="form-control" />
@@ -29,7 +30,7 @@
                             <input asp-for="Location" class="form-control" />
                             <span asp-validation-for="Location" class="text-danger"></span>
                         </div>
-                        <button type="submit" class="btn btn-primary mt-3">Create</button>
+                        <button type="submit" class="btn btn-primary mt-3">Update</button>
                     </form>
                 </div>
             </div>

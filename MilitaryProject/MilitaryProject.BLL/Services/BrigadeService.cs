@@ -17,80 +17,16 @@ namespace MilitaryProject.BLL.Services
     {
         private readonly BaseRepository<Brigade> _brigadeRepository;
 
-        public BrigadeService (BaseRepository<Brigade> brigadeRepository)
+        public BrigadeService(BaseRepository<Brigade> brigadeRepository)
         {
             _brigadeRepository = brigadeRepository;
         }
 
-        public async Task<BaseResponse<Brigade>> GetBrigade(int id)
+        public async Task<BaseResponse<Brigade>> Create(BrigadeViewModel model)
         {
             try
             {
-                var responce = await _brigadeRepository.GetAll();
-                var brigade = responce.FirstOrDefault(b => b.ID == id);
-
-                if (brigade == null)
-                {
-                    return new BaseResponse<Brigade>
-                    {
-                        Description = "Brigade does not exist",
-                    };
-                }
-
-                return new BaseResponse<Brigade>
-                {
-                    Data = brigade,
-                    StatusCode = Domain.Enum.StatusCode.OK
-                };
-            }
-            catch (Exception ex)
-            {
-                return new BaseResponse<Brigade>()
-                {
-                    Description = $"[GetBrigade] : {ex.Message}",
-                    StatusCode = StatusCode.InternalServerError
-                };
-            }
-        }
-
-        public async Task<BaseResponse<List<Brigade>>> GetBrigades()
-        {
-            try
-            {
-                var responce = await _brigadeRepository.GetAll();
-
-                return new BaseResponse<List<Brigade>>
-                {
-                    Data = responce,
-                    StatusCode = Domain.Enum.StatusCode.OK
-                };
-            }
-            catch (Exception ex)
-            {
-                return new BaseResponse<List<Brigade>>()
-                {
-                    Description = $"[GetBrigades] : {ex.Message}",
-                    StatusCode = StatusCode.InternalServerError
-                };
-            }
-        }
-
-        public async Task<BaseResponse<Brigade>> CreateBrigade(BrigadeViewModel model)
-        {
-            try
-            {
-                var responce = await _brigadeRepository.GetAll();
-                var brigade = responce.FirstOrDefault(b => b.Name == model.Name);
-
-                if (brigade != null)
-                {
-                    return new BaseResponse<Brigade>
-                    {
-                        Description = "Brigade is already exist"
-                    };
-                }
-
-                var newBrigade = new Brigade
+                var brigade = new Brigade
                 {
                     Name = model.Name,
                     CommanderName = model.CommanderName,
@@ -98,36 +34,90 @@ namespace MilitaryProject.BLL.Services
                     Location = model.Location,
                 };
 
-                await _brigadeRepository.Create(newBrigade);
+                await _brigadeRepository.Create(brigade);
 
                 return new BaseResponse<Brigade>
                 {
-                    Data = newBrigade,
-                    StatusCode = Domain.Enum.StatusCode.OK
+                    Data = brigade,
+                    Description = "Brigade created successfully.",
+                    StatusCode = StatusCode.OK,
                 };
             }
             catch (Exception ex)
             {
-                return new BaseResponse<Brigade>()
+                return new BaseResponse<Brigade>
                 {
-                    Description = $"[CreateBrigade] : {ex.Message}",
-                    StatusCode = StatusCode.InternalServerError
+                    Description = $"Failed to create brigade: {ex.Message}",
+                    StatusCode = StatusCode.InternalServerError,
                 };
             }
         }
 
-        public async Task<BaseResponse<Brigade>> UpdateBrigade(BrigadeViewModel model)
+        public async Task<BaseResponse<Brigade>> GetById(int id)
         {
             try
             {
-                var responce = await _brigadeRepository.GetAll();
-                var brigade = responce.FirstOrDefault(b => b.ID == model.ID);
+                var brigade = await _brigadeRepository.Getbyid(id);
 
                 if (brigade == null)
                 {
                     return new BaseResponse<Brigade>
                     {
-                        Description = "Brigade does not exist"
+                        Description = "Brigade not found.",
+                        StatusCode = StatusCode.NotFound,
+                    };
+                }
+
+                return new BaseResponse<Brigade>
+                {
+                    Data = brigade,
+                    StatusCode = StatusCode.OK,
+                };
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<Brigade>
+                {
+                    Description = $"Failed to get brigade: {ex.Message}",
+                    StatusCode = StatusCode.InternalServerError,
+                };
+            }
+        }
+
+        public async Task<BaseResponse<List<Brigade>>> GetAll()
+        {
+            try
+            {
+                var brigades = await _brigadeRepository.GetAll();
+
+                return new BaseResponse<List<Brigade>>
+                {
+                    Data = brigades,
+                    StatusCode = StatusCode.OK,
+                };
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<List<Brigade>>
+                {
+                    Description = $"Failed to get brigades: {ex.Message}",
+                    StatusCode = StatusCode.InternalServerError,
+                };
+            }
+        }
+
+        public async Task<BaseResponse<Brigade>> Update(BrigadeViewModel model)
+        {
+            try
+            {
+                var brigade = await _brigadeRepository.Getbyid(model.ID);
+
+                if (brigade == null)
+                {
+                    return new BaseResponse<Brigade>
+                    {
+                        Description = "Brigade not found.",
+                        StatusCode = StatusCode.NotFound,
                     };
                 }
 
@@ -141,33 +131,33 @@ namespace MilitaryProject.BLL.Services
                 return new BaseResponse<Brigade>
                 {
                     Data = brigade,
-                    StatusCode = Domain.Enum.StatusCode.OK
+                    Description = "Brigade updated successfully.",
+                    StatusCode = StatusCode.OK,
                 };
             }
             catch (Exception ex)
             {
-                return new BaseResponse<Brigade>()
+                return new BaseResponse<Brigade>
                 {
-                    Description = $"[CreateBrigade] : {ex.Message}",
-                    StatusCode = StatusCode.InternalServerError
+                    Description = $"Failed to update brigade: {ex.Message}",
+                    StatusCode = StatusCode.InternalServerError,
                 };
             }
         }
 
-        public async Task<BaseResponse<bool>> DeleteBrigade(int id)
+        public async Task<BaseResponse<bool>> Delete(int id)
         {
             try
             {
-                var responce = await _brigadeRepository.GetAll();
-                var brigade = responce.FirstOrDefault(b => b.ID == id);
+                var brigade = await _brigadeRepository.Getbyid(id);
 
                 if (brigade == null)
                 {
                     return new BaseResponse<bool>
                     {
                         Data = false,
-                        Description = "Brigade does not exist",
-                        StatusCode = StatusCode.NotFound
+                        Description = "Brigade not found.",
+                        StatusCode = StatusCode.NotFound,
                     };
                 }
 
@@ -176,15 +166,17 @@ namespace MilitaryProject.BLL.Services
                 return new BaseResponse<bool>
                 {
                     Data = true,
-                    StatusCode = Domain.Enum.StatusCode.OK
+                    Description = "Brigade deleted successfully.",
+                    StatusCode = StatusCode.OK,
                 };
             }
             catch (Exception ex)
             {
-                return new BaseResponse<bool>()
+                return new BaseResponse<bool>
                 {
-                    Description = $"[DeleteBrigade] : {ex.Message}",
-                    StatusCode = StatusCode.InternalServerError
+                    Data = false,
+                    Description = $"Failed to delete brigade: {ex.Message}",
+                    StatusCode = StatusCode.InternalServerError,
                 };
             }
         }

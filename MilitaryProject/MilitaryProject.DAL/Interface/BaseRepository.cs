@@ -9,8 +9,13 @@ namespace MilitaryProject.DAL.Interface
     public interface BaseRepository<T>
     {
         Task Create(T entity);
-        Task Delete (T entity);
+
+        Task Delete(T entity);
+
         Task<List<T>> GetAll();
-        Task Update (T entity);
+
+        Task<T> Getbyid(int id);
+
+        Task Update(T entity);
     }
 }

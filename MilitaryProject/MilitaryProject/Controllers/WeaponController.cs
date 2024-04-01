@@ -1,10 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MilitaryProject.BLL.Interfaces;
-using MilitaryProject.Domain.ViewModels.Brigade;
+using MilitaryProject.Domain.ViewModels.Weapon;
 using MilitaryProject.DAL.Repositories;
 using MilitaryProject.BLL.Services;
 using MilitaryProject.Domain.Response;
 using MilitaryProject.Domain.Enum;
+using AutoMapper;
 using MilitaryProject.Domain.ViewModels.User;
 using Azure;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -13,35 +14,34 @@ using System.Security.Claims;
 
 namespace MilitaryProject.Controllers
 {
-    public class BrigadeController : Controller
+    public class WeaponController : Controller
     {
-        private readonly IBrigadeService _brigadeService;
+        private readonly IWeaponService _weaponService;
 
-        public BrigadeController(IBrigadeService brigadeService)
+        public WeaponController(IWeaponService weaponService)
         {
-            _brigadeService = brigadeService;
+            _weaponService = weaponService;
         }
 
         [HttpGet]
-        public IActionResult Create()
+        public IActionResult CreateWeapon()
         {
-            return View(new BrigadeViewModel());
+            return View(new WeaponViewModel());
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(BrigadeViewModel model)
+        public async Task<IActionResult> CreateWeapon(WeaponViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var response = await _brigadeService.Create(model);
-
-                if (response.StatusCode == Domain.Enum.StatusCode.OK)
+                var responce = await _weaponService.Create(model);
+                if (responce.StatusCode == Domain.Enum.StatusCode.OK)
                 {
                     return RedirectToAction("Index", "Home");
                 }
                 else
                 {
-                    TempData["AlertMessage"] = response.Description;
+                    TempData["AlertMessage"] = responce.Description;
                     TempData["ResponseStatus"] = "Error";
                 }
             }
@@ -49,28 +49,26 @@ namespace MilitaryProject.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetWeapons()
         {
-            var response = await _brigadeService.GetAll();
-
-            if (response.StatusCode == Domain.Enum.StatusCode.OK)
+            var responce = await _weaponService.GetAll();
+            
+            if (responce.StatusCode == Domain.Enum.StatusCode.OK)
             {
-                return View(response.Data);
+                return View(responce.Data);
             }
             else
             {
-                TempData["AlertMessage"] = response.Description;
+                TempData["AlertMessage"] = responce.Description;
                 TempData["ResponseStatus"] = "Error";
-                //return RedirectToAction("Index", "Home");
-                return View(response.Description);
+                return BadRequest(responce.Description);
             }
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetBrigade(int id)
+        public async Task<IActionResult> GetWeapon(int id)
         {
-            var responce = await _brigadeService.GetById(id);
-
+            var responce = await _weaponService.GetById(id);
             if (responce.StatusCode == Domain.Enum.StatusCode.OK)
             {
                 return View(responce.Data);
@@ -86,53 +84,47 @@ namespace MilitaryProject.Controllers
         [HttpGet]
         public async Task<IActionResult> Details(int id)
         {
-            var response = await _brigadeService.GetById(id);
-
-            if (response.StatusCode == Domain.Enum.StatusCode.OK)
+            var responce = await _weaponService.GetById(id);
+            if (responce.StatusCode == Domain.Enum.StatusCode.OK)
             {
-                return View(response.Data);
+                return View(responce.Data);
             }
             else
             {
-                TempData["AlertMessage"] = response.Description;
+                TempData["AlertMessage"] = responce.Description;
                 TempData["ResponseStatus"] = "Error";
                 return RedirectToAction("Index", "Home");
             }
         }
-
 
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
-            var response = await _brigadeService.GetById(id);
-
-            if (response.StatusCode == Domain.Enum.StatusCode.OK)
+            var responce = await _weaponService.GetById(id);
+            if (responce.StatusCode == Domain.Enum.StatusCode.OK)
             {
-                return View(response.Data);
+                return View(responce.Data);
             }
             else
             {
-                TempData["AlertMessage"] = response.Description;
+                TempData["AlertMessage"] = responce.Description;
                 TempData["ResponseStatus"] = "Error";
                 return RedirectToAction("Index", "Home");
             }
-            return View(model);
         }
-
         [HttpPost]
-        public async Task<IActionResult> Update(BrigadeViewModel model)
+        public async Task<IActionResult> UpdateWeapon(WeaponViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var response = await _brigadeService.Update(model);
-
-                if (response.StatusCode == Domain.Enum.StatusCode.OK)
+                var responce = await _weaponService.Update(model);
+                if (responce.StatusCode == Domain.Enum.StatusCode.OK)
                 {
                     return RedirectToAction("Index", "Home");
                 }
                 else
                 {
-                    TempData["AlertMessage"] = response.Description;
+                    TempData["AlertMessage"] = responce.Description;
                     TempData["ResponseStatus"] = "Error";
                 }
             }
@@ -140,23 +132,20 @@ namespace MilitaryProject.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> DeleteWeapon(int id)
         {
-            var response = await _brigadeService.Delete(id);
-
-            if (response.StatusCode == Domain.Enum.StatusCode.OK)
+            var responce = await _weaponService.Delete(id);
+            if (responce.StatusCode == Domain.Enum.StatusCode.OK)
             {
-                TempData["AlertMessage"] = "Brigade deleted successfully.";
+                TempData["AlertMessage"] = "Weapon deleted successfully.";
                 TempData["ResponseStatus"] = "Success";
             }
             else
             {
-                TempData["AlertMessage"] = response.Description;
+                TempData["AlertMessage"] = responce.Description;
                 TempData["ResponseStatus"] = "Error";
             }
-
-            return RedirectToAction("Index", "Brigade");
+            return RedirectToAction("Index", "Home");
         }
-
     }
 }

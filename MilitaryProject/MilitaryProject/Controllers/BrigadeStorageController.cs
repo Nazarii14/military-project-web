@@ -1,39 +1,34 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using MilitaryProject.BLL.Interfaces;
-using MilitaryProject.Domain.ViewModels.Brigade;
-using MilitaryProject.DAL.Repositories;
-using MilitaryProject.BLL.Services;
-using MilitaryProject.Domain.Response;
-using MilitaryProject.Domain.Enum;
-using MilitaryProject.Domain.ViewModels.User;
-using Azure;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Mvc;
+using MilitaryProject.BLL.Interfaces;
+using MilitaryProject.Domain.ViewModels.BrigadeStorage;
 using System.Security.Claims;
+
 
 namespace MilitaryProject.Controllers
 {
-    public class BrigadeController : Controller
+    public class BrigadeStorageController : Controller
     {
-        private readonly IBrigadeService _brigadeService;
+        public IBrigadeStorageService _brigadeStorageService;
 
-        public BrigadeController(IBrigadeService brigadeService)
+        public BrigadeStorageController(IBrigadeStorageService brigadeStorageService)
         {
-            _brigadeService = brigadeService;
+            _brigadeStorageService = brigadeStorageService;
         }
 
         [HttpGet]
-        public IActionResult Create()
+        public IActionResult CreateBrigadeStorage()
         {
-            return View(new BrigadeViewModel());
+            return View(new BrigadeStorageViewModel());
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(BrigadeViewModel model)
+        public async Task<IActionResult> CreateBrigadeStorage(BrigadeStorageViewModel brigadeStorage)
         {
             if (ModelState.IsValid)
             {
-                var response = await _brigadeService.Create(model);
+                var response = await _brigadeStorageService.Create(brigadeStorage);
 
                 if (response.StatusCode == Domain.Enum.StatusCode.OK)
                 {
@@ -45,48 +40,13 @@ namespace MilitaryProject.Controllers
                     TempData["ResponseStatus"] = "Error";
                 }
             }
-            return View(model);
+            return View(brigadeStorage);
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetBrigadeStorages()
         {
-            var response = await _brigadeService.GetAll();
-
-            if (response.StatusCode == Domain.Enum.StatusCode.OK)
-            {
-                return View(response.Data);
-            }
-            else
-            {
-                TempData["AlertMessage"] = response.Description;
-                TempData["ResponseStatus"] = "Error";
-                //return RedirectToAction("Index", "Home");
-                return View(response.Description);
-            }
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> GetBrigade(int id)
-        {
-            var responce = await _brigadeService.GetById(id);
-
-            if (responce.StatusCode == Domain.Enum.StatusCode.OK)
-            {
-                return View(responce.Data);
-            }
-            else
-            {
-                TempData["AlertMessage"] = responce.Description;
-                TempData["ResponseStatus"] = "Error";
-                return BadRequest(responce.Description);
-            }
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> Details(int id)
-        {
-            var response = await _brigadeService.GetById(id);
+            var response = await _brigadeStorageService.GetAll();
 
             if (response.StatusCode == Domain.Enum.StatusCode.OK)
             {
@@ -100,11 +60,10 @@ namespace MilitaryProject.Controllers
             }
         }
 
-
         [HttpGet]
-        public async Task<IActionResult> Edit(int id)
+        public async Task<IActionResult> GetBrigadeStorage(int id)
         {
-            var response = await _brigadeService.GetById(id);
+            var response = await _brigadeStorageService.GetById(id);
 
             if (response.StatusCode == Domain.Enum.StatusCode.OK)
             {
@@ -116,15 +75,31 @@ namespace MilitaryProject.Controllers
                 TempData["ResponseStatus"] = "Error";
                 return RedirectToAction("Index", "Home");
             }
-            return View(model);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> EditBrigadeStorage(int id)
+        {
+            var response = await _brigadeStorageService.GetById(id);
+
+            if (response.StatusCode == Domain.Enum.StatusCode.OK)
+            {
+                return View(response.Data);
+            }
+            else
+            {
+                TempData["AlertMessage"] = response.Description;
+                TempData["ResponseStatus"] = "Error";
+                return RedirectToAction("Index", "Home");
+            }
         }
 
         [HttpPost]
-        public async Task<IActionResult> Update(BrigadeViewModel model)
+        public async Task<IActionResult> UpdateBrigadeStorage(BrigadeStorageViewModel brigadeStorage)
         {
             if (ModelState.IsValid)
             {
-                var response = await _brigadeService.Update(model);
+                var response = await _brigadeStorageService.Update(brigadeStorage);
 
                 if (response.StatusCode == Domain.Enum.StatusCode.OK)
                 {
@@ -136,17 +111,17 @@ namespace MilitaryProject.Controllers
                     TempData["ResponseStatus"] = "Error";
                 }
             }
-            return View(model);
+            return View(brigadeStorage);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> DeleteBrigadeStorage(int id)
         {
-            var response = await _brigadeService.Delete(id);
+            var response = await _brigadeStorageService.Delete(id);
 
             if (response.StatusCode == Domain.Enum.StatusCode.OK)
             {
-                TempData["AlertMessage"] = "Brigade deleted successfully.";
+                TempData["AlertMessage"] = "BrigadeStorage deleted successfully.";
                 TempData["ResponseStatus"] = "Success";
             }
             else
@@ -155,8 +130,7 @@ namespace MilitaryProject.Controllers
                 TempData["ResponseStatus"] = "Error";
             }
 
-            return RedirectToAction("Index", "Brigade");
+            return RedirectToAction("Index", "Home");
         }
-
     }
 }

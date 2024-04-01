@@ -11,8 +11,6 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MilitaryProject.BLL.Services
 {
@@ -67,7 +65,6 @@ namespace MilitaryProject.BLL.Services
                     Lastname = model.Lastname,
                     Age = model.Age,
                     Role = Role.Guest,
-                    BrigadeID = 1
                 };
 
                 await _userRepository.Create(user);
@@ -85,7 +82,7 @@ namespace MilitaryProject.BLL.Services
                 return new BaseResponse<ClaimsIdentity>()
                 {
                     Description = $"[Signup] : {ex.Message}",
-                    StatusCode = StatusCode.InternalServerError
+                    StatusCode = StatusCode.InternalServerError,
                 };
             }
         }
@@ -140,6 +137,5 @@ namespace MilitaryProject.BLL.Services
                 };
             }
         }
-
     }
 }
