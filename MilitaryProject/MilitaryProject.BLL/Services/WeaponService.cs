@@ -34,7 +34,7 @@ namespace MilitaryProject.BLL.Services
                     return new BaseResponse<Weapon>
                     {
                         Description = "Weapon does not exist",
-                        StatusCode = StatusCode.NotFound
+                        StatusCode = StatusCode.NotFound,
                     };
                 }
 
@@ -118,8 +118,6 @@ namespace MilitaryProject.BLL.Services
                 };
             }
         }
-
-
 
         public async Task<BaseResponse<Weapon>> UpdateWeapon(WeaponViewModel model)
         {

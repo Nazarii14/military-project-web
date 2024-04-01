@@ -77,6 +77,7 @@ namespace MilitaryProject.Controllers
 
             if (response.StatusCode == Domain.Enum.StatusCode.OK)
             {
+
                 return View(response.Data);
             }
             else
@@ -96,7 +97,7 @@ namespace MilitaryProject.Controllers
 
                 if (response.StatusCode == Domain.Enum.StatusCode.OK)
                 {
-                    return RedirectToAction("GetWeapon", "Weapon", new { id = response.Data.ID });
+                    return RedirectToAction("GetWeapons", "Weapon", new { id = response.Data.ID });
                 }
                 else
                 {

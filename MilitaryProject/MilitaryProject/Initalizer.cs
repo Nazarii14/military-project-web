@@ -15,6 +15,7 @@ namespace MilitaryProject
             services.AddScoped<BaseRepository<BrigadeStorage>, BrigadeStorageRepository>();
             services.AddScoped<BaseRepository<Weapon>, WeaponRepository>();
             services.AddScoped<BaseRepository<Request>,  RequestRepository>();
+            services.AddScoped<BaseRepository<Ammunition>, AmmunitionRepository>();
         }
 
         public static void InitializeServices(this IServiceCollection services)
@@ -24,6 +25,7 @@ namespace MilitaryProject
             services.AddScoped<IBrigadeStorageService, BrigadeStorageService>();
             services.AddScoped<IWeaponService, WeaponService>();
             services.AddScoped<IRequestService, RequestService>();
+            services.AddScoped<IAmmunitionService, AmmunitionService>();
         }
     }
 }

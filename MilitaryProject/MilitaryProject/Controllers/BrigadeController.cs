@@ -101,7 +101,7 @@ namespace MilitaryProject.Controllers
         }
 
 
-        [HttpGet]
+        [HttpPost]
         public async Task<IActionResult> Edit(int id)
         {
             var response = await _brigadeService.GetById(id);
