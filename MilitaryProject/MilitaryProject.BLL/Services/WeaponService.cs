@@ -34,7 +34,7 @@ namespace MilitaryProject.BLL.Services
                     return new BaseResponse<Weapon>
                     {
                         Description = "Weapon does not exist",
-                        StatusCode = StatusCode.NotFount
+                        StatusCode = StatusCode.NotFound
                     };
                 }
 
@@ -133,7 +133,7 @@ namespace MilitaryProject.BLL.Services
                     return new BaseResponse<Weapon>
                     {
                         Description = "Weapon does not exist",
-                        StatusCode = StatusCode.NotFount
+                        StatusCode = StatusCode.NotFound
                     };
                 }
 
@@ -173,7 +173,7 @@ namespace MilitaryProject.BLL.Services
                     {
                         Data = false,
                         Description = "Weapon does not exist",
-                        StatusCode = StatusCode.NotFount
+                        StatusCode = StatusCode.NotFound
                     };
                 }
 

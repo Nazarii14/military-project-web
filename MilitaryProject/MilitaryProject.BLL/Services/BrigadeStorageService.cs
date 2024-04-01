@@ -58,7 +58,8 @@ namespace MilitaryProject.BLL.Services
         {
             try
             {
-                var brigadeStorage = await _brigadeStorageRepository.GetById(id);
+        
+                var brigadeStorage = await _brigadeStorageRepository.Getbyid(id);
 
                 if (brigadeStorage == null)
                 {
@@ -111,7 +112,7 @@ namespace MilitaryProject.BLL.Services
         {
             try
             {
-                var brigadeStorage = await _brigadeStorageRepository.GetById(model.ID);
+                var brigadeStorage = await _brigadeStorageRepository.Getbyid(model.ID);
 
                 if (brigadeStorage == null)
                 {
@@ -154,7 +155,7 @@ namespace MilitaryProject.BLL.Services
         {
             try
             {
-                var brigadeStorage = await _brigadeStorageRepository.GetById(id);
+                var brigadeStorage = await _brigadeStorageRepository.Getbyid(id);
 
                 if (brigadeStorage == null)
                 {
