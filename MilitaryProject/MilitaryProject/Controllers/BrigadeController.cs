@@ -116,6 +116,7 @@ namespace MilitaryProject.Controllers
                 TempData["ResponseStatus"] = "Error";
                 return RedirectToAction("Index", "Home");
             }
+            return View(model);
         }
 
         [HttpPost]
@@ -156,5 +157,6 @@ namespace MilitaryProject.Controllers
 
             return RedirectToAction("Index", "Brigade");
         }
+
     }
 }

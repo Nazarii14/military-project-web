@@ -115,7 +115,7 @@ namespace MilitaryProject.BLL.Services
                 {
                     return new BaseResponse<ClaimsIdentity>()
                     {
-                        Description = "Invalid email or password",
+                        Description = "Invalid password",
                     };
                 }
 
