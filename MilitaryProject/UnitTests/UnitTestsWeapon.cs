@@ -117,7 +117,7 @@ namespace MilitaryProject.UnitTest
                 Price = 400.00m,
                 Weight = 40.5f
             };
-            var result = await _weaponService.CreateWeapon(newWeapon);
+            var result = await _weaponService.Create(newWeapon);
             Assert.AreEqual(StatusCode.OK, result.StatusCode);
             Assert.AreEqual(newWeapon.Name, result.Data.Name);
             Assert.AreEqual(newWeapon.Type, result.Data.Type);
@@ -135,7 +135,7 @@ namespace MilitaryProject.UnitTest
                 Price = 100.00m,
                 Weight = 10.5f
             };
-            var result = await _weaponService.CreateWeapon(existingWeapon);
+            var result = await _weaponService.Create(existingWeapon);
             Assert.AreEqual(StatusCode.InternalServerError, result.StatusCode);
             Assert.AreEqual("Weapon with the same name already exists.", result.Description);
         }
@@ -152,7 +152,7 @@ namespace MilitaryProject.UnitTest
                 Price = 150.00m,
                 Weight = 15.5f
             };
-            var result = await _weaponService.UpdateWeapon(updatedWeapon);
+            var result = await _weaponService.Update(updatedWeapon);
             Assert.AreEqual(StatusCode.OK, result.StatusCode);
             Assert.IsNotNull(result.Data);
             Assert.AreEqual(updatedWeapon.Name, result.Data.Name);
@@ -171,7 +171,7 @@ namespace MilitaryProject.UnitTest
                 Price = 150.00m,
                 Weight = 15.5f
             };
-            var result = await _weaponService.UpdateWeapon(nonExistingWeapon);
+            var result = await _weaponService.Update(nonExistingWeapon);
             Assert.AreEqual(StatusCode.NotFound, result.StatusCode);
             Assert.AreEqual("Weapon does not exist", result.Description);
             Assert.IsNull(result.Data);
@@ -181,7 +181,7 @@ namespace MilitaryProject.UnitTest
         public async Task DeleteWeapon_WithExistingWeapon_DeletesWeapon()
         {
             var existingWeaponId = 1;
-            var result = await _weaponService.DeleteWeapon(existingWeaponId);
+            var result = await _weaponService.Delete(existingWeaponId);
             Assert.AreEqual(StatusCode.OK, result.StatusCode);
             Assert.AreEqual("Weapon deleted successfully", result.Description);
             Assert.IsTrue(result.Data);
@@ -191,7 +191,7 @@ namespace MilitaryProject.UnitTest
         public async Task DeleteWeapon_WithNonExistingWeapon_ReturnsError()
         {
             var nonExistingWeaponId = -1;
-            var result = await _weaponService.DeleteWeapon(nonExistingWeaponId);
+            var result = await _weaponService.Delete(nonExistingWeaponId);
             Assert.AreEqual(StatusCode.NotFound, result.StatusCode);
             Assert.AreEqual("Weapon does not exist", result.Description);
             Assert.IsFalse(result.Data);

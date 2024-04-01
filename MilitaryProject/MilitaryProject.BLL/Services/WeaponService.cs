@@ -76,7 +76,7 @@ namespace MilitaryProject.BLL.Services
             }
         }
 
-        public async Task<BaseResponse<Weapon>> CreateWeapon(WeaponViewModel model)
+        public async Task<BaseResponse<Weapon>> Create(WeaponViewModel model)
         {
             try
             {
@@ -119,12 +119,12 @@ namespace MilitaryProject.BLL.Services
             }
         }
 
-        public async Task<BaseResponse<Weapon>> UpdateWeapon(WeaponViewModel model)
+        public async Task<BaseResponse<Weapon>> Update(WeaponViewModel model)
         {
             try
             {
                 var response = await _weaponRepository.GetAll();
-                var weapon = response.FirstOrDefault(b => b.Name == model.Name);
+                var weapon = response.FirstOrDefault(b => b.ID == model.ID);
 
                 if (weapon == null)
                 {
@@ -158,7 +158,7 @@ namespace MilitaryProject.BLL.Services
             }
         }
 
-        public async Task<BaseResponse<bool>> DeleteWeapon(int id)
+        public async Task<BaseResponse<bool>> Delete(int id)
         {
             try
             {

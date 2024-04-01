@@ -1,15 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MilitaryProject.BLL.Interfaces;
 using MilitaryProject.Domain.ViewModels.Brigade;
-using MilitaryProject.DAL.Repositories;
-using MilitaryProject.BLL.Services;
-using MilitaryProject.Domain.Response;
-using MilitaryProject.Domain.Enum;
-using MilitaryProject.Domain.ViewModels.User;
-using Azure;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication;
-using System.Security.Claims;
 
 namespace MilitaryProject.Controllers
 {
@@ -37,7 +28,7 @@ namespace MilitaryProject.Controllers
 
                 if (response.StatusCode == Domain.Enum.StatusCode.OK)
                 {
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("GetAll", "Brigade");
                 }
                 else
                 {
@@ -100,9 +91,7 @@ namespace MilitaryProject.Controllers
             }
         }
 
-
-        [HttpPost]
-        public async Task<IActionResult> Edit(int id)
+        public async Task<IActionResult> Update(int id)
         {
             var response = await _brigadeService.GetById(id);
 
@@ -114,10 +103,10 @@ namespace MilitaryProject.Controllers
             {
                 TempData["AlertMessage"] = response.Description;
                 TempData["ResponseStatus"] = "Error";
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("GetAll", "Brigade");
             }
-            return View(model);
         }
+
 
         [HttpPost]
         public async Task<IActionResult> Update(BrigadeViewModel model)
@@ -128,7 +117,7 @@ namespace MilitaryProject.Controllers
 
                 if (response.StatusCode == Domain.Enum.StatusCode.OK)
                 {
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("GetAll", "Brigade");
                 }
                 else
                 {
@@ -139,7 +128,6 @@ namespace MilitaryProject.Controllers
             return View(model);
         }
 
-        [HttpPost]
         public async Task<IActionResult> Delete(int id)
         {
             var response = await _brigadeService.Delete(id);
@@ -155,7 +143,7 @@ namespace MilitaryProject.Controllers
                 TempData["ResponseStatus"] = "Error";
             }
 
-            return RedirectToAction("Index", "Brigade");
+            return RedirectToAction("GetAll", "Brigade");
         }
 
     }

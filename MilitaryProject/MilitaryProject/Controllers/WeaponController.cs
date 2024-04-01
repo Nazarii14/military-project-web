@@ -46,17 +46,17 @@ namespace MilitaryProject.Controllers
             }
         }
 
-        public IActionResult CreateWeapon()
+        public IActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateWeapon(WeaponViewModel model)
+        public async Task<IActionResult> Create(WeaponViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var response = await _weaponService.CreateWeapon(model);
+                var response = await _weaponService.Create(model);
 
                 if (response.StatusCode == Domain.Enum.StatusCode.OK)
                 {
@@ -71,7 +71,7 @@ namespace MilitaryProject.Controllers
             return View(model);
         }
 
-        public async Task<IActionResult> UpdateWeapon(int id)
+        public async Task<IActionResult> Update(int id)
         {
             var response = await _weaponService.GetWeapon(id);
 
@@ -89,11 +89,11 @@ namespace MilitaryProject.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> UpdateWeapon(WeaponViewModel model)
+        public async Task<IActionResult> Update(WeaponViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var response = await _weaponService.UpdateWeapon(model);
+                var response = await _weaponService.Update(model);
 
                 if (response.StatusCode == Domain.Enum.StatusCode.OK)
                 {
@@ -108,9 +108,9 @@ namespace MilitaryProject.Controllers
             return View(model);
         }
 
-        public async Task<IActionResult> DeleteWeapon(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            var response = await _weaponService.DeleteWeapon(id);
+            var response = await _weaponService.Delete(id);
 
             if (response.StatusCode == Domain.Enum.StatusCode.OK)
             {

@@ -1,17 +1,19 @@
-﻿@using MilitaryProject.Domain.ViewModels.Weapon
-@model WeaponViewModel
+﻿﻿@using MilitaryProject.Domain.Entity
+@using MilitaryProject.Domain.ViewModels.Weapon
+@model Weapon
 
 @{
-    ViewData["Title"] = "Create Weapon";
+    ViewData["Title"] = "Edit Weapon";
 }
 
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="card">
-                <h1 class="card-header text-center">Create Weapon</h1>
+                <h1 class="card-header text-center">Edit Weapon</h1>
                 <div class="card-body">
-                    <form asp-controller="Weapon" asp-action="CreateWeapon" method="post" >
+                    <form asp-controller="Weapon" asp-action="Update" method="post">
+                        <input type="hidden" asp-for="ID" />
                         <div class="form-group">
                             <label asp-for="Name">Name:</label>
                             <input asp-for="Name" class="form-control" />
@@ -32,7 +34,7 @@
                             <input asp-for="Weight" class="form-control" />
                             <span asp-validation-for="Weight" class="text-danger"></span>
                         </div>
-                        <button type="submit" class="btn btn-primary mt-3">Create</button>
+                        <button type="submit" class="btn btn-primary mt-3">Update</button>
                     </form>
                 </div>
             </div>

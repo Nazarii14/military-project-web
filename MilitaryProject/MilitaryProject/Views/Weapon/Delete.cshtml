@@ -16,7 +16,7 @@
                         <label>Name:</label>
                         <span>@Model.Name</span>
                     </div>
-                    <form asp-controller="Weapon" asp-action="DeleteWeapon" method="post">
+                    <form asp-controller="Weapon" asp-action="Delete" method="post">
                         <input type="hidden" asp-for="ID" />
                         <button type="submit" class="btn btn-danger mt-3">Delete</button>
                         <a asp-controller="Weapon" asp-action="Index" class="btn btn-secondary mt-3">Cancel</a>

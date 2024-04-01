@@ -14,8 +14,8 @@ namespace MilitaryProject.BLL.Interfaces
     {
         Task<BaseResponse<Weapon>> GetWeapon(int id);
         Task<BaseResponse<List<Weapon>>> GetWeapons();
-        Task<BaseResponse<Weapon>> CreateWeapon(WeaponViewModel model);
-        Task<BaseResponse<Weapon>> UpdateWeapon(WeaponViewModel model);
-        Task<BaseResponse<bool>> DeleteWeapon(int id);
+        Task<BaseResponse<Weapon>> Create(WeaponViewModel model);
+        Task<BaseResponse<Weapon>> Update(WeaponViewModel model);
+        Task<BaseResponse<bool>> Delete(int id);
     }
 }
