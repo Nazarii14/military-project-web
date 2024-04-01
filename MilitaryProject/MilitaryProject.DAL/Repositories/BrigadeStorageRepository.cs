@@ -27,6 +27,11 @@ namespace MilitaryProject.DAL.Repositories
             await _db.SaveChangesAsync();
         }
 
+        public async Task<BrigadeStorage> Getbyid(int id)
+        {
+            return await _db.BrigadeStorages.FindAsync(id);
+        }
+
         public async Task<List<BrigadeStorage>> GetAll()
         {
             return await _db.BrigadeStorages.ToListAsync();

@@ -1,29 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
-namespace MilitaryProject.Domain.ViewModels.Weapon
+namespace MilitaryProject.Domain.ViewModels.Ammunition
 {
-    public class WeaponViewModel
+    public class AmmunitionViewModel
     {
         public int ID { get; set; }
-
-        [Required(ErrorMessage = "Name required")]
-        public string Name { get; set; }
 
         [Display(Name = "Type")]
         [Required(ErrorMessage = "Type required")]
         public string Type { get; set; }
 
+        [Display(Name = "Name")]
+        [Required(ErrorMessage = "Name required")]
+        public string Name { get; set; }
+
         [Display(Name = "Price")]
         [Required(ErrorMessage = "Price required")]
         public decimal Price { get; set; }
 
-        [Required(ErrorMessage = "Weight required")]
-        [Display(Name = "Weight")]
-        public float Weight { get; set; }
+        [Display(Name = "Size")]
+        [Required(ErrorMessage = "Size required")]
+        public string Size { get; set; }
     }
 }

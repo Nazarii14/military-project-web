@@ -58,7 +58,6 @@ namespace MilitaryProject.BLL.Services
         {
             try
             {
-        
                 var brigadeStorage = await _brigadeStorageRepository.Getbyid(id);
 
                 if (brigadeStorage == null)
