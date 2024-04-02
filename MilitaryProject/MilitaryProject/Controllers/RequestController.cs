@@ -46,17 +46,17 @@ namespace MilitaryProject.Controllers
             }
         }
 
-        public IActionResult CreateRequest()
+        public IActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateRequest(RequestViewModel model)
+        public async Task<IActionResult> Create(CreateRequestViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var response = await _requestService.CreateRequest(model);
+                var response = await _requestService.Create(model);
 
                 if (response.StatusCode == Domain.Enum.StatusCode.OK)
                 {
@@ -71,7 +71,7 @@ namespace MilitaryProject.Controllers
             return View(model);
         }
 
-        public async Task<IActionResult> UpdateRequest(int id)
+        public async Task<IActionResult> Update(int id)
         {
             var response = await _requestService.GetRequest(id);
 
@@ -88,15 +88,15 @@ namespace MilitaryProject.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> UpdateRequest(RequestViewModel model)
+        public async Task<IActionResult> Update(EditRequestViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var response = await _requestService.UpdateRequest(model);
+                var response = await _requestService.Update(model);
 
                 if (response.StatusCode == Domain.Enum.StatusCode.OK)
                 {
-                    return RedirectToAction("GetRequest", "Request", new { id = response.Data.ID });
+                    return RedirectToAction("GetRequests", "Request", new { id = response.Data.ID });
                 }
                 else
                 {
@@ -107,9 +107,9 @@ namespace MilitaryProject.Controllers
             return View(model);
         }
 
-        public async Task<IActionResult> DeleteRequest(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            var response = await _requestService.DeleteRequest(id);
+            var response = await _requestService.Delete(id);
 
             if (response.StatusCode == Domain.Enum.StatusCode.OK)
             {

@@ -43,7 +43,7 @@ namespace MilitaryProject.BLL.Services
                     return new BaseResponse<Request>
                     {
                         Description = "Request does not exist",
-                        StatusCode = StatusCode.NotFound
+                        StatusCode = StatusCode.NotFound,
                     };
                 }
 
@@ -58,7 +58,7 @@ namespace MilitaryProject.BLL.Services
                 return new BaseResponse<Request>()
                 {
                     Description = $"[GetRequest] : {ex.Message}",
-                    StatusCode = StatusCode.InternalServerError
+                    StatusCode = StatusCode.InternalServerError,
                 };
             }
         }
@@ -72,7 +72,7 @@ namespace MilitaryProject.BLL.Services
                 return new BaseResponse<List<Request>>
                 {
                     Data = response,
-                    StatusCode = Domain.Enum.StatusCode.OK
+                    StatusCode = Domain.Enum.StatusCode.OK,
                 };
             }
             catch (Exception ex)
@@ -80,60 +80,61 @@ namespace MilitaryProject.BLL.Services
                 return new BaseResponse<List<Request>>()
                 {
                     Description = $"[GetRequests] : {ex.Message}",
-                    StatusCode = StatusCode.InternalServerError
+                    StatusCode = StatusCode.InternalServerError,
                 };
             }
         }
 
-        public async Task<BaseResponse<Request>> CreateRequest(RequestViewModel model)
+        public async Task<BaseResponse<Request>> Create(CreateRequestViewModel model)
         {
             try
             {
                 var responseBrigade = await _brigadeRepository.GetAll();
-                var brigade = responseBrigade.FirstOrDefault(b => b.ID == model.BrigadeID);
+
+                var brigade = responseBrigade.FirstOrDefault(b => b.Name == model.BrigadeName);
                 if (brigade == null)
                 {
                     return new BaseResponse<Request>
                     {
                         Description = "Brigade does not exist",
-                        StatusCode = StatusCode.NotFound
+                        StatusCode = StatusCode.NotFound,
                     };
                 }
 
                 var responseWeapon = await _weaponRepository.GetAll();
-                var weapon = responseWeapon.FirstOrDefault(b => b.ID == model.WeaponID);
+                var weapon = responseWeapon.FirstOrDefault(b => b.Name == model.WeaponName);
                 if (weapon == null)
                 {
                     return new BaseResponse<Request>
                     {
                         Description = "Weapon does not exist",
-                        StatusCode = StatusCode.NotFound
+                        StatusCode = StatusCode.NotFound,
                     };
                 }
 
                 var responseAmmunition = await _ammunitionRepository.GetAll();
-                var ammunition = responseAmmunition.FirstOrDefault(b => b.ID == model.AmmunitionID);
+                var ammunition = responseAmmunition.FirstOrDefault(b => b.Name == model.AmmunitionName);
                 if (ammunition == null)
                 {
                     return new BaseResponse<Request>
                     {
                         Description = "Ammunition does not exist",
-                        StatusCode = StatusCode.NotFound
+                        StatusCode = StatusCode.NotFound,
                     };
                 }
 
                 var request = new Request
                 {
-                    BrigadeID = model.BrigadeID,
-                    WeaponID = model.WeaponID,
-                    AmmunitionID = model.AmmunitionID,
+                    BrigadeID = brigade.ID,
+                    WeaponID = weapon.ID,
+                    AmmunitionID = ammunition.ID,
                     WeaponQuantity = model.WeaponQuantity,
                     AmmunitionQuantity = model.AmmunitionQuantity,
                     Message = model.Message,
                     RequestStatus = model.RequestStatus,
                     Brigade = brigade,
                     Weapon = weapon,
-                    Ammunition = ammunition
+                    Ammunition = ammunition,
                 };
 
                 await _requestRepository.Create(request);
@@ -155,7 +156,7 @@ namespace MilitaryProject.BLL.Services
             }
         }
 
-        public async Task<BaseResponse<Request>> UpdateRequest(RequestViewModel model)
+        public async Task<BaseResponse<Request>> Update(EditRequestViewModel model)
         {
             try
             {
@@ -171,16 +172,11 @@ namespace MilitaryProject.BLL.Services
                     };
                 }
 
-                request.BrigadeID = model.BrigadeID;
-                request.WeaponID = model.WeaponID;
-                request.AmmunitionID = model.AmmunitionID;
                 request.WeaponQuantity = model.WeaponQuantity;
                 request.AmmunitionQuantity = model.AmmunitionQuantity;
                 request.Message = model.Message;
                 request.RequestStatus = model.RequestStatus;
-                request.Brigade = _brigadeRepository.Getbyid(model.BrigadeID).Result;
-                request.Weapon = _weaponRepository.Getbyid(model.WeaponID).Result;
-                request.Ammunition = _ammunitionRepository.Getbyid(model.AmmunitionID).Result;
+
                 await _requestRepository.Update(request);
 
                 return new BaseResponse<Request>
@@ -200,7 +196,7 @@ namespace MilitaryProject.BLL.Services
             }
         }
 
-        public async Task<BaseResponse<bool>> DeleteRequest(int id)
+        public async Task<BaseResponse<bool>> Delete(int id)
         {
             try
             {

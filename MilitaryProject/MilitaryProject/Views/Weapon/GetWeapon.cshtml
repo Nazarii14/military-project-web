@@ -1,38 +1,37 @@
 ﻿@using MilitaryProject.Domain.Entity
 @using MilitaryProject.Domain.ViewModels.Weapon
-@model List<Weapon>
+@model Weapon
 
 @{
-    ViewData["Title"] = "Weapons";
+    ViewData["Title"] = "Getbyid";
 }
 
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <h2 class="text-center">Weapons</h2>
+            <h2 class="text-center">Weapon</h2>
             <table class="table">
                 <thead>
                     <tr>
+                        <th>ID</th>
                         <th>Name</th>
-                        <th>Type</th>
                         <th>Price</th>
+                        <th>Type</th>
                         <th>Weight</th>
-                        <th></th>
-                        <th></th>
+                        <th>Edit</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var weapon in Model)
-                    {
-                            <tr>
-                                <td>@weapon.Name</td>
-                                <td>@weapon.Type</td>
-                                <td>@weapon.Price</td>
-                                <td>@weapon.Weight</td>
-                            <td><a asp-controller="Weapon" asp-action="Update" asp-route-id="@weapon.ID">Edit</a></td>
-                                <td><a asp-controller="Weapon" asp-action="Delete" asp-route-id="@weapon.ID">Delete</a></td>
-                            </tr>
-                    }
+                    <tr>
+                        <td>@Model.ID</td>
+                        <td>@Model.Name</td>
+                        <td>@Model.Price</td>
+                        <td>@Model.Type</td>
+                        <td>@Model.Weight</td>
+                        <td><a class="btn btn-primary" asp-controller="Weapon" asp-action="Update" asp-route-id="@Model.ID">Edit</a></td>
+                        <td><a class="btn btn-danger" asp-controller="Weapon" asp-action="Delete" asp-route-id="@Model.ID">Delete</a></td>
+                    </tr>
                 </tbody>
             </table>
         </div>

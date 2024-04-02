@@ -13,8 +13,8 @@ namespace MilitaryProject.BLL.Interfaces
     {
         Task<BaseResponse<Request>> GetRequest(int id);
         Task<BaseResponse<List<Request>>> GetRequests();
-        Task<BaseResponse<Request>> CreateRequest(RequestViewModel model);
-        Task<BaseResponse<Request>> UpdateRequest(RequestViewModel model);
-        Task<BaseResponse<bool>> DeleteRequest(int id);
+        Task<BaseResponse<Request>> Create(CreateRequestViewModel model);
+        Task<BaseResponse<Request>> Update(EditRequestViewModel model);
+        Task<BaseResponse<bool>> Delete(int id);
     }
 }

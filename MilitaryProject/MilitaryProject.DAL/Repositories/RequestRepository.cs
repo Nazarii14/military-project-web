@@ -32,7 +32,11 @@ namespace MilitaryProject.DAL.Repositories
 
         public async Task<List<Request>> GetAll()
         {
-            return await _db.Requests.ToListAsync();
+            return await _db.Requests
+                .Include(r => r.Brigade)
+                .Include(r => r.Weapon)
+                .Include(r => r.Ammunition)
+                .ToListAsync();
         }
 
         public async Task Update(Request entity)
@@ -43,7 +47,8 @@ namespace MilitaryProject.DAL.Repositories
 
         public async Task<Request> Getbyid(int id)
         {
-            return await _db.Requests.FindAsync(id);
+            return await _db.Requests
+                .FindAsync(id);
         }
     }
 }

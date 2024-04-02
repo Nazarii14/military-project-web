@@ -12,23 +12,7 @@
             <div class="card">
                 <h1 class="card-header text-center">Edit Request</h1>
                 <div class="card-body">
-                    <form asp-controller="Request" asp-action="UpdateRequest" method="post">
-                        <input type="hidden" asp-for="ID" />
-                        <div class="form-group">
-                            <label asp-for="BrigadeID">Brigade ID:</label>
-                            <input asp-for="BrigadeID" class="form-control" />
-                            <span asp-validation-for="BrigadeID" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="WeaponID">Weapon ID:</label>
-                            <input asp-for="WeaponID" class="form-control" />
-                            <span asp-validation-for="WeaponID" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="AmmunitionID">Ammunition ID:</label>
-                            <input asp-for="AmmunitionID" class="form-control" />
-                            <span asp-validation-for="AmmunitionID" class="text-danger"></span>
-                        </div>
+                    <form asp-controller="Request" asp-action="Update" method="post">
                         <div class="form-group">
                             <label asp-for="WeaponQuantity">Weapon Quantity:</label>
                             <input asp-for="WeaponQuantity" class="form-control" />
@@ -49,7 +33,7 @@
                             <input asp-for="RequestStatus" class="form-control" />
                             <span asp-validation-for="RequestStatus" class="text-danger"></span>
                         </div>
-                        <button type="submit" class="btn btn-primary mt-3">Update</button>
+                        <button type="submit" class="btn btn-primary mt-3">Edit</button>
                     </form>
                 </div>
             </div>

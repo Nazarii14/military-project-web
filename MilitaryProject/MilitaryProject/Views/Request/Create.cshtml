@@ -1,5 +1,5 @@
 ﻿@using MilitaryProject.Domain.ViewModels.Request
-@model RequestViewModel
+@model CreateRequestViewModel
 
 @{
     ViewData["Title"] = "Create Request";
@@ -11,26 +11,26 @@
             <div class="card">
                 <h1 class="card-header text-center">Create Request</h1>
                 <div class="card-body">
-                    <form asp-controller="Request" asp-action="CreateRequest" method="post">
+                    <form asp-controller="Request" asp-action="Create" method="post">
                         <div class="form-group">
-                            <label asp-for="BrigadeID">Brigade ID:</label>
-                            <input asp-for="BrigadeID" class="form-control" />
-                            <span asp-validation-for="BrigadeID" class="text-danger"></span>
+                            <label asp-for="BrigadeName">Brigade Name:</label>
+                            <input asp-for="BrigadeName" class="form-control" />
+                            <span asp-validation-for="BrigadeName" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label asp-for="WeaponID">Weapon ID:</label>
-                            <input asp-for="WeaponID" class="form-control" />
-                            <span asp-validation-for="WeaponID" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="AmmunitionID">Ammunition ID:</label>
-                            <input asp-for="AmmunitionID" class="form-control" />
-                            <span asp-validation-for="AmmunitionID" class="text-danger"></span>
+                            <label asp-for="WeaponName">Weapon Name:</label>
+                            <input asp-for="WeaponName" class="form-control" />
+                            <span asp-validation-for="WeaponName" class="text-danger"></span>
                         </div>
                         <div class="form-group">
                             <label asp-for="WeaponQuantity">Weapon Quantity:</label>
                             <input asp-for="WeaponQuantity" class="form-control" />
                             <span asp-validation-for="WeaponQuantity" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="AmmunitionName">Ammunition Name:</label>
+                            <input asp-for="AmmunitionName" class="form-control" />
+                            <span asp-validation-for="AmmunitionName" class="text-danger"></span>
                         </div>
                         <div class="form-group">
                             <label asp-for="AmmunitionQuantity">Ammunition Quantity:</label>

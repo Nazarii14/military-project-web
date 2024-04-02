@@ -77,7 +77,6 @@ namespace MilitaryProject.Controllers
 
             if (response.StatusCode == Domain.Enum.StatusCode.OK)
             {
-
                 return View(response.Data);
             }
             else

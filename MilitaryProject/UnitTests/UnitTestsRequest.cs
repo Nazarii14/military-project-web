@@ -17,10 +17,10 @@ using MilitaryProject.DAL.Repositories;
 using MilitaryProject.Domain.ViewModels.Request;
 using MilitaryProject.BLL.Interfaces;
 
-namespace UnitTests
+namespace RequestUnitTests
 {
     [TestFixture]
-    public class UnitTestRequest
+    public class RequestUnitTests
     {
         private RequestService _requestService;
         private ApplicationDbContext _dbContext;
@@ -68,7 +68,7 @@ namespace UnitTests
         [TearDown]
         public void TearDown()
         {
-             _dbContext.Database.EnsureDeleted();
+            _dbContext.Database.EnsureDeleted();
             _dbContext.Dispose();
         }
 
@@ -128,23 +128,23 @@ namespace UnitTests
         [Test]
         public async Task CreateRequest_WhenRequestIsValid_ReturnsRequest()
         {
-            var requestViewModel = new RequestViewModel
+            var requestViewModel = new CreateRequestViewModel
             {
-                BrigadeID = 1,
-                WeaponID = 1,
-                AmmunitionID = 1,
+                BrigadeName = "Brigade1",
+                WeaponName = "Weapon1",
+                AmmunitionName = "Ammunition1",
                 WeaponQuantity = 10,
                 AmmunitionQuantity = 10,
                 Message = "Message1",
                 RequestStatus = "Status1"
             };
 
-            var result = await _requestService.CreateRequest(requestViewModel);
+            var result = await _requestService.Create(requestViewModel);
 
             Assert.AreEqual(StatusCode.OK, result.StatusCode);
-            Assert.AreEqual(requestViewModel.BrigadeID, result.Data.BrigadeID);
-            Assert.AreEqual(requestViewModel.WeaponID, result.Data.WeaponID);
-            Assert.AreEqual(requestViewModel.AmmunitionID, result.Data.AmmunitionID);
+            Assert.AreEqual(requestViewModel.BrigadeName, result.Data.Brigade.Name);
+            Assert.AreEqual(requestViewModel.WeaponName, result.Data.Weapon.Name);
+            Assert.AreEqual(requestViewModel.AmmunitionName, result.Data.Ammunition.Name);
             Assert.AreEqual(requestViewModel.WeaponQuantity, result.Data.WeaponQuantity);
             Assert.AreEqual(requestViewModel.AmmunitionQuantity, result.Data.AmmunitionQuantity);
             Assert.AreEqual(requestViewModel.Message, result.Data.Message);
@@ -154,7 +154,7 @@ namespace UnitTests
         [Test]
         public async Task CreateRequest_WhenBrigadeDoesNotExist_ReturnsError()
         {
-            var requestViewModel = new RequestViewModel
+            var requestViewModel = new CreateRequestViewModel
             {
                 BrigadeID = -1,
                 WeaponID = 1,
@@ -165,7 +165,7 @@ namespace UnitTests
                 RequestStatus = "Status1"
             };
 
-            var result = await _requestService.CreateRequest(requestViewModel);
+            var result = await _requestService.Create(requestViewModel);
 
             Assert.AreEqual(StatusCode.NotFound, result.StatusCode);
             Assert.AreEqual("Brigade does not exist", result.Description);
@@ -175,18 +175,18 @@ namespace UnitTests
         [Test]
         public async Task CreateRequest_WhenWeaponDoesNotExist_ReturnsError()
         {
-            var requestViewModel = new RequestViewModel
+            var requestViewModel = new CreateRequestViewModel
             {
-                BrigadeID = 1,
-                WeaponID = -1,
-                AmmunitionID = 1,
+                BrigadeName = "Brigade1",
+                WeaponName = "NonExistingWeapon",
+                AmmunitionName = "Ammunition1",
                 WeaponQuantity = 10,
                 AmmunitionQuantity = 10,
                 Message = "Message1",
                 RequestStatus = "Status1"
             };
 
-            var result = await _requestService.CreateRequest(requestViewModel);
+            var result = await _requestService.Create(requestViewModel);
 
             Assert.AreEqual(StatusCode.NotFound, result.StatusCode);
             Assert.AreEqual("Weapon does not exist", result.Description);
@@ -196,18 +196,18 @@ namespace UnitTests
         [Test]
         public async Task CreateRequest_WhenAmmunitionDoesNotExist_ReturnsError()
         {
-            var requestViewModel = new RequestViewModel
+            var requestViewModel = new CreateRequestViewModel
             {
-                BrigadeID = 1,
-                WeaponID = 1,
-                AmmunitionID = -1,
+                BrigadeName = "Brigade1",
+                WeaponName = "Weapon1",
+                AmmunitionName = "NonExistingAmmunition",
                 WeaponQuantity = 10,
                 AmmunitionQuantity = 10,
                 Message = "Message1",
                 RequestStatus = "Status1"
             };
 
-            var result = await _requestService.CreateRequest(requestViewModel);
+            var result = await _requestService.Create(requestViewModel);
 
             Assert.AreEqual(StatusCode.NotFound, result.StatusCode);
             Assert.AreEqual("Ammunition does not exist", result.Description);
@@ -217,25 +217,19 @@ namespace UnitTests
         [Test]
         public async Task UpdateRequest_WhenRequestExists_UpdatesRequest()
         {
-            var requestViewModel = new RequestViewModel
+            var requestViewModel = new EditRequestViewModel
             {
                 ID = 1,
-                BrigadeID = 1,
-                WeaponID = 1,
-                AmmunitionID = 1,
-                WeaponQuantity = 10,
-                AmmunitionQuantity = 10,
-                Message = "Message1",
-                RequestStatus = "Status1"
+                WeaponQuantity = 100,
+                AmmunitionQuantity = 100,
+                Message = "Message10",
+                RequestStatus = "Status10"
             };
 
-            var result = await _requestService.UpdateRequest(requestViewModel);
+            var result = await _requestService.Update(requestViewModel);
 
             Assert.AreEqual(StatusCode.OK, result.StatusCode);
             Assert.AreEqual(requestViewModel.ID, result.Data.ID);
-            Assert.AreEqual(requestViewModel.BrigadeID, result.Data.BrigadeID);
-            Assert.AreEqual(requestViewModel.WeaponID, result.Data.WeaponID);
-            Assert.AreEqual(requestViewModel.AmmunitionID, result.Data.AmmunitionID);
             Assert.AreEqual(requestViewModel.WeaponQuantity, result.Data.WeaponQuantity);
             Assert.AreEqual(requestViewModel.AmmunitionQuantity, result.Data.AmmunitionQuantity);
             Assert.AreEqual(requestViewModel.Message, result.Data.Message);
@@ -245,19 +239,16 @@ namespace UnitTests
         [Test]
         public async Task UpdateRequest_WhenRequestDoesNotExist_ReturnsError()
         {
-            var requestViewModel = new RequestViewModel
+            var requestViewModel = new EditRequestViewModel
             {
                 ID = -1,
-                BrigadeID = 1,
-                WeaponID = 1,
-                AmmunitionID = 1,
                 WeaponQuantity = 10,
                 AmmunitionQuantity = 10,
                 Message = "Message1",
                 RequestStatus = "Status1"
             };
 
-            var result = await _requestService.UpdateRequest(requestViewModel);
+            var result = await _requestService.Update(requestViewModel);
 
             Assert.AreEqual(StatusCode.NotFound, result.StatusCode);
             Assert.AreEqual("Request does not exist", result.Description);
@@ -268,7 +259,7 @@ namespace UnitTests
         public async Task DeleteRequest_WhenRequestExists_DeletesRequest()
         {
             int existingRequestId = 1;
-            var result = await _requestService.DeleteRequest(existingRequestId);
+            var result = await _requestService.Delete(existingRequestId);
             Assert.AreEqual(StatusCode.OK, result.StatusCode);
             Assert.IsTrue(result.Data);
         }
@@ -277,7 +268,7 @@ namespace UnitTests
         public async Task DeleteRequest_WithNonExistingWeapon_ReturnsError()
         {
             int nonExistingRequestId = -1;
-            var result = await _requestService.DeleteRequest(nonExistingRequestId);
+            var result = await _requestService.Delete(nonExistingRequestId);
             Assert.AreEqual(StatusCode.NotFound, result.StatusCode);
             Assert.AreEqual("Request does not exist", result.Description);
             Assert.IsFalse(result.Data);

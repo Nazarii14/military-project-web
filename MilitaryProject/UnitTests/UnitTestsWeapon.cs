@@ -15,10 +15,10 @@ using MilitaryProject.DAL;
 using System.Data.Entity;
 using MilitaryProject.DAL.Repositories;
 
-namespace MilitaryProject.UnitTest
+namespace WeaponUnitTests
 {
     [TestFixture]
-    public class UnitTestWeapon
+    public class WeaponUnitTests
     {
         private WeaponService _weaponService;
         private ApplicationDbContext _dbContext;
