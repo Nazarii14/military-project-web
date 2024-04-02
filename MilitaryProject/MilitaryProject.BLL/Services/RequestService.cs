@@ -181,7 +181,7 @@ namespace MilitaryProject.BLL.Services
 
                 return new BaseResponse<Request>
                 {
-                    Description = "Request created successfully",
+                    Description = "Request updated successfully",
                     StatusCode = StatusCode.OK,
                     Data = request
                 };

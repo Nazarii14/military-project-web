@@ -16,6 +16,7 @@ namespace MilitaryProject
             services.AddScoped<BaseRepository<Weapon>, WeaponRepository>();
             services.AddScoped<BaseRepository<Request>,  RequestRepository>();
             services.AddScoped<BaseRepository<Ammunition>, AmmunitionRepository>();
+            services.AddScoped<BaseRepository<MilitaryRoute>, MilitaryRouteRepository>();
         }
 
         public static void InitializeServices(this IServiceCollection services)
@@ -26,6 +27,7 @@ namespace MilitaryProject
             services.AddScoped<IWeaponService, WeaponService>();
             services.AddScoped<IRequestService, RequestService>();
             services.AddScoped<IAmmunitionService, AmmunitionService>();
+            services.AddScoped<IMilitaryRouteService, MilitaryRouteService>();
         }
     }
 }

@@ -1,0 +1,48 @@
+﻿@using MilitaryProject.Domain.Entity
+@using MilitaryProject.Domain.ViewModels.MilitaryRoute
+@model MilitaryRoute
+
+@{
+    ViewData["Title"] = "GetById";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h2 class="text-center">Military Route</h2>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Weapon Name</th>
+                        <th>Weapon Quantity</th>
+                        <th>Ammunition Name</th>
+                        <th>Ammunition Quantity</th>
+                        <th>Volunteer</th>
+                        <th>StartPoint</th>
+                        <th>Destination</th>
+                        <th>DeliveryDate</th>
+                        <th>Edit</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>@Model.ID</td>
+                        <td>@Model.Weapon.Name</td>
+                        <td>@Model.WeaponQuantity</td>
+                        <td>@Model.Ammunition.Name</td>
+                        <td>@Model.AmmunitionQuantity</td>
+                        <td>@Model.Volunteer.Lastname</td>
+                        <td>@Model.StartPoint</td>
+                        <td>@Model.Destination</td>
+                        <td>@Model.DeliveryDate</td>
+                        <td><a class="btn btn-primary" asp-controller="MilitaryRoute" asp-action="Update" asp-route-id="@Model.ID">Edit</a></td>
+                        <td><a class="btn btn-danger" asp-controller="MilitaryRoute" asp-action="Delete" asp-route-id="@Model.ID">Delete</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
