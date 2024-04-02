@@ -21,7 +21,7 @@ namespace MilitaryProject.BLL.Services
             _ammunitionRepository = ammunitionRepository;
         }
 
-        public async Task<BaseResponse<Ammunition>> GetAmmunition(int id)
+        public async Task<BaseResponse<Ammunition>> GetById(int id)
         {
             try
             {
@@ -53,7 +53,7 @@ namespace MilitaryProject.BLL.Services
             }
         }
 
-        public async Task<BaseResponse<List<Ammunition>>> GetAmmunitions()
+        public async Task<BaseResponse<List<Ammunition>>> GetAll()
         {
             try
             {
@@ -74,11 +74,12 @@ namespace MilitaryProject.BLL.Services
             }
         }
 
-        public async Task<BaseResponse<Ammunition>> CreateAmmunition(AmmunitionViewModel model)
+        public async Task<BaseResponse<Ammunition>> Create(AmmunitionViewModel model)
         {
             try
             {
-                var existingAmmunition = (await _ammunitionRepository.GetAll()).FirstOrDefault(b => b.Name == model.Name);
+                var existingAmmunition = (await _ammunitionRepository.GetAll())
+                    .FirstOrDefault(w => w.Name.Equals(model.Name, StringComparison.OrdinalIgnoreCase));
                 if (existingAmmunition != null)
                 {
                     return new BaseResponse<Ammunition>
@@ -99,7 +100,8 @@ namespace MilitaryProject.BLL.Services
                 return new BaseResponse<Ammunition>
                 {
                     Data = ammunition,
-                    StatusCode = Domain.Enum.StatusCode.OK
+                    StatusCode = Domain.Enum.StatusCode.OK,
+                    Description = "Ammunition created successfully",
                 };
             }
             catch (Exception ex)
@@ -111,11 +113,12 @@ namespace MilitaryProject.BLL.Services
                 };
             }
         }
-        public async Task<BaseResponse<Ammunition>> UpdateAmmunition(AmmunitionViewModel model)
+        public async Task<BaseResponse<Ammunition>> Update(AmmunitionViewModel model)
         {
             try
             {
-                var existingAmmunition = (await _ammunitionRepository.GetAll()).FirstOrDefault(b => b.ID == model.ID);
+                var existingAmmunition = (await _ammunitionRepository.GetAll())
+                    .FirstOrDefault(b => b.ID == model.ID);
                 if (existingAmmunition == null)
                 {
                     return new BaseResponse<Ammunition>
@@ -145,7 +148,7 @@ namespace MilitaryProject.BLL.Services
                 };
             }
         }
-        public async Task<BaseResponse<bool>> DeleteAmmunition(int id)
+        public async Task<BaseResponse<bool>> Delete(int id)
         {
             try
             {

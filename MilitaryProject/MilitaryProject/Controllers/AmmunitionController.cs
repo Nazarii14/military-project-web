@@ -15,9 +15,9 @@ namespace MilitaryProject.Controllers
             _ammunitionService = ammunitionService;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> GetAll()
         {
-            var response = await _ammunitionService.GetAllAmmunition();
+            var response = await _ammunitionService.GetAll();
             if (response.StatusCode == Domain.Enum.StatusCode.OK)
             {
                 return View(response.Data);
@@ -30,9 +30,9 @@ namespace MilitaryProject.Controllers
             }
         }
 
-        public async Task<IActionResult> Details(int id)
+        public async Task<IActionResult> GetById(int id)
         {
-            var response = await _ammunitionService.GetAmmunitionById(id);
+            var response = await _ammunitionService.GetById(id);
             if (response.StatusCode == Domain.Enum.StatusCode.OK)
             {
                 return View(response.Data);
@@ -59,10 +59,10 @@ namespace MilitaryProject.Controllers
                 return View(model);
             }
 
-            var response = await _ammunitionService.CreateAmmunition(model);
+            var response = await _ammunitionService.Create(model);
             if (response.StatusCode ==  Domain.Enum.StatusCode.OK)
             {
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("GetAll", "Ammunition");
             }
             else
             {
@@ -72,9 +72,9 @@ namespace MilitaryProject.Controllers
             }
         }
 
-        public async Task<IActionResult> Edit(int id)
+        public async Task<IActionResult> Update(int id)
         {
-            var response = await _ammunitionService.GetAmmunitionById(id);
+            var response = await _ammunitionService.GetById(id);
             if (response.StatusCode == Domain.Enum.StatusCode.OK)
             {
                 return View(response.Data);
@@ -89,17 +89,17 @@ namespace MilitaryProject.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(AmmunitionViewModel model)
+        public async Task<IActionResult> Update(AmmunitionViewModel model)
         {
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
 
-            var response = await _ammunitionService.UpdateAmmunition(model);
+            var response = await _ammunitionService.Update(model);
             if (response.StatusCode ==  Domain.Enum.StatusCode.OK)
             {
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("GetAll", "Ammunition");
             }
             else
             {
@@ -111,33 +111,16 @@ namespace MilitaryProject.Controllers
 
         public async Task<IActionResult> Delete(int id)
         {
-            var response = await _ammunitionService.GetAmmunitionById(id);
+            var response = await _ammunitionService.Delete(id);
             if (response.StatusCode ==  Domain.Enum.StatusCode.OK)
             {
-                return View(response.Data);
+                return RedirectToAction("GetAll", "Ammunition");
             }
             else
             {
                 TempData["AlertMessage"] = response.Description;
                 TempData["ResponseStatus"] = "Error";
-                return NotFound();
-            }
-        }
-
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var response = await _ammunitionService.DeleteAmmunition(id);
-            if (response.StatusCode == Domain.Enum.StatusCode.OK)
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            else
-            {
-                TempData["AlertMessage"] = response.Description;
-                TempData["ResponseStatus"] = "Error";
-                return BadRequest(response.Description);
+                return View();
             }
         }
     }
