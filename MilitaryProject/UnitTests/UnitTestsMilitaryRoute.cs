@@ -239,6 +239,78 @@ namespace MilitaryRouteUnitTests
         }
 
         [Test]
+        public async Task AddMilitaryRoute_WhenVolunteerDoesNotExist_ReturnsVolunteerNotFound()
+        {
+            var militaryRouteViewModel = new CreateMilitaryRouteViewModel
+            {
+                VolunteerID = 100,
+                WeaponID = 1,
+                WeaponQuantity = 10,
+                AmmunitionID = 1,
+                AmmunitionQuantity = 5,
+                StartPoint = "Point1",
+                Destination = "DPoint1",
+                DeliveryDate = DateTime.Today,
+                WeaponName = "Weapon1",
+                AmmunitionName = "Ammunition1",
+                VolunteerLastName = "NonExistingLastName"
+            };
+            var result = await _militaryRouteService.Create(militaryRouteViewModel);
+
+            Assert.AreEqual(StatusCode.NotFound, result.StatusCode);
+            Assert.AreEqual("Volunteer does not exist", result.Description);
+            Assert.IsNull(result.Data);
+        }
+
+        [Test]
+        public async Task AddMilitaryRoute_WhenWeaponDoesNotExist_ReturnsWeaponNotFound()
+        {
+            var militaryRouteViewModel = new CreateMilitaryRouteViewModel
+            {
+                VolunteerID = 1,
+                WeaponID = 100,
+                WeaponQuantity = 10,
+                AmmunitionID = 1,
+                AmmunitionQuantity = 5,
+                StartPoint = "Point1",
+                Destination = "DPoint1",
+                DeliveryDate = DateTime.Today,
+                WeaponName = "NonExistingWeapon",
+                AmmunitionName = "Ammunition1",
+                VolunteerLastName = "LastName1"
+            };
+            var result = await _militaryRouteService.Create(militaryRouteViewModel);
+
+            Assert.AreEqual(StatusCode.NotFound, result.StatusCode);
+            Assert.AreEqual("Weapon does not exist", result.Description);
+            Assert.IsNull(result.Data);
+        }
+
+        [Test]
+        public async Task AddMilitaryRoute_WhenAmmunitionDoesNotExist_ReturnsAmmunitionNotFound()
+        {
+            var militaryRouteViewModel = new CreateMilitaryRouteViewModel
+            {
+                VolunteerID = 1,
+                WeaponID = 1,
+                WeaponQuantity = 10,
+                AmmunitionID = 100,
+                AmmunitionQuantity = 5,
+                StartPoint = "Point1",
+                Destination = "DPoint1",
+                DeliveryDate = DateTime.Today,
+                WeaponName = "Weapon1",
+                AmmunitionName = "NonExistingAmmunition",
+                VolunteerLastName = "LastName1"
+            };
+            var result = await _militaryRouteService.Create(militaryRouteViewModel);
+
+            Assert.AreEqual(StatusCode.NotFound, result.StatusCode);
+            Assert.AreEqual("Ammunition does not exist", result.Description);
+            Assert.IsNull(result.Data);
+        }
+
+        [Test]
         public async Task UpdateMilitaryRoute_WhenMilitaryRouteExists_ReturnsMilitaryRouteUpdated()
         {
             int existingMilitaryRouteID = 1;
