@@ -1,5 +1,6 @@
 ﻿using MilitaryProject.BLL.Interfaces;
 using MilitaryProject.DAL.Interface;
+using MilitaryProject.DAL.Repositories;
 using MilitaryProject.Domain.Entity;
 using MilitaryProject.Domain.Enum;
 using MilitaryProject.Domain.Response;
@@ -26,6 +27,18 @@ namespace MilitaryProject.BLL.Services
         {
             try
             {
+                var existingBrigade = (await _brigadeRepository.GetAll())
+                    .FirstOrDefault(w => w.Name.Equals(model.Name, StringComparison.OrdinalIgnoreCase));
+
+                if (existingBrigade != null)
+                {
+                    return new BaseResponse<Brigade>
+                    {
+                        Description = "Brigade with the same name already exists.",
+                        StatusCode = StatusCode.InternalServerError
+                    };
+                }
+
                 var brigade = new Brigade
                 {
                     Name = model.Name,

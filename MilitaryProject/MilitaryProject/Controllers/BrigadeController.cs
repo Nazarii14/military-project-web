@@ -22,6 +22,9 @@ namespace MilitaryProject.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(BrigadeViewModel model)
         {
+
+
+
             if (ModelState.IsValid)
             {
                 var response = await _brigadeService.Create(model);

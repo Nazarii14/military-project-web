@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace UnitTests
 {
-    internal class TestUser
+    internal class UnitTestsUser
     {
     }
 }
