@@ -9,8 +9,8 @@ namespace MilitaryProject.BLL.Interfaces
     {
         Task<BaseResponse<UserItems>> GetUserItem(int id);
         Task<BaseResponse<List<UserItems>>> GetUserItems();
-        Task<BaseResponse<UserItems>> CreateUserItems(UserItemsViewModel model);
-        Task<BaseResponse<UserItems>> UpdateUserItems(UserItemsViewModel model);
-        Task<BaseResponse<bool>> DeleteUserItems(int id);
+        Task<BaseResponse<UserItems>> Create(UserItemsViewModel model);
+        Task<BaseResponse<UserItems>> Update(UserItemsViewModel model);
+        Task<BaseResponse<bool>> Delete(int id);
     }
 }

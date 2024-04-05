@@ -1,0 +1,37 @@
+﻿@using MilitaryProject.Domain.Entity
+@using MilitaryProject.Domain.ViewModels.UserItems
+@model List<UserItems>
+
+@{
+    ViewData["Title"] = "UserItems";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h2 class="text-center">UserItems</h2>
+            <table class="table">
+                <a class="btn btn-success" asp-controller="UserItems" asp-action="Create">Create</a>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Details</th>
+                        <th>Edit</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var userItem in Model)
+                    {
+                                    <tr>
+                                                <td>@userItem.ID</td>
+                                                    <td><a class="btn btn-outline-primary" asp-controller="UserItems" asp-action="GetById" asp-route-id="@userItem.ID">Details</a></td>
+                                                    <td><a class="btn btn-primary" asp-controller="UserItems" asp-action="Update" asp-route-id="@userItem.ID">Edit</a></td>
+                                                    <td><a class="btn btn-danger" asp-controller="UserItems" asp-action="Delete" asp-route-id="@userItem.ID">Delete</a></td>
+                                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

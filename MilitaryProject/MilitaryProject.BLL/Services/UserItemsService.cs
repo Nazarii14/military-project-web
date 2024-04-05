@@ -16,10 +16,16 @@ namespace MilitaryProject.BLL.Services
     public class UserItemsService : IUserItemsService
     {
         private readonly BaseRepository<UserItems> _userItemsRepository;
+        private readonly BaseRepository<User> _userRepository;
+        private readonly BaseRepository<Weapon> _weaponRepository;
+        private readonly BaseRepository<Ammunition> _ammunitionRepository;
 
-        public UserItemsService(BaseRepository<UserItems> userItemsRepository)
+        public UserItemsService(BaseRepository<UserItems> userItemsRepository, BaseRepository<User> userRepository, BaseRepository<Weapon> weaponRepository, BaseRepository<Ammunition> ammunitionRepository)
         {
             _userItemsRepository = userItemsRepository;
+            _userRepository = userRepository;
+            _weaponRepository = weaponRepository;
+            _ammunitionRepository = ammunitionRepository;
         }
 
         public async Task<BaseResponse<UserItems>> GetUserItem(int id)
@@ -76,7 +82,7 @@ namespace MilitaryProject.BLL.Services
             }
         }
 
-        public async Task<BaseResponse<UserItems>> CreateUserItems(UserItemsViewModel model)
+        public async Task<BaseResponse<UserItems>> Create(UserItemsViewModel model)
         {
             try
             {
@@ -91,11 +97,47 @@ namespace MilitaryProject.BLL.Services
                     };
                 }
 
+                var responseUser = await _userRepository.GetAll();
+                var user = responseUser.FirstOrDefault(u => u.ID == model.UserID);
+                if (user == null)
+                {
+                    return new BaseResponse<UserItems>
+                    {
+                        Description = "User does not exist",
+                        StatusCode = StatusCode.NotFound
+                    };
+                }
+
+                var responseWeapon = await _weaponRepository.GetAll();
+                var weapon = responseWeapon.FirstOrDefault(w => w.ID == model.WeaponID);
+                if (weapon == null)
+                {
+                    return new BaseResponse<UserItems>
+                    {
+                        Description = "Weapon does not exist",
+                        StatusCode = StatusCode.NotFound
+                    };
+                }
+
+                var responseAmmunition = await _ammunitionRepository.GetAll();
+                var ammunition = responseAmmunition.FirstOrDefault(a => a.ID == model.AmmunitionID);
+                if (ammunition == null)
+                {
+                    return new BaseResponse<UserItems>
+                    {
+                        Description = "Ammunition does not exist",
+                        StatusCode = StatusCode.NotFound
+                    };
+                }
+
                 var newUserItem = new UserItems
                 {
                     UserID = model.UserID,
                     WeaponID = model.WeaponID,
-                    AmmunitionID = model.AmmunitionID
+                    AmmunitionID = model.AmmunitionID,
+                    User = user,
+                    Weapon = weapon,
+                    Ammunition = ammunition,
                 };
 
                 await _userItemsRepository.Create(newUserItem);
@@ -117,12 +159,12 @@ namespace MilitaryProject.BLL.Services
         }
 
 
-        public async Task<BaseResponse<UserItems>> UpdateUserItems(UserItemsViewModel userItem)
+        public async Task<BaseResponse<UserItems>> Update(UserItemsViewModel model)
         {
             try
             {
                 var response = await _userItemsRepository.GetAll();
-                var existingUserItem = response.FirstOrDefault(u => u.ID == userItem.ID);
+                var existingUserItem = response.FirstOrDefault(u => u.ID == model.ID);
 
                 if (existingUserItem == null)
                 {
@@ -133,9 +175,45 @@ namespace MilitaryProject.BLL.Services
                     };
                 }
 
-                existingUserItem.UserID = userItem.UserID;
-                existingUserItem.WeaponID = userItem.WeaponID;
-                existingUserItem.AmmunitionID = userItem.AmmunitionID;
+                var responseUser = await _userRepository.GetAll();
+                var user = responseUser.FirstOrDefault(u => u.ID == model.UserID);
+                if (user == null)
+                {
+                    return new BaseResponse<UserItems>
+                    {
+                        Description = "User does not exist",
+                        StatusCode = StatusCode.NotFound
+                    };
+                }
+
+                var responseWeapon = await _weaponRepository.GetAll();
+                var weapon = responseWeapon.FirstOrDefault(w => w.ID == model.WeaponID);
+                if (weapon == null)
+                {
+                    return new BaseResponse<UserItems>
+                    {
+                        Description = "Weapon does not exist",
+                        StatusCode = StatusCode.NotFound
+                    };
+                }
+
+                var responseAmmunition = await _ammunitionRepository.GetAll();
+                var ammunition = responseAmmunition.FirstOrDefault(a => a.ID == model.AmmunitionID);
+                if (ammunition == null)
+                {
+                    return new BaseResponse<UserItems>
+                    {
+                        Description = "Ammunition does not exist",
+                        StatusCode = StatusCode.NotFound
+                    };
+                }
+
+                existingUserItem.UserID = model.UserID;
+                existingUserItem.WeaponID = model.WeaponID;
+                existingUserItem.AmmunitionID = model.AmmunitionID;
+                existingUserItem.User = user;
+                existingUserItem.Weapon = weapon;
+                existingUserItem.Ammunition = ammunition;
 
                 await _userItemsRepository.Update(existingUserItem);
 
@@ -155,7 +233,7 @@ namespace MilitaryProject.BLL.Services
             }
         }
 
-        public async Task<BaseResponse<bool>> DeleteUserItems(int id)
+        public async Task<BaseResponse<bool>> Delete(int id)
         {
             try
             {

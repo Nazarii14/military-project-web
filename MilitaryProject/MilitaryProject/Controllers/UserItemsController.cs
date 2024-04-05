@@ -14,7 +14,7 @@ namespace MilitaryProject.Controllers
             _userItemsService = userItemsService;
         }
 
-        public async Task<IActionResult> GetUserItems()
+        public async Task<IActionResult> GetAll()
         {
             var response = await _userItemsService.GetUserItems();
 
@@ -30,7 +30,7 @@ namespace MilitaryProject.Controllers
             }
         }
 
-        public async Task<IActionResult> GetUserItem(int id)
+        public async Task<IActionResult> GetById(int id)
         {
             var response = await _userItemsService.GetUserItem(id);
 
@@ -46,21 +46,21 @@ namespace MilitaryProject.Controllers
             }
         }
 
-        public async Task<IActionResult> CreateUserItem()
+        public async Task<IActionResult> Create()
         {
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateUserItem(UserItemsViewModel model)
+        public async Task<IActionResult> Create(UserItemsViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var response = await _userItemsService.CreateUserItems(model);
+                var response = await _userItemsService.Create(model);
 
                 if (response.StatusCode == Domain.Enum.StatusCode.OK)
                 {
-                    return RedirectToAction("GetUserItems", "UserItems");
+                    return RedirectToAction("GetAll", "UserItems");
                 }
                 else
                 {
@@ -71,7 +71,7 @@ namespace MilitaryProject.Controllers
             return View(model);
         }
 
-        public async Task<IActionResult> UpdateUserItem(int id)
+        public async Task<IActionResult> Update(int id)
         {
             var response = await _userItemsService.GetUserItem(id);
 
@@ -88,15 +88,15 @@ namespace MilitaryProject.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> UpdateUserItem(UserItemsViewModel model)
+        public async Task<IActionResult> Update(UserItemsViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var response = await _userItemsService.UpdateUserItems(model);
+                var response = await _userItemsService.Update(model);
 
                 if (response.StatusCode == Domain.Enum.StatusCode.OK)
                 {
-                    return RedirectToAction("GetUserItem", "UserItems", new { id = response.Data.ID });
+                    return RedirectToAction("GetAll", "UserItems", new { id = response.Data.ID });
                 }
                 else
                 {
@@ -107,13 +107,13 @@ namespace MilitaryProject.Controllers
             return View(model);
         }
 
-        public async Task<IActionResult> DeleteUserItem(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            var response = await _userItemsService.DeleteUserItems(id);
+            var response = await _userItemsService.Delete(id);
 
             if (response.StatusCode == Domain.Enum.StatusCode.OK)
             {
-                return RedirectToAction("GetUserItems", "UserItems");
+                return RedirectToAction("GetAll", "UserItems");
             }
             else
             {

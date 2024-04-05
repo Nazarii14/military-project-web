@@ -1,0 +1,36 @@
+﻿@using MilitaryProject.Domain.ViewModels.UserItems
+@model UserItemsViewModel
+
+@{
+    ViewData["Title"] = "Create UserItem";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <h1 class="card-header text-center">Create UserItem</h1>
+                <div class="card-body">
+                    <form asp-controller="UserItems" asp-action="Create" method="post">
+                        <div class="form-group">
+                            <label asp-for="UserID">UserID:</label>
+                            <input asp-for="UserID" class="form-control" />
+                            <span asp-validation-for="UserID" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="WeaponID">WeaponID:</label>
+                            <input asp-for="WeaponID" class="form-control" />
+                            <span asp-validation-for="WeaponID" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="AmmunitionID">AmmunitionID:</label>
+                            <input asp-for="AmmunitionID" class="form-control" />
+                            <span asp-validation-for="AmmunitionID" class="text-danger"></span>
+                        </div>
+                        <button type="submit" class="btn btn-primary mt-3">Create</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
