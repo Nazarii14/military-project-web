@@ -94,6 +94,7 @@ namespace MilitaryProject.BLL.Services
                     return new BaseResponse<UserItems>
                     {
                         Description = "User item already exists",
+                        StatusCode = StatusCode.InternalServerError
                     };
                 }
 

@@ -3,7 +3,6 @@ using MilitaryProject.BLL.Services;
 using MilitaryProject.Domain.Entity;
 using MilitaryProject.Domain.Enum;
 using MilitaryProject.Domain.Response;
-using MilitaryProject.Domain.ViewModels.Weapon;
 using Moq;
 using System.Threading.Tasks;
 using System.Collections.Generic;
