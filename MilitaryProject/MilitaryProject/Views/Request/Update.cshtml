@@ -1,0 +1,42 @@
+﻿﻿@using MilitaryProject.Domain.Entity
+@using MilitaryProject.Domain.ViewModels.Request
+@model Request
+
+@{
+    ViewData["Title"] = "Edit Request";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <h1 class="card-header text-center">Edit Request</h1>
+                <div class="card-body">
+                    <form asp-controller="Request" asp-action="Update" method="post">
+                        <div class="form-group">
+                            <label asp-for="WeaponQuantity">Weapon Quantity:</label>
+                            <input asp-for="WeaponQuantity" class="form-control" />
+                            <span asp-validation-for="WeaponQuantity" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="AmmunitionQuantity">Ammunition Quantity:</label>
+                            <input asp-for="AmmunitionQuantity" class="form-control" />
+                            <span asp-validation-for="AmmunitionQuantity" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Message">Message:</label>
+                            <input asp-for="Message" class="form-control" />
+                            <span asp-validation-for="Message" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="RequestStatus">Request Status:</label>
+                            <input asp-for="RequestStatus" class="form-control" />
+                            <span asp-validation-for="RequestStatus" class="text-danger"></span>
+                        </div>
+                        <button type="submit" class="btn btn-primary mt-3">Edit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -7,10 +7,10 @@ namespace MilitaryProject.BLL.Interfaces
 {
     public interface IBrigadeService
     {
-        Task<BaseResponse<Brigade>> GetBrigade(int id);
-        Task<BaseResponse<List<Brigade>>> GetBrigades();
-        Task<BaseResponse<Brigade>> CreateBrigade(BrigadeViewModel model);
-        Task<BaseResponse<Brigade>> UpdateBrigade(BrigadeViewModel model);
-        Task<BaseResponse<bool>> DeleteBrigade(int id);
+        Task<BaseResponse<Brigade>> Create(BrigadeViewModel model);
+        Task<BaseResponse<Brigade>> GetById(int id);
+        Task<BaseResponse<List<Brigade>>> GetAll();
+        Task<BaseResponse<Brigade>> Update(BrigadeViewModel model);
+        Task<BaseResponse<bool>> Delete(int id);
     }
 }

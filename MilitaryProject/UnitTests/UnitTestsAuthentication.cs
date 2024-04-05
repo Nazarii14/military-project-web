@@ -1,19 +1,30 @@
+using NUnit.Framework;
 using MilitaryProject.BLL.Services;
-using MilitaryProject.DAL.Interface;
-using MilitaryProject.DAL.Repositories;
 using MilitaryProject.Domain.Entity;
 using MilitaryProject.Domain.Enum;
-using MilitaryProject.Domain.Helpers;
-using MilitaryProject.Domain.ViewModels.User;
+using MilitaryProject.Domain.Response;
+using MilitaryProject.Domain.ViewModels.Weapon;
 using Moq;
+using System.Threading.Tasks;
+using System.Collections.Generic;
+using System.Linq;
+using MilitaryProject.DAL.Interface;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.InMemory;
+using MilitaryProject.DAL;
+using System.Data.Entity;
+using MilitaryProject.DAL.Repositories;
+using MilitaryProject.Domain.ViewModels.User;
+using MilitaryProject.BLL.Interfaces;
 using System.Security.Claims;
+using MilitaryProject.Domain.Helpers;
 
 namespace UnitTest
 {
-    [TestClass]
-    public class AuthTest
+    [TestFixture]
+    public class UnitTestsAuthentication
     {
-        [TestMethod]
+        [Test]
         public async Task SighUpTest()
         {
             var mockRepository = new Mock<BaseRepository<User>>();
@@ -41,7 +52,7 @@ namespace UnitTest
             Assert.AreEqual("Guest", roleClaim);
         }
 
-        [TestMethod]
+        [Test]
         public async Task SighUpTest_ExistingUser()
         {
             var existingUser = new User
@@ -72,7 +83,7 @@ namespace UnitTest
             Assert.AreEqual("User is already exist", response.Description);
         }      
 
-        [TestMethod]
+        [Test]
         public async Task LoginTest()
         {
             var existingUser = new User
@@ -107,7 +118,7 @@ namespace UnitTest
             Assert.AreEqual("Guest", roleClaim);
         }
 
-        [TestMethod]
+        [Test]
         public async Task LoginTest_NonExistingUser()
         {
             var existingUser = new User
@@ -134,7 +145,7 @@ namespace UnitTest
             Assert.AreEqual("User does not exist", response.Description);
         }
 
-        [TestMethod]
+        [Test]
         public async Task LoginTest_IncorrectCredentials()
         {
             var existingUser = new User

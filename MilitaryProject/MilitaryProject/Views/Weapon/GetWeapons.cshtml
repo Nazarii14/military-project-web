@@ -1,0 +1,37 @@
+﻿@using MilitaryProject.Domain.Entity
+@using MilitaryProject.Domain.ViewModels.Weapon
+@model List<Weapon>
+
+@{
+    ViewData["Title"] = "Weapons";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h2 class="text-center">Weapons</h2>
+            <table class="table">
+                <a class="btn btn-success" asp-controller="Weapon" asp-action="Create">Create</a>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Details</th>
+                        <th>Edit</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var weapon in Model)
+                    {
+                            <tr>
+                                    <td>@weapon.Name</td>
+                                    <td><a class="btn btn-outline-primary" asp-controller="Weapon" asp-action="GetWeapon" asp-route-id="@weapon.ID">Details</a></td>
+                                    <td><a class="btn btn-primary" asp-controller="Weapon" asp-action="Update" asp-route-id="@weapon.ID">Edit</a></td>
+                                    <td><a class="btn btn-danger" asp-controller="Weapon" asp-action="Delete" asp-route-id="@weapon.ID">Delete</a></td>
+                            </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

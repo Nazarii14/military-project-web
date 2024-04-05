@@ -1,0 +1,44 @@
+﻿@model List<MilitaryProject.Domain.Entity.BrigadeStorage>
+
+@{
+    ViewData["Title"] = "Brigade Storage";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h2 class="text-center">Brigade Storage</h2>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Brigade ID</th>
+                        <th>Weapon ID</th>
+                        <th>Ammunition ID</th>
+                        <th>Weapon Quantity</th>
+                        <th>Ammunition Quantity</th>
+                        <th>Weapon Remainder</th>
+                        <th>Ammunition Remainder</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                            <tr>
+                                <td>@item.BrigadeID</td>
+                                <td>@item.WeaponID</td>
+                                <td>@item.AmmunitionID</td>
+                                <td>@item.WeaponQuantity</td>
+                                <td>@item.AmmunitionQuantity</td>
+                                <td>@item.WeaponRemainder</td>
+                                <td>@item.AmmunitionRemainder</td>
+                                <td><a asp-controller="BrigadeStorage" asp-action="Edit" asp-route-id="@item.ID">Edit</a></td>
+                                <td><a asp-controller="BrigadeStorage" asp-action="Delete" asp-route-id="@item.ID">Delete</a></td>
+                            </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,40 @@
+@using MilitaryProject.Domain.Entity
+@using MilitaryProject.Domain.ViewModels.Ammunition
+@model Ammunition
+
+@{
+    ViewData["Title"] = "Ammunition Details";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h2 class="text-center">Ammunition</h2>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>Type</th>
+                        <th>Size</th>
+                        <th>Edit</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>@Model.ID</td>
+                        <td>@Model.Name</td>
+                        <td>@Model.Price</td>
+                        <td>@Model.Type</td>
+                        <td>@Model.Size</td>
+                        <td><a class="btn btn-primary" asp-controller="Ammunition" asp-action="Update" asp-route-id="@Model.ID">Edit</a></td>
+                        <td><a class="btn btn-danger" asp-controller="Ammunition" asp-action="Delete" asp-route-id="@Model.ID">Delete</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+

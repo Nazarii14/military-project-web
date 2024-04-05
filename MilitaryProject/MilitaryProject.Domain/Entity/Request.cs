@@ -4,9 +4,9 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 
-namespace  MilitaryProject.Domain.Entity
+namespace MilitaryProject.Domain.Entity
 {
-   public class Request
+    public class Request
     {
         public int ID { get; set; }
         public int BrigadeID { get; set; }

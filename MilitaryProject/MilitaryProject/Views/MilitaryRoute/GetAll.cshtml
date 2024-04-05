@@ -1,0 +1,37 @@
+﻿@using MilitaryProject.Domain.Entity
+@using MilitaryProject.Domain.ViewModels.MilitaryRoute
+@model List<MilitaryRoute>
+
+@{
+    ViewData["Title"] = "MilitaryRoutes";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h2 class="text-center">Military Routes</h2>
+            <table class="table">
+                <a class="btn btn-success" asp-controller="MilitaryRoute" asp-action="Create">Create</a>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Details</th>
+                        <th>Edit</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var route in Model)
+                    {
+                                    <tr>
+                                        <td>@route.ID</td>
+                                            <td><a class="btn btn-outline-primary" asp-controller="MilitaryRoute" asp-action="GetById" asp-route-id="@route.ID">Details</a></td>
+                                            <td><a class="btn btn-primary" asp-controller="MilitaryRoute" asp-action="Update" asp-route-id="@route.ID">Edit</a></td>
+                                            <td><a class="btn btn-danger" asp-controller="MilitaryRoute" asp-action="Delete" asp-route-id="@route.ID">Delete</a></td>
+                                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
