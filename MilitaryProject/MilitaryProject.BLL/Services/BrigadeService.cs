@@ -68,55 +68,33 @@ namespace MilitaryProject.BLL.Services
 
         public async Task<BaseResponse<Brigade>> GetById(int id)
         {
-            try
-            {
-                var brigade = await _brigadeRepository.Getbyid(id);
+            var brigade = await _brigadeRepository.Getbyid(id);
 
-                if (brigade == null)
-                {
-                    return new BaseResponse<Brigade>
-                    {
-                        Description = "Brigade not found.",
-                        StatusCode = StatusCode.NotFound,
-                    };
-                }
-
-                return new BaseResponse<Brigade>
-                {
-                    Data = brigade,
-                    StatusCode = StatusCode.OK,
-                };
-            }
-            catch (Exception ex)
+            if (brigade == null)
             {
                 return new BaseResponse<Brigade>
                 {
-                    Description = $"Failed to get brigade: {ex.Message}",
-                    StatusCode = StatusCode.InternalServerError,
+                    Description = "Brigade not found.",
+                    StatusCode = StatusCode.NotFound,
                 };
             }
+
+            return new BaseResponse<Brigade>
+            {
+                Data = brigade,
+                StatusCode = StatusCode.OK,
+            };
         }
 
         public async Task<BaseResponse<List<Brigade>>> GetAll()
         {
-            try
-            {
-                var brigades = await _brigadeRepository.GetAll();
+            var brigades = await _brigadeRepository.GetAll();
 
-                return new BaseResponse<List<Brigade>>
-                {
-                    Data = brigades,
-                    StatusCode = StatusCode.OK,
-                };
-            }
-            catch (Exception ex)
+            return new BaseResponse<List<Brigade>>
             {
-                return new BaseResponse<List<Brigade>>
-                {
-                    Description = $"Failed to get brigades: {ex.Message}",
-                    StatusCode = StatusCode.InternalServerError,
-                };
-            }
+                Description = $"Failed to get brigades",
+                StatusCode = StatusCode.InternalServerError,
+            };
         }
 
         public async Task<BaseResponse<Brigade>> Update(BrigadeViewModel model)

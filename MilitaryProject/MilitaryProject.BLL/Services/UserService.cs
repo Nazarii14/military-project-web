@@ -36,55 +36,45 @@ namespace MilitaryProject.BLL.Services
 
         public async Task<BaseResponse<ClaimsIdentity>> SignUp(SignupViewModel model)
         {
-            try
+            var users = await _userRepository.GetAll();
+            var user = users.FirstOrDefault(x => x.Email == model.Email);
+
+            if (model == null)
             {
-                var users = await _userRepository.GetAll();
-                var user = users.FirstOrDefault(x => x.Email == model.Email);
-
-                if (model == null)
-                {
-                    return new BaseResponse<ClaimsIdentity>
-                    {
-                        Description = "Model is null",
-                    };
-                }
-
-                if (user != null)
-                {
-                    return new BaseResponse<ClaimsIdentity>
-                    {
-                        Description = "User is already exist",
-                    };
-                }
-
-                user = new User()
-                {
-                    Email = model.Email,
-                    Password = HashPasswordHelper.HashPassword(model.Password),
-                    Name = model.Name,
-                    Lastname = model.Lastname,
-                    Age = model.Age,
-                    Role = Role.Guest,
-                };
-
-                await _userRepository.Create(user);
-                var result = Authenticate(user);
-
                 return new BaseResponse<ClaimsIdentity>
                 {
-                    Data = result,
-                    Description = "User added",
-                    StatusCode = StatusCode.OK,
+                    Description = "Model is null",
                 };
             }
-            catch (Exception ex)
+
+            if (user != null)
             {
-                return new BaseResponse<ClaimsIdentity>()
+                return new BaseResponse<ClaimsIdentity>
                 {
-                    Description = $"[Signup] : {ex.Message}",
-                    StatusCode = StatusCode.InternalServerError,
+                    Description = "User is already exist",
                 };
             }
+
+            user = new User()
+            {
+                Email = model.Email,
+                Password = HashPasswordHelper.HashPassword(model.Password),
+                Name = model.Name,
+                Lastname = model.Lastname,
+                Age = model.Age,
+                //BrigadeID = 1,
+                Role = Role.Guest,
+            };
+
+            await _userRepository.Create(user);
+            var result = Authenticate(user);
+
+            return new BaseResponse<ClaimsIdentity>
+            {
+                Data = result,
+                Description = "User added",
+                StatusCode = StatusCode.OK,
+            };
         }
 
         public async Task<BaseResponse<ClaimsIdentity>> Login(LoginViewModel model)

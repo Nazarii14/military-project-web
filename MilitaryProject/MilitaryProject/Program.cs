@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using MilitaryProject;
 using MilitaryProject.DAL;
+using MilitaryProject.Domain.Extensions;
 using Serilog;
 using System.Configuration;
 
@@ -49,6 +50,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+app.UseErrorHandlingMiddleware();
 
 app.UseAuthentication();
 app.UseAuthorization();
