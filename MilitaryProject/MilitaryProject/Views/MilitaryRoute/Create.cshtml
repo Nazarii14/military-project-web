@@ -1,0 +1,61 @@
+﻿@using MilitaryProject.Domain.ViewModels.MilitaryRoute
+@model CreateMilitaryRouteViewModel
+
+@{
+    ViewData["Title"] = "Create Military Route";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <h1 class="card-header text-center">Create Military Route</h1>
+                <div class="card-body">
+                    <form asp-controller="MilitaryRoute" asp-action="Create" method="post">
+                        <div class="form-group">
+                            <label asp-for="VolunteerLastName">Volunteer lastname:</label>
+                            <input asp-for="VolunteerLastName" class="form-control" />
+                            <span asp-validation-for="VolunteerLastName" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="WeaponName">Weapon Name:</label>
+                            <input asp-for="WeaponName" class="form-control" />
+                            <span asp-validation-for="WeaponName" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="WeaponQuantity">Weapon Quantity:</label>
+                            <input asp-for="WeaponQuantity" class="form-control" />
+                            <span asp-validation-for="WeaponQuantity" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="AmmunitionName">Ammunition Name:</label>
+                            <input asp-for="AmmunitionName" class="form-control" />
+                            <span asp-validation-for="AmmunitionName" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="AmmunitionQuantity">Ammunition Quantity:</label>
+                            <input asp-for="AmmunitionQuantity" class="form-control" />
+                            <span asp-validation-for="AmmunitionQuantity" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="StartPoint">StartPoint:</label>
+                            <input asp-for="StartPoint" class="form-control" />
+                            <span asp-validation-for="StartPoint" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Destination">Destination:</label>
+                            <input asp-for="Destination" class="form-control" />
+                            <span asp-validation-for="Destination" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="DeliveryDate">Delivery date:</label>
+                            <input asp-for="DeliveryDate" class="form-control" />
+                            <span asp-validation-for="DeliveryDate" class="text-danger"></span>
+                        </div>
+                        <button type="submit" class="btn btn-primary mt-3">Create</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

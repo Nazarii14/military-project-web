@@ -1,0 +1,42 @@
+﻿@using MilitaryProject.Domain.Entity
+@using MilitaryProject.Domain.ViewModels.UserItems
+@model UserItems
+
+@{
+    ViewData["Title"] = "Getbyid";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h2 class="text-center">UserItem</h2>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>User ID</th>
+                        <th>User LastName</th>
+                        <th>Weapon ID</th>
+                        <th>Weapon Name</th>
+                        <th>Ammunition ID</th>
+                        <th>Ammunition Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>@Model.ID</td>
+                        <td>@Model.UserID</td>
+                        <td>@Model.User.Lastname</td>
+                        <td>@Model.WeaponID</td>
+                        <td>@Model.Weapon.Name</td>
+                        <td>@Model.AmmunitionID</td>
+                        <td>@Model.Ammunition.Name</td>
+                        <td><a class="btn btn-primary" asp-controller="UserItems" asp-action="Update" asp-route-id="@Model.ID">Edit</a></td>
+                        <td><a class="btn btn-danger" asp-controller="UserItems" asp-action="Delete" asp-route-id="@Model.ID">Delete</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
