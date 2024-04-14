@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using MilitaryProject;
 using MilitaryProject.DAL;
-using MilitaryProject.Domain.Extensions;
 using Serilog;
 using System.Configuration;
 
@@ -23,6 +22,7 @@ builder.Host.UseSerilog((context, loggerConfig) =>
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddHttpContextAccessor();
+builder.Services.AddSession();
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
@@ -50,7 +50,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-app.UseErrorHandlingMiddleware();
+app.UseMiddleware<ErrorHandlingMiddleware>();
 
 app.UseAuthentication();
 app.UseAuthorization();
@@ -58,5 +58,14 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllerRoute(
+        name: "Error",
+        pattern: "{*url}",
+        defaults: new { controller = "Home", action = "Status404" }
+    );
+});
 
 app.Run();

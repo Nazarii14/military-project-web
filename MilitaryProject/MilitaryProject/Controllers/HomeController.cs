@@ -23,6 +23,17 @@ namespace MilitaryProject.Controllers
             return View();
         }
 
+        public async Task<IActionResult> Status500(string errorMessage)
+        {
+            ViewBag.ErrorMessage = errorMessage;
+            return await Task.FromResult(View());
+        }
+
+        public async Task<IActionResult> Status404()
+        {
+            return await Task.FromResult(View());
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

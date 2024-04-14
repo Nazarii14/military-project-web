@@ -55,7 +55,6 @@ namespace MilitaryProject.Controllers
             {
                 TempData["AlertMessage"] = response.Description;
                 TempData["ResponseStatus"] = "Error";
-                //return RedirectToAction("Index", "Home");
                 return View();
             }
         }

@@ -30,243 +30,188 @@ namespace MilitaryProject.BLL.Services
 
         public async Task<BaseResponse<UserItems>> GetUserItem(int id)
         {
-            try
-            {
-                var response = await _userItemsRepository.GetAll();
-                var userItem = response.FirstOrDefault(u => u.ID == id);
+            var response = await _userItemsRepository.GetAll();
+            var userItem = response.FirstOrDefault(u => u.ID == id);
 
-                if (userItem == null)
-                {
-                    return new BaseResponse<UserItems>
-                    {
-                        Description = "User item does not exist",
-                        StatusCode = StatusCode.NotFound
-                    };
-                }
-
-                return new BaseResponse<UserItems>
-                {
-                    Data = userItem,
-                    StatusCode = StatusCode.OK
-                };
-            }
-            catch (Exception ex)
+            if (userItem == null)
             {
                 return new BaseResponse<UserItems>
                 {
-                    Description = $"[GetUserItem] Error: {ex.Message}",
-                    StatusCode = StatusCode.InternalServerError
+                    Description = "User item does not exist",
+                    StatusCode = StatusCode.NotFound
                 };
             }
+
+            return new BaseResponse<UserItems>
+            {
+                Data = userItem,
+                StatusCode = StatusCode.OK
+            };
         }
 
         public async Task<BaseResponse<List<UserItems>>> GetUserItems()
         {
-            try
-            {
-                var response = await _userItemsRepository.GetAll();
+            var response = await _userItemsRepository.GetAll();
 
-                return new BaseResponse<List<UserItems>>
-                {
-                    Data = response,
-                    StatusCode = Domain.Enum.StatusCode.OK
-                };
-            }
-            catch (Exception ex)
+            return new BaseResponse<List<UserItems>>
             {
-                return new BaseResponse<List<UserItems>>
-                {
-                    Description = $"[GetUserItems] Error: {ex.Message}",
-                    StatusCode = StatusCode.InternalServerError
-                };
-            }
+                Data = response,
+                StatusCode = Domain.Enum.StatusCode.OK
+            };
         }
 
         public async Task<BaseResponse<UserItems>> Create(UserItemsViewModel model)
         {
-            try
-            {
-                var response = await _userItemsRepository.GetAll();
-                var existingUserItem = response.FirstOrDefault(u => u.UserID == model.UserID && u.WeaponID == model.WeaponID && u.AmmunitionID == model.AmmunitionID);
+            var response = await _userItemsRepository.GetAll();
+            var existingUserItem = response.FirstOrDefault(u => u.UserID == model.UserID && u.WeaponID == model.WeaponID && u.AmmunitionID == model.AmmunitionID);
 
-                if (existingUserItem != null)
-                {
-                    return new BaseResponse<UserItems>
-                    {
-                        Description = "User item already exists",
-                        StatusCode = StatusCode.InternalServerError
-                    };
-                }
-
-                var responseUser = await _userRepository.GetAll();
-                var user = responseUser.FirstOrDefault(u => u.ID == model.UserID);
-                if (user == null)
-                {
-                    return new BaseResponse<UserItems>
-                    {
-                        Description = "User does not exist",
-                        StatusCode = StatusCode.NotFound
-                    };
-                }
-
-                var responseWeapon = await _weaponRepository.GetAll();
-                var weapon = responseWeapon.FirstOrDefault(w => w.ID == model.WeaponID);
-                if (weapon == null)
-                {
-                    return new BaseResponse<UserItems>
-                    {
-                        Description = "Weapon does not exist",
-                        StatusCode = StatusCode.NotFound
-                    };
-                }
-
-                var responseAmmunition = await _ammunitionRepository.GetAll();
-                var ammunition = responseAmmunition.FirstOrDefault(a => a.ID == model.AmmunitionID);
-                if (ammunition == null)
-                {
-                    return new BaseResponse<UserItems>
-                    {
-                        Description = "Ammunition does not exist",
-                        StatusCode = StatusCode.NotFound
-                    };
-                }
-
-                var newUserItem = new UserItems
-                {
-                    UserID = model.UserID,
-                    WeaponID = model.WeaponID,
-                    AmmunitionID = model.AmmunitionID,
-                    User = user,
-                    Weapon = weapon,
-                    Ammunition = ammunition,
-                };
-
-                await _userItemsRepository.Create(newUserItem);
-
-                return new BaseResponse<UserItems>
-                {
-                    Data = newUserItem,
-                    StatusCode = StatusCode.OK
-                };
-            }
-            catch (Exception ex)
+            if (existingUserItem != null)
             {
                 return new BaseResponse<UserItems>
                 {
-                    Description = $"[CreateUserItems] Error: {ex.Message}",
+                    Description = "User item already exists",
                     StatusCode = StatusCode.InternalServerError
                 };
             }
+
+            var responseUser = await _userRepository.GetAll();
+            var user = responseUser.FirstOrDefault(u => u.ID == model.UserID);
+            if (user == null)
+            {
+                return new BaseResponse<UserItems>
+                {
+                    Description = "User does not exist",
+                    StatusCode = StatusCode.NotFound
+                };
+            }
+
+            var responseWeapon = await _weaponRepository.GetAll();
+            var weapon = responseWeapon.FirstOrDefault(w => w.ID == model.WeaponID);
+            if (weapon == null)
+            {
+                return new BaseResponse<UserItems>
+                {
+                    Description = "Weapon does not exist",
+                    StatusCode = StatusCode.NotFound
+                };
+            }
+
+            var responseAmmunition = await _ammunitionRepository.GetAll();
+            var ammunition = responseAmmunition.FirstOrDefault(a => a.ID == model.AmmunitionID);
+            if (ammunition == null)
+            {
+                return new BaseResponse<UserItems>
+                {
+                    Description = "Ammunition does not exist",
+                    StatusCode = StatusCode.NotFound
+                };
+            }
+
+            var newUserItem = new UserItems
+            {
+                UserID = model.UserID,
+                WeaponID = model.WeaponID,
+                AmmunitionID = model.AmmunitionID,
+                User = user,
+                Weapon = weapon,
+                Ammunition = ammunition,
+            };
+
+            await _userItemsRepository.Create(newUserItem);
+
+            return new BaseResponse<UserItems>
+            {
+                Data = newUserItem,
+                StatusCode = StatusCode.OK
+            };
         }
 
 
         public async Task<BaseResponse<UserItems>> Update(UserItemsViewModel model)
         {
-            try
-            {
-                var response = await _userItemsRepository.GetAll();
-                var existingUserItem = response.FirstOrDefault(u => u.ID == model.ID);
+            var response = await _userItemsRepository.GetAll();
+            var existingUserItem = response.FirstOrDefault(u => u.ID == model.ID);
 
-                if (existingUserItem == null)
-                {
-                    return new BaseResponse<UserItems>
-                    {
-                        Description = "User item does not exist",
-                        StatusCode = StatusCode.NotFound
-                    };
-                }
-
-                var responseUser = await _userRepository.GetAll();
-                var user = responseUser.FirstOrDefault(u => u.ID == model.UserID);
-                if (user == null)
-                {
-                    return new BaseResponse<UserItems>
-                    {
-                        Description = "User does not exist",
-                        StatusCode = StatusCode.NotFound
-                    };
-                }
-
-                var responseWeapon = await _weaponRepository.GetAll();
-                var weapon = responseWeapon.FirstOrDefault(w => w.ID == model.WeaponID);
-                if (weapon == null)
-                {
-                    return new BaseResponse<UserItems>
-                    {
-                        Description = "Weapon does not exist",
-                        StatusCode = StatusCode.NotFound
-                    };
-                }
-
-                var responseAmmunition = await _ammunitionRepository.GetAll();
-                var ammunition = responseAmmunition.FirstOrDefault(a => a.ID == model.AmmunitionID);
-                if (ammunition == null)
-                {
-                    return new BaseResponse<UserItems>
-                    {
-                        Description = "Ammunition does not exist",
-                        StatusCode = StatusCode.NotFound
-                    };
-                }
-
-                existingUserItem.UserID = model.UserID;
-                existingUserItem.WeaponID = model.WeaponID;
-                existingUserItem.AmmunitionID = model.AmmunitionID;
-                existingUserItem.User = user;
-                existingUserItem.Weapon = weapon;
-                existingUserItem.Ammunition = ammunition;
-
-                await _userItemsRepository.Update(existingUserItem);
-
-                return new BaseResponse<UserItems>
-                {
-                    Data = existingUserItem,
-                    StatusCode = StatusCode.OK
-                };
-            }
-            catch (Exception ex)
+            if (existingUserItem == null)
             {
                 return new BaseResponse<UserItems>
                 {
-                    Description = $"[UpdateUserItems] Error: {ex.Message}",
-                    StatusCode = StatusCode.InternalServerError
+                    Description = "User item does not exist",
+                    StatusCode = StatusCode.NotFound
                 };
             }
+
+            var responseUser = await _userRepository.GetAll();
+            var user = responseUser.FirstOrDefault(u => u.ID == model.UserID);
+            if (user == null)
+            {
+                return new BaseResponse<UserItems>
+                {
+                    Description = "User does not exist",
+                    StatusCode = StatusCode.NotFound
+                };
+            }
+
+            var responseWeapon = await _weaponRepository.GetAll();
+            var weapon = responseWeapon.FirstOrDefault(w => w.ID == model.WeaponID);
+            if (weapon == null)
+            {
+                return new BaseResponse<UserItems>
+                {
+                    Description = "Weapon does not exist",
+                    StatusCode = StatusCode.NotFound
+                };
+            }
+
+            var responseAmmunition = await _ammunitionRepository.GetAll();
+            var ammunition = responseAmmunition.FirstOrDefault(a => a.ID == model.AmmunitionID);
+            if (ammunition == null)
+            {
+                return new BaseResponse<UserItems>
+                {
+                    Description = "Ammunition does not exist",
+                    StatusCode = StatusCode.NotFound
+                };
+            }
+
+            existingUserItem.UserID = model.UserID;
+            existingUserItem.WeaponID = model.WeaponID;
+            existingUserItem.AmmunitionID = model.AmmunitionID;
+            existingUserItem.User = user;
+            existingUserItem.Weapon = weapon;
+            existingUserItem.Ammunition = ammunition;
+
+            await _userItemsRepository.Update(existingUserItem);
+
+            return new BaseResponse<UserItems>
+            {
+                Data = existingUserItem,
+                StatusCode = StatusCode.OK
+            };
         }
 
         public async Task<BaseResponse<bool>> Delete(int id)
         {
-            try
-            {
-                var response = await _userItemsRepository.GetAll();
-                var userItem = response.FirstOrDefault(u => u.ID == id);
+            var response = await _userItemsRepository.GetAll();
+            var userItem = response.FirstOrDefault(u => u.ID == id);
 
-                if (userItem == null)
-                {
-                    return new BaseResponse<bool>
-                    {
-                        Data = false,
-                        Description = "User item does not exist",
-                        StatusCode = StatusCode.NotFound
-                    };
-                }
-
-                await _userItemsRepository.Delete(userItem);
-
-                return new BaseResponse<bool>
-                {
-                    Data = true,
-                    StatusCode = StatusCode.OK
-                };
-            }
-            catch (Exception ex)
+            if (userItem == null)
             {
                 return new BaseResponse<bool>
                 {
-                    Description = $"[DeleteUserItems] Error: {ex.Message}",
-                    StatusCode = StatusCode.InternalServerError
+                    Data = false,
+                    Description = "User item does not exist",
+                    StatusCode = StatusCode.NotFound
                 };
             }
+
+            await _userItemsRepository.Delete(userItem);
+
+            return new BaseResponse<bool>
+            {
+                Data = true,
+                StatusCode = StatusCode.OK
+            };
         }
     }
 }

@@ -79,53 +79,42 @@ namespace MilitaryProject.BLL.Services
 
         public async Task<BaseResponse<ClaimsIdentity>> Login(LoginViewModel model)
         {
-            try
+            if (model == null)
             {
-                if (model == null)
-                {
-                    return new BaseResponse<ClaimsIdentity>
-                    {
-                        Description = "Model is null",
-                    };
-                }
-
-                var users = await _userRepository.GetAll();
-                var user = users.FirstOrDefault(x => x.Email == model.Email);
-
-                if (user == null)
-                {
-                    return new BaseResponse<ClaimsIdentity>
-                    {
-                        Description = "User does not exist",
-                    };
-                }
-
-                if (user.Password != HashPasswordHelper.HashPassword(model.Password)
-                    || user.Email != model.Email)
-                {
-                    return new BaseResponse<ClaimsIdentity>()
-                    {
-                        Description = "Invalid password",
-                    };
-                }
-
-                var result = Authenticate(user);
-
                 return new BaseResponse<ClaimsIdentity>
                 {
-                    Data = result,
-                    Description = "User logined",
-                    StatusCode = StatusCode.OK,
+                    Description = "Model is null",
                 };
             }
-            catch (Exception ex)
+
+            var users = await _userRepository.GetAll();
+            var user = users.FirstOrDefault(x => x.Email == model.Email);
+
+            if (user == null)
+            {
+                return new BaseResponse<ClaimsIdentity>
+                {
+                    Description = "User does not exist",
+                };
+            }
+
+            if (user.Password != HashPasswordHelper.HashPassword(model.Password)
+                || user.Email != model.Email)
             {
                 return new BaseResponse<ClaimsIdentity>()
                 {
-                    Description = $"[Login] : {ex.Message}",
-                    StatusCode = StatusCode.InternalServerError
+                    Description = "Invalid password",
                 };
             }
+
+            var result = Authenticate(user);
+
+            return new BaseResponse<ClaimsIdentity>
+            {
+                Data = result,
+                Description = "User logined",
+                StatusCode = StatusCode.OK,
+            };
         }
     }
 }

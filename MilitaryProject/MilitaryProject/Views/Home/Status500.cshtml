@@ -1,0 +1,50 @@
+﻿<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800&family=Poppins&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="/img/army-512.png">
+<script src="/js/save.js" asp-append-version="true"></script>
+
+@{
+    Layout = null;
+    <title>Error - MilitaryProject</title>
+
+    var errorMessage = ViewBag.ErrorMessage as string;
+}
+
+<body class="error_page">
+    <main>
+        <div class="error_bg">
+            <div class="error_container">
+                <div class="first_error_column">
+                    <span class="error_text">Error</span>
+                    <span class="error_code">500</span>
+                </div>
+                <div class="second_error_column">
+                    <span class="error_title">Oops! INTERNAL SERVER ERROR.</span>
+                    @if (string.IsNullOrEmpty(errorMessage))
+                    {
+                        <br /><span class="error_description">
+                        Sorry, our team is already working 
+                        on a solution to this problem. 
+                        <br /><span class="error_description">
+                            Please check back later or contact 
+                            an administrator for further assistance
+                            </span>
+                        </span>
+                        
+                    }
+                    else
+                    {
+                        <br /><span class="error_description" style="color:red">
+                        @ViewBag.ErrorMessage
+                        </span>
+                    }
+                    <a class="error_back_button" asp-controller="Home" asp-action="Index">
+                        <span class="readmore_text">Back to Homepage</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>

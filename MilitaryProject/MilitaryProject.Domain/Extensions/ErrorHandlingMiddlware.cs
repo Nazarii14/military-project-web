@@ -1,47 +1,25 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http;
-using MilitaryProject.Domain.Enum;
+﻿using Microsoft.AspNetCore.Http;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace MilitaryProject.Domain.Extensions
+public class ErrorHandlingMiddleware
 {
-    public class ErrorHandlingMiddleware
+    private readonly RequestDelegate _next;
+
+    public ErrorHandlingMiddleware(RequestDelegate next)
     {
-        private readonly RequestDelegate _next;
-
-        public ErrorHandlingMiddleware(RequestDelegate next)
-        {
-            _next = next;
-        }
-
-        public async Task Invoke(HttpContext context)
-        {
-            try
-            {
-                await _next(context);
-            }
-            catch (Exception ex)
-            {
-                var response = new
-                {
-                    Description = ex.Message,
-                    StatusCode = StatusCode.InternalServerError,
-                };
-
-                context.Response.StatusCode = (int)StatusCode.InternalServerError;
-            }
-        }
+        _next = next;
     }
 
-    public static class ErrorHandlingMiddlewareExtensions
+    public async Task Invoke(HttpContext context)
     {
-        public static IApplicationBuilder UseErrorHandlingMiddleware(this IApplicationBuilder builder)
+        try
         {
-            return builder.UseMiddleware<ErrorHandlingMiddleware>();
+            await _next(context);
+        }
+        catch (Exception ex)
+        {
+            context.Response.Redirect($"/Home/Status500?errorMessage={ex.Message}");
         }
     }
 }
