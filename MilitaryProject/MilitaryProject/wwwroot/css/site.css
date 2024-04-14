@@ -73,7 +73,8 @@ body {
 }
 
 .error_description {
-    font-size: 20px;
+    margin-top: -15px;
+    font-size: 18px;
     font-family: "Poppins";
     color: white;
 }
