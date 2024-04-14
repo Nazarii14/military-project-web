@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MilitaryProject.BLL.Interfaces;
 using MilitaryProject.Domain.ViewModels.Brigade;
+using MilitaryProject.Extensions;
+
 
 namespace MilitaryProject.Controllers
 {
@@ -22,22 +24,10 @@ namespace MilitaryProject.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(BrigadeViewModel model)
         {
-
-
-
             if (ModelState.IsValid)
             {
                 var response = await _brigadeService.Create(model);
-
-                if (response.StatusCode == Domain.Enum.StatusCode.OK)
-                {
-                    return RedirectToAction("GetAll", "Brigade");
-                }
-                else
-                {
-                    TempData["AlertMessage"] = response.Description;
-                    TempData["ResponseStatus"] = "Error";
-                }
+                return this.HandleResponse(response, "GetAll", "Brigade");
             }
             return View(model);
         }
@@ -46,67 +36,27 @@ namespace MilitaryProject.Controllers
         public async Task<IActionResult> GetAll()
         {
             var response = await _brigadeService.GetAll();
-
-            if (response.StatusCode == Domain.Enum.StatusCode.OK)
-            {
-                return View(response.Data);
-            }
-            else
-            {
-                TempData["AlertMessage"] = response.Description;
-                TempData["ResponseStatus"] = "Error";
-                return View();
-            }
+            return this.HandleResponse(response);
         }
 
         [HttpGet]
         public async Task<IActionResult> GetBrigade(int id)
         {
             var responce = await _brigadeService.GetById(id);
-
-            if (responce.StatusCode == Domain.Enum.StatusCode.OK)
-            {
-                return View(responce.Data);
-            }
-            else
-            {
-                TempData["AlertMessage"] = responce.Description;
-                TempData["ResponseStatus"] = "Error";
-                return BadRequest(responce.Description);
-            }
+            return this.HandleResponse(responce);
         }
 
         [HttpGet]
         public async Task<IActionResult> Details(int id)
         {
             var response = await _brigadeService.GetById(id);
-
-            if (response.StatusCode == Domain.Enum.StatusCode.OK)
-            {
-                return View(response.Data);
-            }
-            else
-            {
-                TempData["AlertMessage"] = response.Description;
-                TempData["ResponseStatus"] = "Error";
-                return RedirectToAction("Index", "Home");
-            }
+            return this.HandleResponse(response);
         }
 
         public async Task<IActionResult> Update(int id)
         {
             var response = await _brigadeService.GetById(id);
-
-            if (response.StatusCode == Domain.Enum.StatusCode.OK)
-            {
-                return View(response.Data);
-            }
-            else
-            {
-                TempData["AlertMessage"] = response.Description;
-                TempData["ResponseStatus"] = "Error";
-                return RedirectToAction("GetAll", "Brigade");
-            }
+            return this.HandleResponse(response);
         }
 
 
@@ -116,16 +66,7 @@ namespace MilitaryProject.Controllers
             if (ModelState.IsValid)
             {
                 var response = await _brigadeService.Update(model);
-
-                if (response.StatusCode == Domain.Enum.StatusCode.OK)
-                {
-                    return RedirectToAction("GetAll", "Brigade");
-                }
-                else
-                {
-                    TempData["AlertMessage"] = response.Description;
-                    TempData["ResponseStatus"] = "Error";
-                }
+                return this.HandleResponse(response, "GetAll", "Brigade");
             }
             return View(model);
         }
@@ -133,19 +74,7 @@ namespace MilitaryProject.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             var response = await _brigadeService.Delete(id);
-
-            if (response.StatusCode == Domain.Enum.StatusCode.OK)
-            {
-                TempData["AlertMessage"] = "Brigade deleted successfully.";
-                TempData["ResponseStatus"] = "Success";
-            }
-            else
-            {
-                TempData["AlertMessage"] = response.Description;
-                TempData["ResponseStatus"] = "Error";
-            }
-
-            return RedirectToAction("GetAll", "Brigade");
+            return this.HandleResponse(response, "GetAll", "Brigade");
         }
 
     }
