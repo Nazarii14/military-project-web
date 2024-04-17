@@ -1,12 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using MilitaryProject.Domain.Enum;
 
 namespace MilitaryProject.Domain.Entity
 {
-  public class User
+    public class User
     {
         public int ID { get; set; }
         public int BrigadeID { get; set; }

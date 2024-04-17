@@ -18,5 +18,9 @@ namespace MilitaryProject.Domain.ViewModels.User
         [DataType(DataType.Password)]
         [MinLength(6, ErrorMessage = "Password must be greater than 6")]
         public string Password { get; set; }
+
+        [Required(ErrorMessage = "Enter the 2FA code")]
+        [StringLength(6, ErrorMessage = "2FA code must be 6 characters", MinimumLength = 6)]
+        public string TwoFactorSecretKey { get; set; }
     }
 }
