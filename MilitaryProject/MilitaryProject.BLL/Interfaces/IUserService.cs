@@ -12,9 +12,11 @@ namespace MilitaryProject.BLL.Interfaces
 {
     public interface IUserService
     {
-        Task<BaseResponse<ClaimsIdentity>> SignUp(SignupViewModel model);
+        Task<BaseResponse<TwoFAViewModel>> SignUp(SignupViewModel model);
         Task<BaseResponse<TwoFAViewModel>> Login(LoginViewModel model);
         Task<BaseResponse<User>> CheckCreds(LoginViewModel model);
         Task<BaseResponse<string>> QrCode(LoginViewModel model);
+        Task<BaseResponse<string>> QrCode(SignupViewModel model);
+        Task<BaseResponse<User>> CheckUserExistence(SignupViewModel model);
     }
 }

@@ -13,6 +13,7 @@ using Azure.Core;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Newtonsoft.Json.Linq;
 using static QRCoder.PayloadGenerator.WiFi;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace MilitaryProject.BLL.Services
 {
@@ -25,26 +26,10 @@ namespace MilitaryProject.BLL.Services
             _userRepository = userRepository;
         }
 
-        public async Task<BaseResponse<ClaimsIdentity>> SignUp(SignupViewModel model)
+        public async Task<BaseResponse<TwoFAViewModel>> SignUp(SignupViewModel model)
         {
-            var users = await _userRepository.GetAll();
-            var user = users.FirstOrDefault(x => x.Email == model.Email);
-
-            if (model == null)
-            {
-                return new BaseResponse<ClaimsIdentity>
-                {
-                    Description = "Model is null",
-                };
-            }
-
-            if (user != null)
-            {
-                return new BaseResponse<ClaimsIdentity>
-                {
-                    Description = "User is already exist",
-                };
-            }
+            var userCheck = await CheckUserExistence(model);
+            var user = userCheck.Data;
 
             user = new User()
             {
@@ -59,12 +44,12 @@ namespace MilitaryProject.BLL.Services
 
             var userEmail = user.Email;
             var key = KeyGeneration(userEmail);
-            var qrCodeUrl = GenerateQrCodeUrl(userEmail);
+            var qrCodeUrl = await QrCode(model);
             var isVerified = Verify2FA(key, model.TwoFactorSecretKey);
 
             if (!isVerified)
             {
-                return new BaseResponse<ClaimsIdentity>()
+                return new BaseResponse<TwoFAViewModel>()
                 {
                     Description = "Invalid 2FA code",
                 };
@@ -73,9 +58,13 @@ namespace MilitaryProject.BLL.Services
             await _userRepository.Create(user);
             var result = Authenticate(user);
 
-            return new BaseResponse<ClaimsIdentity>
+            return new BaseResponse<TwoFAViewModel>
             {
-                Data = result,
+                Data = new TwoFAViewModel
+                {
+                    Claims = result,
+                    QrCode = qrCodeUrl.Data,
+                },
                 Description = "User added",
                 StatusCode = StatusCode.OK,
             };
@@ -150,6 +139,34 @@ namespace MilitaryProject.BLL.Services
             };
         }
 
+        public async Task<BaseResponse<User>> CheckUserExistence(SignupViewModel model)
+        {
+            if (model == null)
+            {
+                return new BaseResponse<User>
+                {
+                    Description = "Model is null",
+                };
+            }
+
+            var users = await _userRepository.GetAll();
+            var user = users.FirstOrDefault(x => x.Email == model.Email);
+
+            if (user != null)
+            {
+                return new BaseResponse<User>
+                {
+                    Description = "User is already exist",
+                };
+            }
+
+            return new BaseResponse<User>
+            {
+                Data = user,
+                StatusCode= StatusCode.OK,
+            };
+        }
+
         public async Task<BaseResponse<string>> QrCode(LoginViewModel model)
         {
             var response = await CheckCreds(model);
@@ -157,6 +174,17 @@ namespace MilitaryProject.BLL.Services
 
             var userEmail = user.Email;
             var qrCodeUrl = GenerateQrCodeUrl(userEmail);
+
+            return new BaseResponse<string>
+            {
+                Data = qrCodeUrl,
+                StatusCode = StatusCode.OK,
+            };
+        }
+
+        public async Task<BaseResponse<string>> QrCode(SignupViewModel model)
+        {
+            var qrCodeUrl = GenerateQrCodeUrl(model.Email);
 
             return new BaseResponse<string>
             {

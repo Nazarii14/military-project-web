@@ -27,12 +27,39 @@ namespace MilitaryProject.Controllers
         {
             if (ModelState.IsValid)
             {
+                var response = await _userService.CheckUserExistence(model);
+
+                if (response.StatusCode == Domain.Enum.StatusCode.OK && response.Data == null)
+                {
+                    return RedirectToAction("SignupTwoFA", "User", model);
+                }
+                else
+                {
+                    TempData["AlertMessage"] = response.Description;
+                    TempData["ResponseStatus"] = "Error";
+                }
+            }
+            return View(model);
+        }
+
+        public async Task<IActionResult> SignupTwoFA(SignupViewModel model)
+        {
+            var response = await _userService.QrCode(model);
+            model.QrCode = response.Data;
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> TwoFASignup(SignupViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
                 var response = await _userService.SignUp(model);
 
                 if (response.StatusCode == Domain.Enum.StatusCode.OK)
                 {
                     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
-                        new ClaimsPrincipal(response.Data));
+                        new ClaimsPrincipal(response.Data.Claims));
                     return RedirectToAction("Index", "Home");
                 }
                 else
@@ -58,7 +85,7 @@ namespace MilitaryProject.Controllers
 
                 if (response.StatusCode == Domain.Enum.StatusCode.OK && response.Data != null)
                 {
-                    return RedirectToAction("TwoFA", "User", model);
+                    return RedirectToAction("LoginTwoFA", "User", model);
                 }
                 else
                 {
@@ -69,7 +96,7 @@ namespace MilitaryProject.Controllers
             return View(model);
         }
 
-        public async Task<IActionResult> TwoFA(LoginViewModel model)
+        public async Task<IActionResult> LoginTwoFA(LoginViewModel model)
         {
             var response = await _userService.QrCode(model);
             model.QrCode = response.Data;

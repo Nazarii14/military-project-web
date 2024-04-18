@@ -12,7 +12,7 @@
                 <h1 class="card-header text-center">Login</h1>
                 <div class="card-body">
                     <form asp-controller="User" asp-action="TwoFALogin">
-                        <input asp-for="Email" hidden/>
+                        <input asp-for="Email" value="@Model.Email" hidden />
                         <input asp-for="Password" value="@Model.Password" hidden />
                         <div class="form-group text-center">
                             <label for="QrCode">Scan the QR Code:</label>
