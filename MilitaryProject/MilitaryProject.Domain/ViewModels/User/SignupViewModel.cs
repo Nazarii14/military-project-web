@@ -35,6 +35,8 @@ namespace MilitaryProject.Domain.ViewModels.User
 
         [Required(ErrorMessage = "Enter the 2FA code")]
         [StringLength(6, ErrorMessage = "2FA code must be 6 characters", MinimumLength = 6)]
-        public string TwoFactorSecretKey { get; set; }
+        public string? TwoFactorSecretKey { get; set; }
+
+        public string? QrCode { get; set; }
     }
 }

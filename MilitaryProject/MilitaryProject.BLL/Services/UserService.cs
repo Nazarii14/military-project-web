@@ -81,11 +81,43 @@ namespace MilitaryProject.BLL.Services
             };
         }
 
-        public async Task<BaseResponse<ClaimsIdentity>> Login(LoginViewModel model)
+        public async Task<BaseResponse<TwoFAViewModel>> Login(LoginViewModel model)
+        {
+            var response = await CheckCreds(model);
+            var user = response.Data;
+
+            var userEmail = user.Email;
+            var key = KeyGeneration(userEmail);
+            var qrCodeUrl = await QrCode(model);
+            var isVerified = Verify2FA(key, model.TwoFactorSecretKey);
+
+            if (!isVerified)
+            {
+                return new BaseResponse<TwoFAViewModel>()
+                {
+                    Description = "Invalid 2FA code",
+                };
+            }
+
+            var result = Authenticate(user);
+
+            return new BaseResponse<TwoFAViewModel>
+            {
+                Data = new TwoFAViewModel
+                {
+                    Claims = result,
+                    QrCode = qrCodeUrl.Data,
+                },
+                Description = "User logined",
+                StatusCode = StatusCode.OK,
+            };
+        }
+
+        public async Task<BaseResponse<User>> CheckCreds(LoginViewModel model)
         {
             if (model == null)
             {
-                return new BaseResponse<ClaimsIdentity>
+                return new BaseResponse<User>
                 {
                     Description = "Model is null",
                 };
@@ -96,7 +128,7 @@ namespace MilitaryProject.BLL.Services
 
             if (user == null)
             {
-                return new BaseResponse<ClaimsIdentity>
+                return new BaseResponse<User>
                 {
                     Description = "User does not exist",
                 };
@@ -105,31 +137,30 @@ namespace MilitaryProject.BLL.Services
             if (user.Password != HashPasswordHelper.HashPassword(model.Password)
                 || user.Email != model.Email)
             {
-                return new BaseResponse<ClaimsIdentity>()
+                return new BaseResponse<User>()
                 {
                     Description = "Invalid password",
                 };
             }
 
+            return new BaseResponse<User>
+            {
+                Data = user,
+                StatusCode= StatusCode.OK,
+            };
+        }
+
+        public async Task<BaseResponse<string>> QrCode(LoginViewModel model)
+        {
+            var response = await CheckCreds(model);
+            var user = response.Data;
+
             var userEmail = user.Email;
-            var key = KeyGeneration(userEmail);
             var qrCodeUrl = GenerateQrCodeUrl(userEmail);
-            var isVerified = Verify2FA(key, model.TwoFactorSecretKey);
 
-            if (!isVerified)
+            return new BaseResponse<string>
             {
-                return new BaseResponse<ClaimsIdentity>()
-                {
-                    Description = "Invalid 2FA code",
-                };
-            }
-
-            var result = Authenticate(user);
-
-            return new BaseResponse<ClaimsIdentity>
-            {
-                Data = result,
-                Description = "User logined",
+                Data = qrCodeUrl,
                 StatusCode = StatusCode.OK,
             };
         }
@@ -143,7 +174,7 @@ namespace MilitaryProject.BLL.Services
         {
             var authenticator = new TwoFactorAuthenticator();
             var key = KeyGeneration(userEmail);
-            var setupInfo = authenticator.GenerateSetupCode("MilitaryProject", userEmail, key, false, 300);
+            var setupInfo = authenticator.GenerateSetupCode("MilitaryProject", userEmail, key, false, 100);
             return setupInfo.QrCodeSetupImageUrl;
         }
 
