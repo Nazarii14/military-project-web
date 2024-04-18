@@ -11,7 +11,7 @@
             <div class="card">
                 <h1 class="card-header text-center">Register</h1>
                 <div class="card-body">
-                    <form asp-controller="User" asp-action="TwoFASignup">
+                    <form asp-controller="User" asp-action="SignupTwoFA">
                         <input asp-for="Email" hidden />
                         <input asp-for="Password" value="@Model.Password" hidden />
                         <input asp-for="QrCode" value="@Model.QrCode" hidden />

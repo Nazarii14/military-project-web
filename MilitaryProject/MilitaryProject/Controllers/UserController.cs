@@ -54,7 +54,7 @@ namespace MilitaryProject.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> TwoFASignup(SignupViewModel model)
+        public async Task<IActionResult> SignupTwoFA(SignupViewModel model, CancellationToken token)
         {
             if (ModelState.IsValid)
             {
@@ -108,7 +108,7 @@ namespace MilitaryProject.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> TwoFALogin(LoginViewModel model)
+        public async Task<IActionResult> LoginTwoFA(LoginViewModel model, CancellationToken token)
         {
             if (ModelState.IsValid)
             {
