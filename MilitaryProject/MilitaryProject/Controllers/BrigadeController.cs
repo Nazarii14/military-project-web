@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MilitaryProject.BLL.Interfaces;
 using MilitaryProject.Domain.ViewModels.Brigade;
 using MilitaryProject.Extensions;
@@ -33,6 +34,7 @@ namespace MilitaryProject.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, Commander")]
         public async Task<IActionResult> GetAll()
         {
             var response = await _brigadeService.GetAll();

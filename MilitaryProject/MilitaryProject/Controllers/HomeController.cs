@@ -34,6 +34,11 @@ namespace MilitaryProject.Controllers
             return await Task.FromResult(View());
         }
 
+        public async Task<IActionResult> Status403()
+        {
+            return await Task.FromResult(View());
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

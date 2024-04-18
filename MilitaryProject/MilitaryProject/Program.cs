@@ -28,7 +28,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     .AddCookie(options =>
     {
         options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/User/Login");
-        options.AccessDeniedPath = new Microsoft.AspNetCore.Http.PathString("/User/Login");
+        options.AccessDeniedPath = new Microsoft.AspNetCore.Http.PathString("/Home/Status403");
     });
 
 builder.Services.InitializeRepositories();
