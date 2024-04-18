@@ -13,8 +13,12 @@
 
 @{
     bool auth = User.Identity.IsAuthenticated;
+    string roleClaim = string.Empty;
     var name = User.Identity.Name;
-    var roleClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role).Value;
+    if (auth)
+    {
+        roleClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role).Value;
+    }
 }
 
 <body>

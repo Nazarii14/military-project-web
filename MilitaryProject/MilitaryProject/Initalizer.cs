@@ -30,6 +30,7 @@ namespace MilitaryProject
             services.AddScoped<IAmmunitionService, AmmunitionService>();
             services.AddScoped<IMilitaryRouteService, MilitaryRouteService>();
             services.AddScoped<IUserItemsService, UserItemsService>();
+            services.AddScoped<IEmailService, EmailService>();
         }
     }
 }

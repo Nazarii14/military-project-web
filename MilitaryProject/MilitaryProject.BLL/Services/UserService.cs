@@ -14,6 +14,8 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Newtonsoft.Json.Linq;
 using static QRCoder.PayloadGenerator.WiFi;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+using AutoMapper;
+using System.Security.Cryptography;
 
 namespace MilitaryProject.BLL.Services
 {
@@ -24,6 +26,27 @@ namespace MilitaryProject.BLL.Services
         public UserService(BaseRepository<User> userRepository)
         {
             _userRepository = userRepository;
+        }
+
+        public async Task<BaseResponse<User>> GetUser(string email)
+        {
+            var users = await _userRepository.GetAll();
+            var user = users.FirstOrDefault(x => x.Email == email);
+
+            if (user == null)
+            {
+                return new BaseResponse<User>()
+                {
+                    Description = "User not found",
+                    StatusCode = StatusCode.NotFound
+                };
+            }
+
+            return new BaseResponse<User>()
+            {
+                Data = user,
+                StatusCode = StatusCode.OK
+            };
         }
 
         public async Task<BaseResponse<TwoFAViewModel>> SignUp(SignupViewModel model)
@@ -102,6 +125,21 @@ namespace MilitaryProject.BLL.Services
             };
         }
 
+        public async Task<BaseResponse<bool>> ChangePassword(RestorePasswordViewModel model)
+        {
+            var user = await CheckUserExistence(model);
+            user.Data.Password = HashPasswordHelper.HashPassword(model.Password);
+
+            await _userRepository.Update(user.Data);
+
+            return new BaseResponse<bool>
+            {
+                Data = true,
+                Description = "User logined",
+                StatusCode = StatusCode.OK,
+            };
+        }
+
         public async Task<BaseResponse<User>> CheckCreds(LoginViewModel model)
         {
             if (model == null)
@@ -167,6 +205,34 @@ namespace MilitaryProject.BLL.Services
             };
         }
 
+        public async Task<BaseResponse<User>> CheckUserExistence(RestorePasswordViewModel model)
+        {
+            if (model == null)
+            {
+                return new BaseResponse<User>
+                {
+                    Description = "Model is null",
+                };
+            }
+
+            var users = await _userRepository.GetAll();
+            var user = users.FirstOrDefault(x => x.Email == model.Email);
+
+            if (user == null)
+            {
+                return new BaseResponse<User>
+                {
+                    Description = "User does not exist",
+                };
+            }
+
+            return new BaseResponse<User>
+            {
+                Data = user,
+                StatusCode = StatusCode.OK,
+            };
+        }
+
         public async Task<BaseResponse<string>> QrCode(LoginViewModel model)
         {
             var response = await CheckCreds(model);
@@ -190,6 +256,17 @@ namespace MilitaryProject.BLL.Services
             {
                 Data = qrCodeUrl,
                 StatusCode = StatusCode.OK,
+            };
+        }
+
+        public async Task<BaseResponse<string>> GenerateResetToken(string email)
+        {
+            var token = Convert.ToHexString(RandomNumberGenerator.GetBytes(64));
+
+            return new BaseResponse<string>()
+            {
+                Data = token,
+                StatusCode = StatusCode.OK
             };
         }
 
