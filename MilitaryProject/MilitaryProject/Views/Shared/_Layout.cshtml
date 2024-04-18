@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using System.Security.Claims
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -13,6 +14,7 @@
 @{
     bool auth = User.Identity.IsAuthenticated;
     var name = User.Identity.Name;
+    var roleClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role).Value;
 }
 
 <body>
@@ -60,7 +62,7 @@
                     {
                         <ul class="navbar-nav ml-auto align-items-center">
                             <li class="nav-item">
-                                <strong>@name</strong>
+                                <strong>@name - @roleClaim</strong>
                             </li>
                             <li class="nav-item">
                                 <a class="btn btn-danger" style="margin-left:10px" asp-controller="User" asp-action="Logout">Logout</a>
