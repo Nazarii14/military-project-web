@@ -1,10 +1,12 @@
 ﻿using Castle.Core.Smtp;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MilitaryProject.BLL.Interfaces;
 using MilitaryProject.DAL.Repositories;
 using MilitaryProject.Domain.ViewModels.User;
+using MilitaryProject.Extensions;
 using System.Security.Claims;
 
 namespace MilitaryProject.Controllers
@@ -174,6 +176,47 @@ namespace MilitaryProject.Controllers
             }
 
             return View(model);
+        }
+
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> GetAll()
+        {
+            var response = await _userService.GetAll();
+            return this.HandleResponse(response);
+        }
+        
+        public async Task<IActionResult> GetUser(string email)
+        {
+            var response = await _userService.GetUser(email);
+            return this.HandleResponse(response);
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        [Route("User/ChangeRoleByEmail")]
+        public async Task<IActionResult> ChangeRole(string email)
+        {
+            var response = await _userService.GetUser(email);
+            return this.HandleResponse(response);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        [Route("User/ChangeRole")]
+        public async Task<IActionResult> ChangeRole(UserInfoViewModel model)
+        {
+            var response = await _userService.ChangeRole(model);
+
+            if (response.StatusCode == Domain.Enum.StatusCode.OK && response.Data)
+            {
+                return this.HandleResponse(response, "GetAll", "User");
+            }
+            else
+            {
+                TempData["AlertMessage"] = response.Description;
+                TempData["ResponseStatus"] = "Error";
+                return View(model);
+            }
         }
 
         [AutoValidateAntiforgeryToken]

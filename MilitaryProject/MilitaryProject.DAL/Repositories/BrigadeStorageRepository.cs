@@ -29,12 +29,20 @@ namespace MilitaryProject.DAL.Repositories
 
         public async Task<BrigadeStorage> Getbyid(int id)
         {
-            return await _db.BrigadeStorages.FindAsync(id);
+            return await _db.BrigadeStorages
+                .Include(bs => bs.Brigade)
+                .Include(bs => bs.Weapon)
+                .Include(bs => bs.Ammunition)
+                .FirstOrDefaultAsync(bs => bs.ID == id);
         }
 
         public async Task<List<BrigadeStorage>> GetAll()
         {
-            return await _db.BrigadeStorages.ToListAsync();
+            return await _db.BrigadeStorages
+                .Include(bs => bs.Brigade)
+                .Include(bs => bs.Weapon)
+                .Include(bs => bs.Ammunition)
+                .ToListAsync();
         }
 
         public async Task Update(BrigadeStorage entity)

@@ -1,0 +1,36 @@
+﻿@using MilitaryProject.Domain.Entity
+@using MilitaryProject.Domain.ViewModels.Weapon
+@model Weapon
+
+@{
+    ViewData["Title"] = "Getbyid";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h2 class="text-center">Weapon</h2>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>Type</th>
+                        <th>Weight</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>@Model.ID</td>
+                        <td>@Model.Name</td>
+                        <td>@Model.Price</td>
+                        <td>@Model.Type</td>
+                        <td>@Model.Weight</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+

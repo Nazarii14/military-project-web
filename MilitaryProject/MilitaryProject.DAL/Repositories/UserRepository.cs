@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace MilitaryProject.DAL.Repositories
 {
     public class UserRepository : BaseRepository<User>
@@ -30,14 +31,11 @@ namespace MilitaryProject.DAL.Repositories
             await _db.SaveChangesAsync();
         }
 
-        public async Task<User> Getbyid(int id)
-        {
-            return await _db.Users.FindAsync(id);
-        }
-
         public async Task<List<User>> GetAll()
         {
-            return await _db.Users.ToListAsync();
+            return await _db.Users
+                .Include(x => x.Brigade)
+                .ToListAsync();
         }
 
         public async Task Update(User entity)
@@ -45,9 +43,12 @@ namespace MilitaryProject.DAL.Repositories
             _db.Users.Update(entity);
             await _db.SaveChangesAsync();
         }
-        public async Task<User> GetById(int id)
+
+        public async Task<User> Getbyid(int id)
         {
-            return await _db.Users.FindAsync(id);
+            return await _db.Users
+                .Include(x => x.Brigade)
+                .FirstOrDefaultAsync(x => x.ID == id);
         }
     }
 }

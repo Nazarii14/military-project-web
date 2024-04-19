@@ -1,0 +1,28 @@
+﻿﻿@using MilitaryProject.Domain.Entity
+@using MilitaryProject.Domain.ViewModels.User
+@model User
+
+@{
+    ViewData["Title"] = "Change role";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <h1 class="card-header text-center">Change Role</h1>
+                <div class="card-body">
+                    <form asp-controller="User" asp-action="ChangeRole" method="post">
+                        <input type="hidden" asp-for="Email" />
+                        <div class="form-group">
+                            <label asp-for="Role">Role:</label>
+                            <input asp-for="Role" class="form-control" />
+                            <span asp-validation-for="Role" class="text-danger"></span>
+                        </div>
+                        <button type="submit" class="btn btn-primary mt-3">Change</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

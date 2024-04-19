@@ -1,4 +1,5 @@
-﻿using MilitaryProject.BLL.Interfaces;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using MilitaryProject.BLL.Interfaces;
 using MilitaryProject.BLL.Services;
 using MilitaryProject.DAL.Interface;
 using MilitaryProject.DAL.Repositories;
@@ -31,6 +32,7 @@ namespace MilitaryProject
             services.AddScoped<IMilitaryRouteService, MilitaryRouteService>();
             services.AddScoped<IUserItemsService, UserItemsService>();
             services.AddScoped<IEmailService, EmailService>();
+            services.AddScoped<IStatsService, StatsService>();
         }
     }
 }

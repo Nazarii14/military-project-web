@@ -24,8 +24,9 @@ namespace MilitaryProject.BLL.Services
 
         public async Task<BaseResponse<Weapon>> GetWeapon(int id)
         {
-            var responce = await _weaponRepository.GetAll();
-            var weapon = responce.FirstOrDefault(b => b.ID == id);
+            //var responce = await _weaponRepository.GetAll();
+            //var weapon = responce.FirstOrDefault(b => b.ID == id);
+            var weapon = await _weaponRepository.Getbyid(id);
 
             if (weapon == null)
             {

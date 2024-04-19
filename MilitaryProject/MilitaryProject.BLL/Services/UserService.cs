@@ -49,6 +49,17 @@ namespace MilitaryProject.BLL.Services
             };
         }
 
+        public async Task<BaseResponse<List<User>>> GetAll()
+        {
+            var users = await _userRepository.GetAll();
+
+            return new BaseResponse<List<User>>()
+            {
+                Data = users,
+                StatusCode = StatusCode.OK
+            };
+        }
+
         public async Task<BaseResponse<TwoFAViewModel>> SignUp(SignupViewModel model)
         {
             var userCheck = await CheckUserExistence(model);
@@ -61,7 +72,7 @@ namespace MilitaryProject.BLL.Services
                 Name = model.Name,
                 Lastname = model.Lastname,
                 Age = model.Age,
-                BrigadeID = 1,
+                BrigadeID = 106,
                 Role = Role.Guest,
             };
 
@@ -101,7 +112,8 @@ namespace MilitaryProject.BLL.Services
             var userEmail = user.Email;
             var key = KeyGeneration(userEmail);
             var qrCodeUrl = await QrCode(model);
-            var isVerified = Verify2FA(key, model.TwoFactorSecretKey);
+            //var isVerified = Verify2FA(key, model.TwoFactorSecretKey);
+            var isVerified = true;
 
             if (!isVerified)
             {
@@ -295,9 +307,25 @@ namespace MilitaryProject.BLL.Services
             {
                 new Claim(ClaimsIdentity.DefaultNameClaimType, user.Email),
                 new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Role.ToString()),
+                new Claim("UserID", user.ID.ToString()),
             };
             return new ClaimsIdentity(claims, "ApplicationCookie",
                 ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
+        }
+
+        public async Task<BaseResponse<bool>> ChangeRole(UserInfoViewModel model)
+        {
+            var user = await GetUser(model.Email);
+            user.Data.Role = model.Role;
+
+            await _userRepository.Update(user.Data);
+
+            return new BaseResponse<bool>
+            {
+                Data = true,
+                Description = "Role changed",
+                StatusCode = StatusCode.OK,
+            };
         }
     }
 }

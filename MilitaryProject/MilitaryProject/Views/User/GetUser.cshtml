@@ -1,0 +1,40 @@
+﻿@using MilitaryProject.Domain.Entity
+@using MilitaryProject.Domain.ViewModels.User
+@model User
+
+@{
+    ViewData["Title"] = "GetUser";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h2 class="text-center">User</h2>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Firstname</th>
+                        <th>Lastname</th>
+                        <th>Email</th>
+                        <th>BrigadeID</th>
+                        <th>Role</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>@Model.ID</td>
+                        <td>@Model.Name</td>
+                        <td>@Model.Lastname</td>
+                        <td>@Model.Email</td>
+                        <td>@Model.BrigadeID</td>
+                        <td>@Model.Role</td>
+                        <td><a class="btn btn-primary" asp-controller="User" asp-action="ChangeRoleByEmail" asp-route-email="@Model.Email">Change Role</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,66 @@
+﻿@using MilitaryProject.Domain.ViewModels.Stats
+@model StatisticsViewModel
+
+<h2>Statistics</h2>
+
+<section>
+    <h3>Weapons</h3>
+    <div>
+        <h4>By Type</h4>
+        <ul>
+            @foreach (var kvp in Model.WeaponTypeCounts)
+            {
+                <li><strong>@kvp.Key:</strong> @kvp.Value</li>
+            }
+        </ul>
+    </div>
+    <div>
+        <h4>By Weight</h4>
+        <ul>
+            @foreach (var kvp in Model.WeaponWeightCounts)
+            {
+                <li><strong>@kvp.Key:</strong> @kvp.Value</li>
+            }
+        </ul>
+    </div>
+    <div>
+        <h4>By Price</h4>
+        <ul>
+            @foreach (var kvp in Model.WeaponPriceCount)
+            {
+                <li><strong>@kvp.Key:</strong> @kvp.Value</li>
+            }
+        </ul>
+    </div>
+</section>
+
+<section>
+    <h3>Ammunition</h3>
+    <div>
+        <h4>By Type</h4>
+        <ul>
+            @foreach (var kvp in Model.AmmunitionTypeCounts)
+            {
+                <li><strong>@kvp.Key:</strong> @kvp.Value</li>
+            }
+        </ul>
+    </div>
+    <div>
+        <h4>By Size</h4>
+        <ul>
+            @foreach (var kvp in Model.AmmunitionSizeCounts)
+            {
+                <li><strong>@kvp.Key:</strong> @kvp.Value</li>
+            }
+        </ul>
+    </div>
+    <div>
+        <h4>By Price</h4>
+        <ul>
+            @foreach (var kvp in Model.AmmunitionPriceCount)
+            {
+                <li><strong>@kvp.Key:</strong> @kvp.Value</li>
+            }
+        </ul>
+    </div>
+</section>

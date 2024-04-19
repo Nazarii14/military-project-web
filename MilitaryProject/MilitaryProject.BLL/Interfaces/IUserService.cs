@@ -13,6 +13,7 @@ namespace MilitaryProject.BLL.Interfaces
     public interface IUserService
     {
         Task<BaseResponse<User>> GetUser(string email);
+        Task<BaseResponse<List<User>>> GetAll();
         Task<BaseResponse<TwoFAViewModel>> SignUp(SignupViewModel model);
         Task<BaseResponse<TwoFAViewModel>> Login(LoginViewModel model);
         Task<BaseResponse<User>> CheckCreds(LoginViewModel model);
@@ -22,5 +23,6 @@ namespace MilitaryProject.BLL.Interfaces
         Task<BaseResponse<User>> CheckUserExistence(RestorePasswordViewModel model);
         Task<BaseResponse<string>> GenerateResetToken(string email);
         Task<BaseResponse<bool>> ChangePassword(RestorePasswordViewModel model);
+        Task<BaseResponse<bool>> ChangeRole(UserInfoViewModel model);
     }
 }

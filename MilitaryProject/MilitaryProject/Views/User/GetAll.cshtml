@@ -1,0 +1,34 @@
+﻿@using MilitaryProject.Domain.Entity
+@using MilitaryProject.Domain.ViewModels.User
+@model List<User>
+
+@{
+    ViewData["Title"] = "Users";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h2 class="text-center">Users</h2>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Lastname</th>
+                        <th>Brigade</th>
+                        <th>Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var user in Model)
+                    {
+                        <tr>
+                            <td>@user.Lastname</td>
+                            <td>@user.Brigade.Name</td>
+                            <td><a class="btn btn-outline-primary" asp-controller="User" asp-action="GetUser" asp-route-email="@user.Email">Details</a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
