@@ -1,0 +1,258 @@
+[33mcommit ce6f71f79c6dc565f5dad53fc39999447b817814[m[33m ([m[1;36mHEAD -> [m[1;32mdevelop[m[33m, [m[1;31morigin/develop[m[33m)[m
+Merge: 7ac5041 84153c6
+Author: Viktoriia <kurkaviktoriia@gmail.com>
+Date:   Fri Apr 19 14:08:38 2024 +0300
+
+    add ui to login/sign up
+
+[33mcommit 7ac50410bc08920b13483069bf254e7b5e8446c8[m
+Author: Viktoriia <kurkaviktoriia@gmail.com>
+Date:   Fri Apr 19 14:06:15 2024 +0300
+
+    Add ui to login/signup
+
+[33mcommit 84153c6a5ddc4d123c8c470da960f452d5255643[m
+Author: Vlad <vladyslav.linnik@lnu.edu.ua>
+Date:   Fri Apr 19 02:44:51 2024 +0300
+
+    2FA v1.1
+
+[33mcommit 520902661669d9ca8e5eced7bcde98dd8c42c988[m
+Author: Vlad <vladyslav.linnik@lnu.edu.ua>
+Date:   Fri Apr 19 02:29:27 2024 +0300
+
+    simple password change added
+
+[33mcommit debf896f09821272ca5198dd5201b74436a11109[m
+Author: Vlad <vladyslav.linnik@lnu.edu.ua>
+Date:   Thu Apr 18 23:23:39 2024 +0300
+
+    user role displaying added
+
+[33mcommit 443519d06380ec2c188770e92629ccf2711f7e92[m
+Author: Vlad <vladyslav.linnik@lnu.edu.ua>
+Date:   Thu Apr 18 23:09:47 2024 +0300
+
+    role authorize 403 added
+
+[33mcommit 27383d432b1f8488dc63aacd1c55e9702a3d0430[m
+Author: Vlad <vladyslav.linnik@lnu.edu.ua>
+Date:   Thu Apr 18 22:49:15 2024 +0300
+
+    2FA auth v1.0
+
+[33mcommit 33ee9f8f78c8a345f56a26f7bcc31dd716fd8484[m
+Author: Vlad <vladyslav.linnik@lnu.edu.ua>
+Date:   Thu Apr 18 22:13:06 2024 +0300
+
+    2FA login update
+
+[33mcommit 41b2e10607034cfe5db7911db61277e8d189c71f[m
+Author: Vlad <vladyslav.linnik@lnu.edu.ua>
+Date:   Thu Apr 18 02:27:55 2024 +0300
+
+    google 2FA beta
+
+[33mcommit ad21c3e965e7ec6f154a9499743290cd0e621698[m
+Author: Vlad <vladyslav.linnik@lnu.edu.ua>
+Date:   Wed Apr 17 23:51:06 2024 +0300
+
+    ui fix
+
+[33mcommit abc933119aa5cbf3210263e2f71aa42381a122f3[m
+Author: Vlad <vladyslav.linnik@lnu.edu.ua>
+Date:   Sun Apr 14 19:01:54 2024 +0300
+
+    error page style fix
+
+[33mcommit cd0009963f8d1a8b8966db9afde48c040dd7c5aa[m
+Merge: 8ba3014 fbe62c5
+Author: Vlad <vladyslav.linnik@lnu.edu.ua>
+Date:   Sun Apr 14 18:51:24 2024 +0300
+
+    Merge branch 'develop' of https://github.com/Nazarii14/military-project-web into develop
+
+[33mcommit 8ba30146014a1796237827619028cb836416d330[m
+Author: Vlad <vladyslav.linnik@lnu.edu.ua>
+Date:   Sun Apr 14 18:47:55 2024 +0300
+
+    error handling update
+
+[33mcommit fbe62c5138aaf7d83086d7491a59aae5ce59aea4[m[33m ([m[1;31morigin/Extensions[m[33m)[m
+Author: WeaRD276-01 <oleksandr.zhenchenko@lnu.edu.ua>
+Date:   Sun Apr 14 14:57:59 2024 +0300
+
+    extension method added for all controllers
+
+[33mcommit 1b02c2437d16156db44afbfeb874e23dfbe8c5e2[m
+Merge: f3d7fed c7166ea
+Author: Vlad <vladyslav.linnik@lnu.edu.ua>
+Date:   Sun Apr 14 14:24:07 2024 +0300
+
+    Merge branch 'develop' of https://github.com/Nazarii14/military-project-web into develop
+
+[33mcommit f3d7fed76b842f23be785d246388c077c07bcf22[m
+Author: Vlad <vladyslav.linnik@lnu.edu.ua>
+Date:   Sun Apr 14 14:22:30 2024 +0300
+
+    exception middleware added
+
+[33mcommit c7166ea79b81b25e56df22bdf71c5b0117121d3a[m[33m ([m[1;31morigin/to_show_05_04[m[33m)[m
+Author: Nazarii14 <rosaka1429@gmail.com>
+Date:   Sun Apr 14 13:36:50 2024 +0300
+
+    minor changes
+
+[33mcommit 9e9a742b279b6f6d4e29a24cf8d4231170cc5366[m[33m ([m[1;31morigin/create-ammunition-crud[m[33m)[m
+Author: WeaRD276-01 <oleksandr.zhenchenko@lnu.edu.ua>
+Date:   Fri Apr 5 16:51:04 2024 +0300
+
+    Tests added
+
+[33mcommit b15db9d407ea701a2967f5cc367ae68f0efb50a1[m[33m ([m[1;31morigin/userItems-crud[m[33m, [m[1;32muserItems-crud[m[33m)[m
+Author: WeaRD276-01 <oleksandr.zhenchenko@lnu.edu.ua>
+Date:   Fri Apr 5 12:49:26 2024 +0300
+
+    Tests added
+
+[33mcommit 4176dec49ff9e4f6589babc3b7311c40e6074d6c[m
+Author: WeaRD276-01 <oleksandr.zhenchenko@lnu.edu.ua>
+Date:   Fri Apr 5 12:24:47 2024 +0300
+
+    Views added
+
+[33mcommit 5c7fb3bcb2d0d9fce7a2a149fcfa16effd939e27[m
+Merge: 35ce6d5 6b7755c
+Author: WeaRD276-01 <oleksandr.zhenchenko@lnu.edu.ua>
+Date:   Fri Apr 5 11:48:06 2024 +0300
+
+    Merge branch 'develop' of https://github.com/Nazarii14/military-project-web into userItems-crud
+
+[33mcommit 6b7755c486ae1df88b2757affa0bb09e24a93170[m
+Author: Nazarii14 <rosaka1429@gmail.com>
+Date:   Thu Apr 4 20:57:03 2024 +0300
+
+    removed tests
+
+[33mcommit 191dbd73fb2c3e94d0dc769fc3a65194bbe53a59[m
+Author: Nazarii14 <rosaka1429@gmail.com>
+Date:   Wed Apr 3 21:58:09 2024 +0300
+
+    tests fixed
+
+[33mcommit df5f8f219e02648e4f5b343258e10293868c45f5[m[33m ([m[1;31morigin/military-route-crud[m[33m)[m
+Author: WeaRD276-01 <oleksandr.zhenchenko@lnu.edu.ua>
+Date:   Wed Apr 3 14:25:03 2024 +0300
+
+    3 more tests added
+
+[33mcommit fa0ff01b47186cee50571b03cbb5db49a40a3a45[m
+Author: WeaRD276-01 <oleksandr.zhenchenko@lnu.edu.ua>
+Date:   Wed Apr 3 14:18:57 2024 +0300
+
+    MilitaryRoutes tests added
+
+[33mcommit 7d686d4ba8a4cb3f052a99ca92c5f359af5cc161[m
+Author: WeaRD276-01 <oleksandr.zhenchenko@lnu.edu.ua>
+Date:   Tue Apr 2 21:52:47 2024 +0300
+
+    Some bugs fixed
+
+[33mcommit 1c6b8a5e5127b9566191b375168eb6a4e18d9874[m
+Merge: b571dff d6f0ca5
+Author: WeaRD276-01 <oleksandr.zhenchenko@lnu.edu.ua>
+Date:   Tue Apr 2 21:29:12 2024 +0300
+
+    Merge branch 'create-ammunition-crud' of https://github.com/Nazarii14/military-project-web into create-ammunition-crud
+
+[33mcommit b571dff50c4bd8cf239c448afd864588c7473c0f[m
+Author: WeaRD276-01 <oleksandr.zhenchenko@lnu.edu.ua>
+Date:   Tue Apr 2 21:22:28 2024 +0300
+
+    MilitaryRoute crud realized
+
+[33mcommit 49d6867fb7418a650c0e9421723e6590b2203256[m
+Author: WeaRD276-01 <oleksandr.zhenchenko@lnu.edu.ua>
+Date:   Tue Apr 2 19:24:21 2024 +0300
+
+    Request bugs fixed
+
+[33mcommit 35ce6d51e6055c5bd52a3e466fbfbeed35f0e870[m
+Author: Viktoriia <kurkaviktoriia@gmail.com>
+Date:   Mon Apr 1 23:00:10 2024 +0300
+
+    add useritems crud without Views
+
+[33mcommit efef9ab6138fb9d7a74a9141cbcf1438f9343aa2[m
+Author: Nazarii14 <rosaka1429@gmail.com>
+Date:   Mon Apr 1 22:28:18 2024 +0300
+
+    resolved conflicts
+
+[33mcommit bd40439879b2e999715c845d2f1bc244d3423a30[m
+Merge: 4ce6afa 7f5a218
+Author: Nazarii14 <rosaka1429@gmail.com>
+Date:   Mon Apr 1 21:36:07 2024 +0300
+
+    Merge branch 'brigade-crud-fix' into develop
+
+[33mcommit 7f5a218fdade8f5e4118fe61e353e1291328b233[m
+Merge: 3ba511a 3405054
+Author: Nazarii14 <rosaka1429@gmail.com>
+Date:   Mon Apr 1 21:34:40 2024 +0300
+
+    Merge branches 'develop' and 'brigade-crud-fix' of https://github.com/Nazarii14/military-project-web into brigade-crud-fix
+
+[33mcommit 4ce6afaec12d301d1e8fbf73a9a6aebf9c8ad2af[m
+Author: Nazarii14 <rosaka1429@gmail.com>
+Date:   Mon Apr 1 21:20:55 2024 +0300
+
+    minor changes
+
+[33mcommit 6435e1e6a8ec9b270822737b4155b674e2ad39bc[m
+Merge: e55d094 d8a4e22
+Author: Nazarii14 <rosaka1429@gmail.com>
+Date:   Mon Apr 1 21:19:37 2024 +0300
+
+    Merge branch 'request-crud' into develop
+
+[33mcommit e55d094330e03a1767ad53ee2bad16d1595da495[m
+Author: Nazarii14 <rosaka1429@gmail.com>
+Date:   Mon Apr 1 21:13:40 2024 +0300
+
+    minor changes
+
+[33mcommit d8a4e22fd9867ac1d448663920e51bf653ff6cd8[m[33m ([m[1;31morigin/request-crud[m[33m)[m
+Author: WeaRD276-01 <oleksandr.zhenchenko@lnu.edu.ua>
+Date:   Mon Apr 1 19:02:16 2024 +0300
+
+    Edit bug fixed
+
+[33mcommit f90f6d5f0897ca805778b9b68317083bd53dc0c1[m
+Author: WeaRD276-01 <oleksandr.zhenchenko@lnu.edu.ua>
+Date:   Fri Mar 29 16:29:00 2024 +0200
+
+    Tests added
+
+[33mcommit 36e2f8d712459b0a411e8701e115a365d665fd3a[m
+Author: WeaRD276-01 <oleksandr.zhenchenko@lnu.edu.ua>
+Date:   Fri Mar 29 14:06:10 2024 +0200
+
+    request crud logic implemented
+
+[33mcommit 3ba511a2a649e65e979052a46127aef1c12d6113[m[33m ([m[1;31morigin/brigade-crud-fix[m[33m, [m[1;32mbrigade-crud-fix[m[33m)[m
+Author: TTEJlbMEHb <vladyslav.linnik@lnu.edu.ua>
+Date:   Fri Mar 29 01:04:36 2024 +0200
+
+    auth & brigades unit tests
+
+[33mcommit 3405054687f9fe61098d2056122221301babb794[m
+Merge: a26fd44 9beabfb
+Author: Nazarii14 <rosaka1429@gmail.com>
+Date:   Thu Mar 28 23:17:10 2024 +0200
+
+    Merge remote-tracking branch 'origin/weapon-crud' into develop
+
+[33mcommit a26fd44c65c411ba92b44e33b4a2e618477ae797[m
+Merge: cd7dd6e af88776
+Author: Nazarii14 <rosaka1429@gmail.com>
