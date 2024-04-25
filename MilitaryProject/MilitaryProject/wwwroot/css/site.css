@@ -143,9 +143,9 @@ body {
 .navbar-nav .btn-outline-primary:hover {
     background-color: #4E7E13;
     color: white;
-    transform: scale(1.1);
+    transform: scale(1.05);
 }
 
 .navbar-nav .btn-primary:hover {
-    transform: scale(1.1);
+    transform: scale(1.05);
 }

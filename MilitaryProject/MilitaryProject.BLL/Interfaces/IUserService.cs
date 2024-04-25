@@ -13,6 +13,9 @@ namespace MilitaryProject.BLL.Interfaces
     public interface IUserService
     {
         Task<BaseResponse<User>> GetUser(string email);
+        Task<BaseResponse<User>> GetUser(int id);
+        Task<BaseResponse<List<User>>> GetAll();
+        Task<BaseResponse<bool>> DeleteUser(int id);
         Task<BaseResponse<TwoFAViewModel>> SignUp(SignupViewModel model);
         Task<BaseResponse<TwoFAViewModel>> Login(LoginViewModel model);
         Task<BaseResponse<User>> CheckCreds(LoginViewModel model);

@@ -49,6 +49,61 @@ namespace MilitaryProject.BLL.Services
             };
         }
 
+        public async Task<BaseResponse<User>> GetUser(int id)
+        {
+            var user = await _userRepository.Getbyid(id);
+
+            if (user == null)
+            {
+                return new BaseResponse<User>()
+                {
+                    Description = "User not found",
+                    StatusCode = StatusCode.NotFound
+                };
+            }
+
+            return new BaseResponse<User>()
+            {
+                Data = user,
+                StatusCode = StatusCode.OK
+            };
+        }
+
+        public async Task<BaseResponse<List<User>>> GetAll()
+        {
+            var users = await _userRepository.GetAll();
+
+            return new BaseResponse<List<User>>()
+            {
+                Data = users,
+                StatusCode = StatusCode.OK
+            };
+        }
+
+        public async Task<BaseResponse<bool>> DeleteUser(int id)
+        {
+            var user = await _userRepository.Getbyid(id);
+
+            if (user == null)
+            {
+                return new BaseResponse<bool>()
+                {
+                    Data = false,
+                    Description = "User not found",
+                    StatusCode = StatusCode.NotFound
+                };
+            }
+
+            await _userRepository.Delete(user);
+
+            return new BaseResponse<bool>()
+            {
+                Data = true,
+                StatusCode = StatusCode.OK
+            };
+        }
+
+
         public async Task<BaseResponse<TwoFAViewModel>> SignUp(SignupViewModel model)
         {
             var userCheck = await CheckUserExistence(model);
