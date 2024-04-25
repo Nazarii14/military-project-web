@@ -119,3 +119,33 @@ body {
 .error_back_button:hover .readmore_text {
     color: black;
 }
+
+/* Style for the Register button */
+.navbar-nav .btn-outline-primary {
+    font-size: 16px;
+    padding: 8px 16px;
+    border-color: #4E7E13;
+    color: #4E7E13;
+    transition: background-color 0.5s, transform 0.3s; /* Add transform transition */
+}
+
+/* Style for the Login button */
+.navbar-nav .btn-primary {
+    background-color: #4E7E13;
+    border-color: #4E7E13;
+    color: white;
+    font-size: 16px;
+    padding: 8px 16px;
+    transition: transform 0.3s;
+}
+
+/* Hover effect for Register button */
+.navbar-nav .btn-outline-primary:hover {
+    background-color: #4E7E13;
+    color: white;
+    transform: scale(1.1);
+}
+
+.navbar-nav .btn-primary:hover {
+    transform: scale(1.1);
+}

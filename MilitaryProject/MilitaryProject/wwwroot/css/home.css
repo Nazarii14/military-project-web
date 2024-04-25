@@ -1,0 +1,17 @@
+﻿.text-center {
+    text-align: center;
+    margin-top: 150px;
+}
+
+.display-4 {
+    color: #4E7E13;
+}
+.display-3 {
+    color: #4E7E13;
+    font-size:22px;
+}
+
+.second-heading {
+    font-size: 20px;
+    margin-top: 20px;
+}
