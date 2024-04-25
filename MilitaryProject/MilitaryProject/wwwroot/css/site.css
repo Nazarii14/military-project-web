@@ -143,9 +143,24 @@ body {
 .navbar-nav .btn-outline-primary:hover {
     background-color: #4E7E13;
     color: white;
-    transform: scale(1.1); /* Scale the button up by 10% */
+    transform: scale(1.1);
 }
 
 .navbar-nav .btn-primary:hover {
-    transform: scale(1.1); /* Scale the button up by 10% */
+    transform: scale(1.1);
+}
+
+.nav-item a:after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: #000000;
+    transition: width 0.3s ease;
+}
+
+.nav-item a:hover::after {
+     width: 100%;
 }

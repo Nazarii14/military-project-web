@@ -6,32 +6,126 @@
     ViewData["Title"] = "Requests";
 }
 
+<style>
+    .container {
+        margin-top: 50px;
+    }
+
+    .row {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .card {
+        max-width: 400px;
+        margin: 10px;
+        background-color: #f8f9fa;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-body {
+    }
+
+    .card-title {
+        text-align: center;
+        margin-top: 0;
+    }
+
+    .btn-container {
+        display: flex;
+        justify-content: space-around;
+        margin-top: 20px;
+    }
+
+    .btn-container a {
+        width: 45%; /* Two buttons take up 90% of the width */
+    }
+
+    .delete-btn-container {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .delete-btn-container a {
+        width: 100%;
+    }
+
+    .info {
+        display: flex;
+		justify-content: space-between;
+        flex-direction: column;
+		margin-top: 10px;
+        margin-bottom: 10px;
+    }
+    .font-weight-bold {
+        font-weight: bold;
+    }
+
+    .delete, .details
+    {
+        width: 35%;
+        padding: 8px 16px;
+        color: #007bff;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 2vh;
+        margin: 4px 2px;
+        border: 1px solid #007bff;
+        border-radius: 5px;
+        transition: background-color 0.3s, transform 0.3s;
+    }
+
+    .delete:hover,
+    .details:hover {
+        background-color: #007bff;
+        color: white;
+        transform: translateY(-2px);
+    }
+
+    .two-buttons {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+</style>
+
 <div class="container mt-5">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-10">
             <h2 class="text-center">Requests</h2>
-            <table class="table">
-                <a class="btn btn-success" asp-controller="Request" asp-action="Create">Create</a>
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Details</th>
-                        <th>Edit</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var request in Model)
-                    {
-                                <tr>
-                                        <td>@request.ID</td>
-                                        <td><a class="btn btn-outline-primary" asp-controller="Request" asp-action="GetRequest" asp-route-id="@request.ID">Details</a></td>
-                                        <td><a class="btn btn-primary" asp-controller="Request" asp-action="Update" asp-route-id="@request.ID">Edit</a></td>
-                                        <td><a class="btn btn-danger" asp-controller="Request" asp-action="Delete" asp-route-id="@request.ID">Delete</a></td>
-                                </tr>
-                    }
-                </tbody>
-            </table>
+            <a class="btn btn-success mb-3" asp-controller="Request" asp-action="Create">Add</a>
+            <div class="row">
+                @foreach (var request in Model)
+                {
+                    <div class="col-md-4 mb-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">@request.Brigade.Name</h5>
+                                <div class="info">
+                                    @{
+                                        var totalCost = (request.Weapon.Price * request.WeaponQuantity) + (request.Ammunition.Price * request.AmmunitionQuantity);
+                                        string costColorClass = totalCost > 50000 ? "text-danger" : "text-success";
+                                        string costFontWeightClass = totalCost > 50000 ? "font-weight-bold" : "";
+                                    }
+                                    <a>Location: @request.Brigade.Location</a>
+                                    <a>Needs: <span class="@costColorClass @costFontWeightClass">@totalCost.ToString("C")</span></a>
+                                </div>
+                                <div class="two-buttons">
+                                    <a class="details" asp-controller="Request" asp-action="GetRequest" asp-route-id="@request.ID">Details</a>
+                                    <a class="delete" asp-controller="Request" asp-action="Update" asp-route-id="@request.ID">Edit</a>
+                                </div>
+                                <div class="text-center mt-2">
+                                    <a class="btn btn-danger" asp-controller="Request" asp-action="Delete" asp-route-id="@request.ID">Delete</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
         </div>
     </div>
 </div>
