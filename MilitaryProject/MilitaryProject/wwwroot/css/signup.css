@@ -1,0 +1,61 @@
+﻿body {
+    background: #D9D9D9;
+    color: #141414;
+}
+
+.card {
+    background-color: #FCFBFB;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 500px;
+    margin: 0 auto;
+}
+
+.card-header {
+    background-color: #FCFBFB;
+    color: #141414;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.btn-primary {
+    background-color: #4E7E13;
+    border-color: #4E7E13;
+    width: 100%;
+}
+
+    .btn-primary:hover {
+        background-color: #3B600C;
+        border-color: #3B600C;
+    }
+
+        .btn-primary:hover,
+        .btn-primary:hover:focus,
+        .btn-primary:hover:active {
+            color: white;
+        }
+
+.form-control {
+    background-color: #FCFBFB;
+    color: #141414;
+    border: 1px solid #4E7E13;
+}
+
+    .form-control:focus {
+        background-color: #FCFBFB;
+        color: #4E7E13;
+        border: 1px solid #4E7E13;
+        box-shadow: 0 0 0 0.2rem rgba(78, 126, 19, 0.25);
+    }
+
+.text-danger {
+    color: #4E7E13;
+}
+
+a[href*="Login"] {
+    color: #4E7E13; /* Зелений колір */
+    text-decoration: none;
+}
+
+    a[href*="Login"]:hover {
+        color: #3B600C; /* Зелений колір при наведенні */
+        text-decoration: underline;
+    }

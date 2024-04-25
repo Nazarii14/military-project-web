@@ -1,4 +1,5 @@
-﻿using MilitaryProject.Domain.Response;
+﻿using MilitaryProject.Domain.Entity;
+using MilitaryProject.Domain.Response;
 using MilitaryProject.Domain.ViewModels.User;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,15 @@ namespace MilitaryProject.BLL.Interfaces
 {
     public interface IUserService
     {
-        Task<BaseResponse<ClaimsIdentity>> SignUp(SignupViewModel model);
-        Task<BaseResponse<ClaimsIdentity>> Login(LoginViewModel model);
+        Task<BaseResponse<User>> GetUser(string email);
+        Task<BaseResponse<TwoFAViewModel>> SignUp(SignupViewModel model);
+        Task<BaseResponse<TwoFAViewModel>> Login(LoginViewModel model);
+        Task<BaseResponse<User>> CheckCreds(LoginViewModel model);
+        Task<BaseResponse<string>> QrCode(LoginViewModel model);
+        Task<BaseResponse<string>> QrCode(SignupViewModel model);
+        Task<BaseResponse<User>> CheckUserExistence(SignupViewModel model);
+        Task<BaseResponse<User>> CheckUserExistence(RestorePasswordViewModel model);
+        Task<BaseResponse<string>> GenerateResetToken(string email);
+        Task<BaseResponse<bool>> ChangePassword(RestorePasswordViewModel model);
     }
 }

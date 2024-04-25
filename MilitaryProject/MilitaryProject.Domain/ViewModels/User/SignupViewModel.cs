@@ -33,5 +33,9 @@ namespace MilitaryProject.Domain.ViewModels.User
         [Range(18, 70, ErrorMessage = "Age must be between 18 and 70")]
         public int Age { get; set; }
 
+        [StringLength(6, ErrorMessage = "2FA code must be 6 characters", MinimumLength = 6)]
+        public string? TwoFactorSecretKey { get; set; }
+
+        public string? QrCode { get; set; }
     }
 }

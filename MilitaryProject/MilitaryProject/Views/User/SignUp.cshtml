@@ -3,13 +3,14 @@
 
 @{
     ViewData["Title"] = "Register";
+    <link rel="stylesheet" href="~/css/signup.css" />
 }
 
-<div class="container mt-5">
+<div class="container mt-4">
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="card">
-                <h1 class="card-header text-center">Register</h1>
+                <h1 class="card-header text-center">Sign Up</h1>
                 <div class="card-body">
                     <form asp-controller="User" asp-action="SignUp">
                         <div class="form-group">
@@ -41,7 +42,7 @@
                     </form>
                 </div>
                 <div class="card-footer text-center">
-                    <p class="mb-0">Already have an account? <a asp-controller="User" asp-action="SignUp">Login</a></p>
+                    <p class="mb-0">Already have an account? <a asp-controller="User" asp-action="Login">Login</a></p>
                 </div>
             </div>
         </div>

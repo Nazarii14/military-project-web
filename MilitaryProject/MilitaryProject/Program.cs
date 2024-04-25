@@ -22,12 +22,13 @@ builder.Host.UseSerilog((context, loggerConfig) =>
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddHttpContextAccessor();
+builder.Services.AddSession();
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
     {
         options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/User/Login");
-        options.AccessDeniedPath = new Microsoft.AspNetCore.Http.PathString("/User/Login");
+        options.AccessDeniedPath = new Microsoft.AspNetCore.Http.PathString("/Home/Status403");
     });
 
 builder.Services.InitializeRepositories();
@@ -49,6 +50,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+app.UseMiddleware<ErrorHandlingMiddleware>();
 
 app.UseAuthentication();
 app.UseAuthorization();
@@ -56,5 +58,14 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllerRoute(
+        name: "Error",
+        pattern: "{*url}",
+        defaults: new { controller = "Home", action = "Status404" }
+    );
+});
 
 app.Run();

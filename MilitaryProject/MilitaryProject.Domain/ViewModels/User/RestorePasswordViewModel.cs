@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MilitaryProject.Domain.ViewModels.User
 {
-    public class LoginViewModel
+    public class RestorePasswordViewModel
     {
         [Required(ErrorMessage = "Enter your email")]
         [MinLength(7, ErrorMessage = "Email must be greater than 7")]
@@ -19,9 +19,10 @@ namespace MilitaryProject.Domain.ViewModels.User
         [MinLength(6, ErrorMessage = "Password must be greater than 6")]
         public string Password { get; set; }
 
-        [StringLength(6, ErrorMessage = "2FA code must be 6 characters", MinimumLength = 6)]
-        public string? TwoFactorSecretKey { get; set; }
-
-        public string? QrCode { get; set; }
+        [Required(ErrorMessage = "Enter your password")]
+        [DataType(DataType.Password)]
+        [MinLength(6, ErrorMessage = "Password must be greater than 6")]
+        [Compare("Password", ErrorMessage = "Passwords do not match")]
+        public string RepeatPassword { get; set; }
     }
 }

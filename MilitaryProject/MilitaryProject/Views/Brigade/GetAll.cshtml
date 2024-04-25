@@ -21,14 +21,17 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var brigade in Model)
+                    @if (Model is not null)
                     {
-                        <tr>
-                            <td>@brigade.Name</td>
-                            <td><a class="btn btn-outline-primary" asp-controller="Brigade" asp-action="GetBrigade" asp-route-id="@brigade.ID">Details</a></td>
-                            <td><a class="btn btn-primary" asp-controller="Brigade" asp-action="Update" asp-route-id="@brigade.ID">Edit</a></td>
-                            <td><a class="btn btn-danger" asp-controller="Brigade" asp-action="Delete" asp-route-id="@brigade.ID">Delete</a></td>
-                        </tr>
+                        @foreach (var brigade in Model)
+                        {
+                            <tr>
+                                <td>@brigade.Name</td>
+                                <td><a class="btn btn-outline-primary" asp-controller="Brigade" asp-action="GetBrigade" asp-route-id="@brigade.ID">Details</a></td>
+                                <td><a class="btn btn-primary" asp-controller="Brigade" asp-action="Update" asp-route-id="@brigade.ID">Edit</a></td>
+                                <td><a class="btn btn-danger" asp-controller="Brigade" asp-action="Delete" asp-route-id="@brigade.ID">Delete</a></td>
+                            </tr>
+                        }
                     }
                 </tbody>
             </table>

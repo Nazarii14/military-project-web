@@ -25,173 +25,117 @@ namespace MilitaryProject.BLL.Services
 
         public async Task<BaseResponse<Brigade>> Create(BrigadeViewModel model)
         {
-            try
-            {
-                var existingBrigade = (await _brigadeRepository.GetAll())
+            var existingBrigade = (await _brigadeRepository.GetAll())
                     .FirstOrDefault(w => w.Name.Equals(model.Name, StringComparison.OrdinalIgnoreCase));
 
-                if (existingBrigade != null)
-                {
-                    return new BaseResponse<Brigade>
-                    {
-                        Description = "Brigade with the same name already exists.",
-                        StatusCode = StatusCode.InternalServerError
-                    };
-                }
-
-                var brigade = new Brigade
-                {
-                    Name = model.Name,
-                    CommanderName = model.CommanderName,
-                    EstablishmentDate = model.EstablishmentDate,
-                    Location = model.Location,
-                };
-
-                await _brigadeRepository.Create(brigade);
-
-                return new BaseResponse<Brigade>
-                {
-                    Data = brigade,
-                    Description = "Brigade created successfully.",
-                    StatusCode = StatusCode.OK,
-                };
-            }
-            catch (Exception ex)
+            if (existingBrigade != null)
             {
                 return new BaseResponse<Brigade>
                 {
-                    Description = $"Failed to create brigade: {ex.Message}",
-                    StatusCode = StatusCode.InternalServerError,
+                    Description = "Brigade with the same name already exists.",
+                    StatusCode = StatusCode.InternalServerError
                 };
             }
+
+            var brigade = new Brigade
+            {
+                Name = model.Name,
+                CommanderName = model.CommanderName,
+                EstablishmentDate = model.EstablishmentDate,
+                Location = model.Location,
+            };
+
+            await _brigadeRepository.Create(brigade);
+
+            return new BaseResponse<Brigade>
+            {
+                Data = brigade,
+                Description = "Brigade created successfully.",
+                StatusCode = StatusCode.OK,
+            };
         }
 
         public async Task<BaseResponse<Brigade>> GetById(int id)
         {
-            try
-            {
-                var brigade = await _brigadeRepository.Getbyid(id);
+            var brigade = await _brigadeRepository.Getbyid(id);
 
-                if (brigade == null)
-                {
-                    return new BaseResponse<Brigade>
-                    {
-                        Description = "Brigade not found.",
-                        StatusCode = StatusCode.NotFound,
-                    };
-                }
-
-                return new BaseResponse<Brigade>
-                {
-                    Data = brigade,
-                    StatusCode = StatusCode.OK,
-                };
-            }
-            catch (Exception ex)
+            if (brigade == null)
             {
                 return new BaseResponse<Brigade>
                 {
-                    Description = $"Failed to get brigade: {ex.Message}",
-                    StatusCode = StatusCode.InternalServerError,
+                    Description = "Brigade not found.",
+                    StatusCode = StatusCode.NotFound,
                 };
             }
+
+            return new BaseResponse<Brigade>
+            {
+                Data = brigade,
+                StatusCode = StatusCode.OK,
+            };
         }
 
         public async Task<BaseResponse<List<Brigade>>> GetAll()
         {
-            try
-            {
-                var brigades = await _brigadeRepository.GetAll();
+            var brigades = await _brigadeRepository.GetAll();
 
-                return new BaseResponse<List<Brigade>>
-                {
-                    Data = brigades,
-                    StatusCode = StatusCode.OK,
-                };
-            }
-            catch (Exception ex)
+            return new BaseResponse<List<Brigade>>
             {
-                return new BaseResponse<List<Brigade>>
-                {
-                    Description = $"Failed to get brigades: {ex.Message}",
-                    StatusCode = StatusCode.InternalServerError,
-                };
-            }
+                Data = brigades,
+                StatusCode = StatusCode.OK,
+            };
         }
 
         public async Task<BaseResponse<Brigade>> Update(BrigadeViewModel model)
         {
-            try
-            {
-                var brigade = await _brigadeRepository.Getbyid(model.ID);
+            var brigade = await _brigadeRepository.Getbyid(model.ID);
 
-                if (brigade == null)
-                {
-                    return new BaseResponse<Brigade>
-                    {
-                        Description = "Brigade not found.",
-                        StatusCode = StatusCode.NotFound,
-                    };
-                }
-
-                brigade.Name = model.Name;
-                brigade.CommanderName = model.CommanderName;
-                brigade.EstablishmentDate = model.EstablishmentDate;
-                brigade.Location = model.Location;
-
-                await _brigadeRepository.Update(brigade);
-
-                return new BaseResponse<Brigade>
-                {
-                    Data = brigade,
-                    Description = "Brigade updated successfully.",
-                    StatusCode = StatusCode.OK,
-                };
-            }
-            catch (Exception ex)
+            if (brigade == null)
             {
                 return new BaseResponse<Brigade>
                 {
-                    Description = $"Failed to update brigade: {ex.Message}",
-                    StatusCode = StatusCode.InternalServerError,
+                    Description = "Brigade not found.",
+                    StatusCode = StatusCode.NotFound,
                 };
             }
+
+            brigade.Name = model.Name;
+            brigade.CommanderName = model.CommanderName;
+            brigade.EstablishmentDate = model.EstablishmentDate;
+            brigade.Location = model.Location;
+
+            await _brigadeRepository.Update(brigade);
+
+            return new BaseResponse<Brigade>
+            {
+                Data = brigade,
+                Description = "Brigade updated successfully.",
+                StatusCode = StatusCode.OK,
+            };
         }
 
         public async Task<BaseResponse<bool>> Delete(int id)
         {
-            try
-            {
-                var brigade = await _brigadeRepository.Getbyid(id);
+            var brigade = await _brigadeRepository.Getbyid(id);
 
-                if (brigade == null)
-                {
-                    return new BaseResponse<bool>
-                    {
-                        Data = false,
-                        Description = "Brigade not found.",
-                        StatusCode = StatusCode.NotFound,
-                    };
-                }
-
-                await _brigadeRepository.Delete(brigade);
-
-                return new BaseResponse<bool>
-                {
-                    Data = true,
-                    Description = "Brigade deleted successfully.",
-                    StatusCode = StatusCode.OK,
-                };
-            }
-            catch (Exception ex)
+            if (brigade == null)
             {
                 return new BaseResponse<bool>
                 {
                     Data = false,
-                    Description = $"Failed to delete brigade: {ex.Message}",
-                    StatusCode = StatusCode.InternalServerError,
+                    Description = "Brigade not found.",
+                    StatusCode = StatusCode.NotFound,
                 };
             }
+
+            await _brigadeRepository.Delete(brigade);
+
+            return new BaseResponse<bool>
+            {
+                Data = true,
+                Description = "Brigade deleted successfully.",
+                StatusCode = StatusCode.OK,
+            };
         }
     }
 }

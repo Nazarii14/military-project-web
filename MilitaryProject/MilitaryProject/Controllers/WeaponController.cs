@@ -2,6 +2,8 @@
 using MilitaryProject.BLL.Interfaces;
 using MilitaryProject.Domain.ViewModels.Weapon;
 using System.Threading.Tasks;
+using MilitaryProject.Extensions;
+
 
 namespace MilitaryProject.Controllers
 {
@@ -17,33 +19,13 @@ namespace MilitaryProject.Controllers
         public async Task<IActionResult> GetWeapons()
         {
             var response = await _weaponService.GetWeapons();
-
-            if (response.StatusCode == Domain.Enum.StatusCode.OK)
-            {
-                return View(response.Data);
-            }
-            else
-            {
-                TempData["AlertMessage"] = response.Description;
-                TempData["ResponseStatus"] = "Error";
-                return BadRequest(response.Description);
-            }
+            return this.HandleResponse(response);
         }
 
         public async Task<IActionResult> GetWeapon(int id)
         {
             var response = await _weaponService.GetWeapon(id);
-
-            if (response.StatusCode == Domain.Enum.StatusCode.OK)
-            {
-                return View(response.Data);
-            }
-            else
-            {
-                TempData["AlertMessage"] = response.Description;
-                TempData["ResponseStatus"] = "Error";
-                return BadRequest(response.Description);
-            }
+            return this.HandleResponse(response);
         }
 
         public IActionResult Create()
@@ -57,16 +39,7 @@ namespace MilitaryProject.Controllers
             if (ModelState.IsValid)
             {
                 var response = await _weaponService.Create(model);
-
-                if (response.StatusCode == Domain.Enum.StatusCode.OK)
-                {
-                    return RedirectToAction("GetWeapons", "Weapon");
-                }
-                else
-                {
-                    TempData["AlertMessage"] = response.Description;
-                    TempData["ResponseStatus"] = "Error";
-                }
+                return this.HandleResponse(response, "GetWeapons", "Weapon");
             }
             return View(model);
         }
@@ -74,17 +47,7 @@ namespace MilitaryProject.Controllers
         public async Task<IActionResult> Update(int id)
         {
             var response = await _weaponService.GetWeapon(id);
-
-            if (response.StatusCode == Domain.Enum.StatusCode.OK)
-            {
-                return View(response.Data);
-            }
-            else
-            {
-                TempData["AlertMessage"] = response.Description;
-                TempData["ResponseStatus"] = "Error";
-                return BadRequest(response.Description);
-            }
+            return this.HandleResponse(response);
         }
 
         [HttpPost]
@@ -93,16 +56,7 @@ namespace MilitaryProject.Controllers
             if (ModelState.IsValid)
             {
                 var response = await _weaponService.Update(model);
-
-                if (response.StatusCode == Domain.Enum.StatusCode.OK)
-                {
-                    return RedirectToAction("GetWeapons", "Weapon", new { id = response.Data.ID });
-                }
-                else
-                {
-                    TempData["AlertMessage"] = response.Description;
-                    TempData["ResponseStatus"] = "Error";
-                }
+                return this.HandleResponse(response, "GetWeapons", "Weapon");
             }
             return View(model);
         }
@@ -110,17 +64,7 @@ namespace MilitaryProject.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             var response = await _weaponService.Delete(id);
-
-            if (response.StatusCode == Domain.Enum.StatusCode.OK)
-            {
-                return RedirectToAction("GetWeapons", "Weapon");
-            }
-            else
-            {
-                TempData["AlertMessage"] = response.Description;
-                TempData["ResponseStatus"] = "Error";
-                return View();
-            }
+            return this.HandleResponse(response, "GetWeapons", "Weapon");
         }
     }
 }

@@ -2,6 +2,7 @@
 using MilitaryProject.BLL.Interfaces;
 using MilitaryProject.Domain.ViewModels.UserItems;
 using MilitaryProject.Domain.Response;
+using MilitaryProject.Extensions;
 
 namespace MilitaryProject.Controllers
 {
@@ -17,33 +18,13 @@ namespace MilitaryProject.Controllers
         public async Task<IActionResult> GetAll()
         {
             var response = await _userItemsService.GetUserItems();
-
-            if (response.StatusCode == Domain.Enum.StatusCode.OK)
-            {
-                return View(response.Data);
-            }
-            else
-            {
-                TempData["AlertMessage"] = response.Description;
-                TempData["ResponseStatus"] = "Error";
-                return BadRequest(response.Description);
-            }
+            return this.HandleResponse(response);
         }
 
         public async Task<IActionResult> GetById(int id)
         {
             var response = await _userItemsService.GetUserItem(id);
-
-            if (response.StatusCode == Domain.Enum.StatusCode.OK)
-            {
-                return View(response.Data);
-            }
-            else
-            {
-                TempData["AlertMessage"] = response.Description;
-                TempData["ResponseStatus"] = "Error";
-                return BadRequest(response.Description);
-            }
+            return this.HandleResponse(response);
         }
 
         public async Task<IActionResult> Create()
@@ -57,16 +38,7 @@ namespace MilitaryProject.Controllers
             if (ModelState.IsValid)
             {
                 var response = await _userItemsService.Create(model);
-
-                if (response.StatusCode == Domain.Enum.StatusCode.OK)
-                {
-                    return RedirectToAction("GetAll", "UserItems");
-                }
-                else
-                {
-                    TempData["AlertMessage"] = response.Description;
-                    TempData["ResponseStatus"] = "Error";
-                }
+                return this.HandleResponse(response, "GetAll", "UserItems");
             }
             return View(model);
         }
@@ -74,17 +46,7 @@ namespace MilitaryProject.Controllers
         public async Task<IActionResult> Update(int id)
         {
             var response = await _userItemsService.GetUserItem(id);
-
-            if (response.StatusCode == Domain.Enum.StatusCode.OK)
-            {
-                return View(response.Data);
-            }
-            else
-            {
-                TempData["AlertMessage"] = response.Description;
-                TempData["ResponseStatus"] = "Error";
-                return BadRequest(response.Description);
-            }
+            return this.HandleResponse(response);
         }
 
         [HttpPost]
@@ -93,16 +55,7 @@ namespace MilitaryProject.Controllers
             if (ModelState.IsValid)
             {
                 var response = await _userItemsService.Update(model);
-
-                if (response.StatusCode == Domain.Enum.StatusCode.OK)
-                {
-                    return RedirectToAction("GetAll", "UserItems", new { id = response.Data.ID });
-                }
-                else
-                {
-                    TempData["AlertMessage"] = response.Description;
-                    TempData["ResponseStatus"] = "Error";
-                }
+                return this.HandleResponse(response, "GetAll", "UserItems");
             }
             return View(model);
         }
@@ -110,17 +63,7 @@ namespace MilitaryProject.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             var response = await _userItemsService.Delete(id);
-
-            if (response.StatusCode == Domain.Enum.StatusCode.OK)
-            {
-                return RedirectToAction("GetAll", "UserItems");
-            }
-            else
-            {
-                TempData["AlertMessage"] = response.Description;
-                TempData["ResponseStatus"] = "Error";
-                return View();
-            }
+            return this.HandleResponse(response, "GetAll", "UserItems");
         }
     }
 }
