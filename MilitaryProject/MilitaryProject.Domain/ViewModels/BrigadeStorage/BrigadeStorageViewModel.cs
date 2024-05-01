@@ -20,11 +20,9 @@ namespace MilitaryProject.Domain.ViewModels.BrigadeStorage
         [Display(Name = "Ammunition ID")]
         public int AmmunitionID { get; set; }
 
-        [Required(ErrorMessage = "The Weapon Quantity field is required.")]
         [Display(Name = "Weapon Quantity:")]
         public int WeaponQuantity { get; set; }
 
-        [Required(ErrorMessage = "The Ammunition Quantity field is required.")]
         [Display(Name = "Ammunition Quantity:")]
         public int AmmunitionQuantity { get; set; }
 

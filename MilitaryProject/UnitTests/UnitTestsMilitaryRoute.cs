@@ -57,9 +57,9 @@ namespace MilitaryRouteUnitTests
 
             _dbContext.AddRange(new List<User>
             {
-                new User { ID = 1, Name = "User1", Lastname = "LastName1", Password = "Pass1", Email = "email1@gmail.com", Age = 22, Role = Role.Volunteer},
-                new User { ID = 2, Name = "User2", Lastname = "LastName2", Password = "Pass2", Email = "email2@gmail.com", Age = 23, Role = Role.Volunteer},
-                new User { ID = 3, Name = "User3", Lastname = "LastName3", Password = "Pass3", Email = "email3@gmail.com", Age = 24, Role = Role.Volunteer}
+                new User { ID = 1, BrigadeID = 1, Name = "User1", Lastname = "LastName1", Password = "Pass1", Email = "email1@gmail.com", Age = 22, Role = Role.Volunteer},
+                new User { ID = 2, BrigadeID = 2, Name = "User2", Lastname = "LastName2", Password = "Pass2", Email = "email2@gmail.com", Age = 23, Role = Role.Volunteer},
+                new User { ID = 3, BrigadeID = 3, Name = "User3", Lastname = "LastName3", Password = "Pass3", Email = "email3@gmail.com", Age = 24, Role = Role.Volunteer}
             });
 
             _dbContext.AddRange(new List<MilitaryRoute>
@@ -224,6 +224,8 @@ namespace MilitaryRouteUnitTests
             };
             var result = await _militaryRouteService.Create(militaryRouteViewModel);
 
+            Assert.IsTrue(true);
+            
             Assert.AreEqual(StatusCode.OK, result.StatusCode);
             Assert.AreEqual(militaryRouteViewModel.VolunteerID, result.Data.VolunteerID);
             Assert.AreEqual(militaryRouteViewModel.WeaponID, result.Data.WeaponID);
@@ -243,7 +245,7 @@ namespace MilitaryRouteUnitTests
         {
             var militaryRouteViewModel = new CreateMilitaryRouteViewModel
             {
-                VolunteerID = 100,
+                VolunteerID = -1,
                 WeaponID = 1,
                 WeaponQuantity = 10,
                 AmmunitionID = 1,
@@ -268,7 +270,7 @@ namespace MilitaryRouteUnitTests
             var militaryRouteViewModel = new CreateMilitaryRouteViewModel
             {
                 VolunteerID = 1,
-                WeaponID = 100,
+                WeaponID = -1,
                 WeaponQuantity = 10,
                 AmmunitionID = 1,
                 AmmunitionQuantity = 5,
@@ -294,7 +296,7 @@ namespace MilitaryRouteUnitTests
                 VolunteerID = 1,
                 WeaponID = 1,
                 WeaponQuantity = 10,
-                AmmunitionID = 100,
+                AmmunitionID = -1,
                 AmmunitionQuantity = 5,
                 StartPoint = "Point1",
                 Destination = "DPoint1",

@@ -32,11 +32,18 @@ namespace UserItemsUnitTests
 
             _dbContext = new ApplicationDbContext(options);
 
+            _dbContext.AddRange(new List<Brigade>
+            {
+                new Brigade { ID = 1, Name = "Brigade1", CommanderName = "Commander1", EstablishmentDate = DateTime.Now.AddDays(30), Location = "Location1" },
+                new Brigade { ID = 2, Name = "Brigade2", CommanderName = "Commander2", EstablishmentDate = DateTime.Now.AddDays(20), Location = "Location2" },
+                new Brigade { ID = 3, Name = "Brigade3", CommanderName = "Commander3", EstablishmentDate = DateTime.Now.AddDays(10), Location = "Location3" }
+            });
+
             _dbContext.AddRange(new List<User>
             {
-                new User { ID = 1, Name = "User1", Lastname = "LastName1", Password = "Pass1", Email = "email1@gmail.com", Age = 22, Role = Role.Volunteer},
-                new User { ID = 2, Name = "User2", Lastname = "LastName2", Password = "Pass2", Email = "email2@gmail.com", Age = 23, Role = Role.Volunteer},
-                new User { ID = 3, Name = "User3", Lastname = "LastName3", Password = "Pass3", Email = "email3@gmail.com", Age = 24, Role = Role.Volunteer}
+                new User { ID = 1, BrigadeID = 1, Name = "User1", Lastname = "LastName1", Password = "Pass1", Email = "email1@gmail.com", Age = 22, Role = Role.Volunteer},
+                new User { ID = 2, BrigadeID = 2, Name = "User2", Lastname = "LastName2", Password = "Pass2", Email = "email2@gmail.com", Age = 23, Role = Role.Volunteer},
+                new User { ID = 3, BrigadeID = 3, Name = "User3", Lastname = "LastName3", Password = "Pass3", Email = "email3@gmail.com", Age = 24, Role = Role.Volunteer}
             });
 
             _dbContext.AddRange(new List<Weapon>

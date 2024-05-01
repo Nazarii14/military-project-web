@@ -1,0 +1,51 @@
+﻿@using MilitaryProject.Domain.ViewModels.Stats
+@model StatsAmmunitionViewModel
+
+@{
+    ViewData["Title"] = "Create Ammunition";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <h1 class="card-header text-center">Create Ammunition</h1>
+                <div class="card-body">
+                    <form asp-controller="StatsAmmunition" asp-action="Create" method="post">
+                        <div class="form-group">
+                            <label asp-for="AmmunitionName">Name:</label>
+                            <input asp-for="AmmunitionName" class="form-control" />
+                            <span asp-validation-for="AmmunitionName" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="AmmunitionType">Type:</label>
+                            <input asp-for="AmmunitionType" class="form-control" />
+                            <span asp-validation-for="AmmunitionType" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="AmmunitionSize">Weight:</label>
+                            <input asp-for="AmmunitionSize" class="form-control" />
+                            <span asp-validation-for="AmmunitionSize" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="AmmunitionPrice">Price:</label>
+                            <input asp-for="AmmunitionPrice" class="form-control" />
+                            <span asp-validation-for="AmmunitionPrice" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="AmmunitionCount">Count:</label>
+                            <input asp-for="AmmunitionCount" class="form-control" />
+                            <span asp-validation-for="AmmunitionCount" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="NeededAmmunitionCount">Needed count:</label>
+                            <input asp-for="NeededAmmunitionCount" class="form-control" />
+                            <span asp-validation-for="NeededAmmunitionCount" class="text-danger"></span>
+                        </div>
+                        <button type="submit" class="btn btn-primary mt-3">Create</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

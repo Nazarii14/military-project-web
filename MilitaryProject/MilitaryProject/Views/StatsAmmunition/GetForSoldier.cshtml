@@ -1,0 +1,36 @@
+﻿@using MilitaryProject.Domain.ViewModels.Stats
+@model StatsAmmunitionViewModel
+
+@{
+    ViewData["Title"] = "Get Ammunition by ID";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h2 class="text-center">Ammunition</h2>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>Type</th>
+                        <th>Size</th>
+                        <th>Count</th>
+                        <th>Needed count</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>@Model.AmmunitionName</td>
+                        <td>@Model.AmmunitionPrice</td>
+                        <td>@Model.AmmunitionType</td>
+                        <td>@Model.AmmunitionSize</td>
+                        <td>@Model.AmmunitionCount</td>
+                        <td>@Model.NeededAmmunitionCount</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

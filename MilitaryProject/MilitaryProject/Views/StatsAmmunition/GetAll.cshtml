@@ -1,0 +1,40 @@
+﻿@using MilitaryProject.Domain.ViewModels.Stats
+@model List<StatsAmmunitionViewModel>
+
+@{
+    ViewData["Title"] = "Ammunition";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h2 class="text-center">Ammunition</h2>
+            <table class="table">
+                <a class="btn btn-success" asp-controller="StatsAmmunition" asp-action="Create">Create</a>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Count</th>
+                        <th>Needed count</th>
+                        <th>Details</th>
+                        <th>Edit</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var ammunition in Model)
+                    {
+                        <tr>
+                            <td>@ammunition.AmmunitionName</td>
+                            <td>@ammunition.AmmunitionCount</td>
+                            <td>@ammunition.NeededAmmunitionCount</td>
+                            <td><a class="btn btn-outline-primary" asp-controller="StatsAmmunition" asp-action="GetById" asp-route-ammunitionID="@ammunition.AmmunitionID">Details</a></td>
+                            <td><a class="btn btn-primary" asp-controller="StatsAmmunition" asp-action="Update" asp-route-ammunitionID="@ammunition.AmmunitionID">Edit</a></td>
+                            <td><a class="btn btn-danger" asp-controller="StatsAmmunition" asp-action="Delete" asp-route-ammunitionID="@ammunition.AmmunitionID">Delete</a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

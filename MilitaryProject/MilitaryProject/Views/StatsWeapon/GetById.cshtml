@@ -1,0 +1,41 @@
+﻿@using MilitaryProject.Domain.ViewModels.Stats
+@model StatsWeaponViewModel
+
+@{
+    ViewData["Title"] = "Getbyid";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h2 class="text-center">Weapon</h2>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>Type</th>
+                        <th>Weight</th>
+                        <th>Count</th>
+                        <th>Needed count</th>
+                        <th>Edit</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>@Model.WeaponName</td>
+                        <td>@Model.WeaponPrice</td>
+                        <td>@Model.WeaponType</td>
+                        <td>@Model.WeaponWeight</td>
+                        <td>@Model.WeaponCount</td>
+                        <td>@Model.NeededWeaponCount</td>
+                        <td><a class="btn btn-primary" asp-controller="StatsWeapon" asp-action="Update" asp-route-weaponID="@Model.WeaponID">Edit</a></td>
+                        <td><a class="btn btn-danger" asp-controller="StatsWeapon" asp-action="Delete" asp-route-weaponID="@Model.WeaponID">Delete</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+

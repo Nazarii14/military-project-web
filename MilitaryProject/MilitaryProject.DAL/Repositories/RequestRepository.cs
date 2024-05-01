@@ -48,7 +48,10 @@ namespace MilitaryProject.DAL.Repositories
         public async Task<Request> Getbyid(int id)
         {
             return await _db.Requests
-                .FindAsync(id);
+                .Include(r => r.Brigade)
+                .Include(r => r.Weapon)
+                .Include(r => r.Ammunition)
+                .FirstOrDefaultAsync(r => r.ID == id);
         }
     }
 }

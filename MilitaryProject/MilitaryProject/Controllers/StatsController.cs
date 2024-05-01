@@ -23,10 +23,10 @@ namespace MilitaryProject.Controllers
 
         public async Task<IActionResult> ViewStats()
         {
-            foreach (var claim in User.Claims)
-            {
-                Console.WriteLine($"Type: {claim.Type}, Value: {claim.Value}");
-            }
+            //foreach (var claim in User.Claims)
+            //{
+            //    Console.WriteLine($"Type: {claim.Type}, Value: {claim.Value}");
+            //}
 
             var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == "UserID");
             if (userIdClaim == null)

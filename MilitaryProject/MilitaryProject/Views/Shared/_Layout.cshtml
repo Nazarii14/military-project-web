@@ -31,26 +31,46 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" style="display:flex; justify-content: space-between">
-                    <ul class="navbar-nav mr-auto">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Brigade" asp-action="GetAll">Brigades</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Weapon" asp-action="GetWeapons">Weapons</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Request" asp-action="GetRequests">Requests</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="MilitaryRoute" asp-action="GetAll">Military Routes</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Ammunition" asp-action="GetAll">Ammunitions</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="UserItems" asp-action="GetAll">UserItems</a>
-                        </li>
-                    </ul>
+                    @if (auth && roleClaim == "Admin")
+                    {
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Brigade" asp-action="GetAll">Brigades</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Weapon" asp-action="GetWeapons">Weapons</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Request" asp-action="GetRequests">Requests</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="MilitaryRoute" asp-action="GetAll">Military Routes</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Ammunition" asp-action="GetAll">Ammunitions</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="UserItems" asp-action="GetAll">UserItems</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="User" asp-action="GetAll">Users</a>
+                            </li>
+                        </ul>
+                    }
+                    else @if (auth && roleClaim != "Volunteer")
+                    {
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="StatsWeapon" asp-action="GetAll">Weapons</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="StatsAmmunition" asp-action="GetAll">Ammunition</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Stats" asp-action="ViewStats">Stats</a>
+                            </li>
+                        </ul>
+                    }
                     @if (!auth)
                     {
                         <ul class="navbar-nav ml-auto align-items-center">

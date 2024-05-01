@@ -33,6 +33,8 @@ namespace MilitaryProject
             services.AddScoped<IUserItemsService, UserItemsService>();
             services.AddScoped<IEmailService, EmailService>();
             services.AddScoped<IStatsService, StatsService>();
+            services.AddScoped<IStatsWeaponService, StatsWeaponService>();
+            services.AddScoped<IStatsAmmunitionService, StatsAmmunitionService>();
         }
     }
 }

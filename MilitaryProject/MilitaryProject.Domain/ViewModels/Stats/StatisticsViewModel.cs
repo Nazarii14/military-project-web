@@ -21,5 +21,8 @@ namespace MilitaryProject.Domain.ViewModels.Stats
         public Dictionary<string, int> AmmunitionSizeCounts { get; set; } = new Dictionary<string, int>();
 
         public Dictionary<decimal, int> AmmunitionPriceCount { get; set; } = new Dictionary<decimal, int>();
+
+        //public int TotalNeededPrice { get; set; }
+        //public int TotalHavingPrice { get; set; }
     }
 }
