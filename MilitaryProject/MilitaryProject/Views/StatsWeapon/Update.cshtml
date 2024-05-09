@@ -5,6 +5,50 @@
     ViewData["Title"] = "Edit Weapon";
 }
 
+<style>
+    .card-header.text-center {
+		font-size: 2.5rem;
+		font-weight: 600;
+        background-color: #32a852;
+        color:antiquewhite;
+    }
+    .form-label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-size: 1.5rem;
+        font-weight: 600;
+
+    }
+
+    .form-control {
+        border-radius: 0.25rem;
+        border: 1px solid #ced4da;
+        transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    }
+
+    .form-control:focus {
+        border-color: #262626;
+        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    }
+
+    .text-danger {
+        font-size: 0.875rem;
+        margin-top: 0.25rem;
+    }
+
+    .btn-primary {
+        display: inline-block;
+        font-weight: 400;
+        background-color: #32a852;
+        border-color: #32a852;
+        transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    }
+
+    .btn-primary:hover {
+            background-color: #5bc779;
+    }
+</style>
+
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-6">
@@ -14,32 +58,32 @@
                     <form asp-controller="StatsWeapon" asp-action="Update" method="post">
                         <input type="hidden" asp-for="WeaponID" />
                         <div class="form-group">
-                            <label asp-for="WeaponName">Name:</label>
+                            <label asp-for="WeaponName" class="form-label">Name:</label>
                             <input asp-for="WeaponName" class="form-control" />
                             <span asp-validation-for="WeaponName" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label asp-for="WeaponType">Type:</label>
+                            <label asp-for="WeaponType" class="form-label">Type:</label>
                             <input asp-for="WeaponType" class="form-control" />
                             <span asp-validation-for="WeaponType" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label asp-for="WeaponWeight">Weaight:</label>
+                            <label asp-for="WeaponWeight" class="form-label">Weight:</label>
                             <input asp-for="WeaponWeight" class="form-control" />
                             <span asp-validation-for="WeaponWeight" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label asp-for="WeaponPrice">Price:</label>
+                            <label asp-for="WeaponPrice" class="form-label">Price:</label>
                             <input asp-for="WeaponPrice" class="form-control" />
                             <span asp-validation-for="WeaponPrice" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label asp-for="WeaponCount">Count:</label>
+                            <label asp-for="WeaponCount" class="form-label">Count:</label>
                             <input asp-for="WeaponCount" class="form-control" />
                             <span asp-validation-for="WeaponCount" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label asp-for="NeededWeaponCount">Needed count:</label>
+                            <label asp-for="NeededWeaponCount" class="form-label">Needed count:</label>
                             <input asp-for="NeededWeaponCount" class="form-control" />
                             <span asp-validation-for="NeededWeaponCount" class="text-danger"></span>
                         </div>

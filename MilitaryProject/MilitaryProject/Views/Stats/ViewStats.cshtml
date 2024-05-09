@@ -1,66 +1,124 @@
 ﻿@using MilitaryProject.Domain.ViewModels.Stats
 @model StatisticsViewModel
 
+<style>
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    h2 {
+        color: #333;
+        text-align: center;
+        font-size: 4.5em;    
+    }
+
+    section {
+        margin-bottom: 50px;
+        
+    }
+
+    .h3 {
+        color: #555;
+        font-size: 3.5em;
+    }
+
+    .h4 {
+        color: #555;
+        font-size: 2.5em;
+    }
+
+    .ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    .li {
+        margin-bottom: 10px;
+        font-size: 1.4em;
+    }
+
+    .strong {
+        font-weight: bold;
+        color: #007bff;
+    }
+
+    .sections {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        border: 1px solid black;
+        padding: 15px;
+        border-radius: 20px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+</style>
+
 <h2>Statistics</h2>
+<div class="sections">
 
 <section>
-    <h3>Weapons</h3>
+    <h3 class="h3">Weapons</h3>
     <div>
-        <h4>By Type</h4>
-        <ul>
+        <h4 class="h4">By Type</h4>
+        <ul class="ul">
             @foreach (var kvp in Model.WeaponTypeCounts)
             {
-                <li><strong>@kvp.Key:</strong> @kvp.Value</li>
+                <li class="li"><strong class="strong">@kvp.Key:</strong> @kvp.Value</li>
             }
         </ul>
     </div>
     <div>
-        <h4>By Weight</h4>
-        <ul>
+        <h4 class="h4">By Weight</h4>
+        <ul class="ul">
             @foreach (var kvp in Model.WeaponWeightCounts)
             {
-                <li><strong>@kvp.Key:</strong> @kvp.Value</li>
+                <li class="li"><strong class="strong">@kvp.Key:</strong> @kvp.Value</li>
             }
         </ul>
     </div>
     <div>
-        <h4>By Price</h4>
-        <ul>
+        <h4 class="h4">By Price</h4>
+        <ul class="ul">
             @foreach (var kvp in Model.WeaponPriceCount)
             {
-                <li><strong>@kvp.Key:</strong> @kvp.Value</li>
+                <li class="li"><strong class="strong">@kvp.Key:</strong> @kvp.Value</li>
             }
         </ul>
     </div>
 </section>
 
 <section>
-    <h3>Ammunition</h3>
+    <h3 class="h3">Ammunition</h3>
     <div>
-        <h4>By Type</h4>
-        <ul>
+        <h4 class="h4">By Type</h4>
+        <ul class="ul">
             @foreach (var kvp in Model.AmmunitionTypeCounts)
             {
-                <li><strong>@kvp.Key:</strong> @kvp.Value</li>
+                <li class="li"><strong class="strong">@kvp.Key:</strong> @kvp.Value</li>
             }
         </ul>
     </div>
     <div>
-        <h4>By Size</h4>
-        <ul>
+        <h4 class="h4">By Size</h4>
+        <ul class="ul">
             @foreach (var kvp in Model.AmmunitionSizeCounts)
             {
-                <li><strong>@kvp.Key:</strong> @kvp.Value</li>
+                <li class="li"><strong class="strong">@kvp.Key:</strong> @kvp.Value</li>
             }
         </ul>
     </div>
     <div>
-        <h4>By Price</h4>
-        <ul>
+        <h4 class="h4">By Price</h4>
+        <ul class="ul">
             @foreach (var kvp in Model.AmmunitionPriceCount)
             {
-                <li><strong>@kvp.Key:</strong> @kvp.Value</li>
+                <li class="li"><strong class="strong">@kvp.Key:</strong> @kvp.Value</li>
             }
         </ul>
     </div>
 </section>
+
+</div>

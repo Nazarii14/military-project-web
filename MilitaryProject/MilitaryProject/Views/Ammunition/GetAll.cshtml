@@ -6,29 +6,101 @@
     ViewData["Title"] = "Ammunition";
 }
 
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <h2 class="text-center">Ammunitions</h2>
-            <table class="table">
-                <a class="btn btn-success" asp-controller="Ammunition" asp-action="Create">Create</a>
+<style>
+    /* General Styles */
+    .custom-container {
+        margin-top: 50px;
+    }
+
+    .custom-row {
+        justify-content: center;
+    }
+
+    .custom-col-md-8 {
+        text-align: center;
+    }
+
+    /* Button Styles */
+    .custom-btn {
+        padding: 8px 16px;
+        border-radius: 4px;
+        text-decoration: none;
+        display: inline-block;
+    }
+
+    .custom-btn-success {
+        background-color: #28a745;
+        color: #fff;
+    }
+
+    .custom-btn-outline-primary {
+        background-color: transparent;
+        border: 1px solid #007bff;
+        color: #007bff;
+    }
+
+    .custom-btn-primary {
+        background-color: #007bff;
+        color: #fff;
+    }
+
+    .custom-btn-danger {
+        background-color: #dc3545;
+        color: #fff;
+    }
+
+    /* Table Styles */
+    .custom-table {
+        width: 100%;
+    }
+
+        .custom-table th,
+        .custom-table td {
+            padding: 10px;
+            text-align: center;
+        }
+
+        /* Table Header Styles */
+        .custom-table thead {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        /* Table Row Styles */
+        .custom-table tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .custom-table tbody tr:hover {
+            background-color: #e2e2e2;
+        }
+
+
+</style>
+
+<div class="custom-container mt-5">
+    <div class="custom-row justify-content-center">
+        <div class="custom-col-md-8">
+            <h2 class="custom-text-center">Ammunitions</h2>
+            <a class="custom-btn custom-btn-success" asp-controller="Ammunition" asp-action="Create">Create</a>
+            <table class="custom-table">
                 <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>Details</th>
-                        <th>Edit</th>
-                        <th>Action</th>
+                        <th class="custom-name">Name</th>
+                        <th class="custom-details">Details</th>
+                        <th class="custom-edit">Edit</th>
+                        <th class="custom-action">Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var ammunition in Model)
                     {
-                                <tr>
-                                            <td>@ammunition.Name</td>
-                                                <td><a class="btn btn-outline-primary" asp-controller="Ammunition" asp-action="GetById" asp-route-id="@ammunition.ID">Details</a></td>
-                                                <td><a class="btn btn-primary" asp-controller="Ammunition" asp-action="Update" asp-route-id="@ammunition.ID">Edit</a></td>
-                                                <td><a class="btn btn-danger" asp-controller="Ammunition" asp-action="Delete" asp-route-id="@ammunition.ID">Delete</a></td>
-                                </tr>
+                        <tr>
+                            <td class="custom-name">@ammunition.Name</td>
+                            <td class="custom-details"><a class="custom-btn custom-btn-outline-primary" asp-controller="Ammunition" asp-action="GetById" asp-route-id="@ammunition.ID">Details</a></td>
+                            <td class="custom-edit"><a class="custom-btn custom-btn-primary" asp-controller="Ammunition" asp-action="Update" asp-route-id="@ammunition.ID">Edit</a></td>
+                            <td class="custom-action"><a class="custom-btn custom-btn-danger" asp-controller="Ammunition" asp-action="Delete" asp-route-id="@ammunition.ID">Delete</a></td>
+                        </tr>
                     }
                 </tbody>
             </table>
