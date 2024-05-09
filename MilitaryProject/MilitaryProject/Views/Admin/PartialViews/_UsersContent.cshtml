@@ -1,0 +1,57 @@
+﻿@using MilitaryProject.Domain.Enum
+@using MilitaryProject.Domain.ViewModels.Admin
+@model AdminPannelViewModel
+
+<table class="table">
+    <a class="btn btn-success" asp-controller="Brigade" asp-action="Create">Create</a>
+    <thead>
+        <tr>
+            <th>@Role.Guest</th>
+            <th>@Role.Soldier</th>
+            <th>@Role.Volunteer</th>
+            <th>@Role.Commander</th>
+            <th>@Role.Admin</th>
+            <th>Total Users</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model is not null)
+        {
+            <tr>
+                <td>@Model.Users.Count(x => x.Role == Role.Guest)</td>
+                <td>@Model.Users.Count(x => x.Role == Role.Soldier)</td>
+                <td>@Model.Users.Count(x => x.Role == Role.Volunteer)</td>
+                <td>@Model.Users.Count(x => x.Role == Role.Commander)</td>
+                <td>@Model.Users.Count(x => x.Role == Role.Admin)</td>
+                <td>@Model.Users.Count()</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Details</th>
+            <th>Edit</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model is not null)
+        {
+            @foreach (var user in Model.Users)
+            {
+                <tr>
+                    <td>@user.Name</td>
+                    <td>@user.Email</td>
+                    <td><a class="btn btn-outline-primary" asp-controller="Admin" asp-action="GetUser" asp-route-id="@user.ID">Details</a></td>
+                    <td><a class="btn btn-primary" asp-controller="Brigade" asp-action="Update" asp-route-id="@user.ID">Edit</a></td>
+                    <td><a class="btn btn-danger" asp-controller="Admin" asp-action="DeleteUser" asp-route-id="@user.ID">Delete</a></td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

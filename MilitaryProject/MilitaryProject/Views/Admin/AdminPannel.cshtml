@@ -1,0 +1,37 @@
+﻿@using MilitaryProject.Domain.Entity
+@using MilitaryProject.Domain.ViewModels.Admin
+@using MilitaryProject.Domain.ViewModels.Brigade
+@model AdminPannelViewModel
+
+@{
+    ViewData["Title"] = "Admin Pannel";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h2 class="text-center">Admin Pannel</h2>
+
+            <section class="admin_selector">
+                <div class="item_selector">
+                    <a id="usersTab" class="item_selector_option active-tab" data-tab="users">Users</a>
+                    <a id="brigadesTab" class="item_selector_option" data-tab="brigades">Brigades</a>
+                    <a id="requestsTab" class="item_selector_option" data-tab="requests">Requests</a>
+                </div>
+                <hr class="item_selector_hr" />
+            </section>
+
+            <section id="users_content">
+                @Html.Partial("PartialViews/_UsersContent")
+            </section>
+
+            <section id="brigades_content">
+                @Html.Partial("PartialViews/_BrigadesContent")
+            </section>
+
+            <section id="requests_content">
+                @Html.Partial("PartialViews/_RequestsContent")
+            </section>        
+        </div>
+    </div>
+</div>

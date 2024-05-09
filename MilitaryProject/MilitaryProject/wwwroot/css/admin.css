@@ -1,0 +1,52 @@
+﻿.admin_selector {
+
+}
+
+.item_selector_option {
+    text-decoration: none;
+    color: #666;
+    font-size: 22px;
+    transition: 0.4s;
+    margin-right: 30px;
+    position: relative;
+    padding-bottom: 9px;
+}
+
+.item_selector_option:hover {
+    color: #4E7E13;
+    z-index: 999;
+    cursor: pointer;
+}
+
+.item_selector_option::after {
+    content: "";
+    width: 100%;
+    height: 3px;
+    background-color: #4E7E13;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    transform: scaleX(0);
+    transition: transform 0.4s;
+}
+
+.item_selector_option:hover::after {
+    transform: scaleX(1);
+}
+
+.active-tab {
+    color: #4E7E13;
+}
+
+.active-tab::after {
+    transform: scaleX(1);
+    z-index: 9999;
+    height: 3px;
+    bottom: 0;
+}
+
+.item_selector_hr {
+    width: 100%;
+    border-top: 1px solid black;
+    margin-top: 5px;
+}
