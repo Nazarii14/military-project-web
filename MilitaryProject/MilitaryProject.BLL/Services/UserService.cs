@@ -7,14 +7,7 @@ using MilitaryProject.Domain.Enum;
 using MilitaryProject.Domain.Helpers;
 using MilitaryProject.Domain.Response;
 using MilitaryProject.Domain.ViewModels.User;
-using Google.Authenticator;
 using System.Security.Claims;
-using Azure.Core;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using Newtonsoft.Json.Linq;
-using static QRCoder.PayloadGenerator.WiFi;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
-using AutoMapper;
 using System.Security.Cryptography;
 
 namespace MilitaryProject.BLL.Services
@@ -115,7 +108,7 @@ namespace MilitaryProject.BLL.Services
                 Name = model.Name,
                 Lastname = model.Lastname,
                 Age = model.Age,
-                BrigadeID = 106,
+                BrigadeID = 1,
                 Role = Role.Guest,
             };
 
@@ -155,8 +148,7 @@ namespace MilitaryProject.BLL.Services
             var userEmail = user.Email;
             var key = KeyGeneration(userEmail);
             var qrCodeUrl = await QrCode(model);
-            //var isVerified = Verify2FA(key, model.TwoFactorSecretKey);
-            var isVerified = true;
+            var isVerified = Verify2FA(key, model.TwoFactorSecretKey);
 
             if (!isVerified)
             {

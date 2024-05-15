@@ -3,22 +3,25 @@ using Microsoft.EntityFrameworkCore;
 using MilitaryProject;
 using MilitaryProject.DAL;
 using Serilog;
-using System.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
 var connection = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connection));
 
-builder.Host.UseSerilog((context, loggerConfig) =>
+Log.Logger = new LoggerConfiguration()
+    .ReadFrom.Configuration(builder.Configuration)
+    .CreateLogger();
+
+builder.Services.AddLogging(l =>
 {
-    loggerConfig
-    .ReadFrom.Configuration(context.Configuration)
-    .Enrich.FromLogContext()
-    .Enrich.WithEnvironmentName()
-    .Enrich.WithMachineName()
-    .WriteTo.Seq(context.Configuration.GetSection("Seq:ServerUrl").Value, apiKey: context.Configuration.GetSection("Seq:ApiKey").Value);
+    l.AddConfiguration(builder.Configuration.GetSection("Serilog"));
+    l.AddConsole();
+    l.AddDebug();
+    l.AddSerilog();
 });
+
+builder.Host.UseSerilog();
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddHttpContextAccessor();
@@ -68,4 +71,4 @@ app.UseEndpoints(endpoints =>
     );
 });
 
-app.Run();
+await app.RunAsync();
