@@ -1,41 +1,113 @@
-﻿@using MilitaryProject.Domain.ViewModels.Stats
+﻿﻿@using MilitaryProject.Domain.ViewModels.Stats
 @model StatsWeaponViewModel
 
 @{
     ViewData["Title"] = "Getbyid";
 }
 
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <h2 class="text-center">Weapon</h2>
-            <table class="table">
+<style>
+    .custom-container {
+        margin-top: 50px;
+    }
+
+    .custom-row {
+        justify-content: center;
+    }
+
+    .custom-col-md-8 {
+        text-align: center;
+    }
+
+    .custom-table {
+        width: 100%;
+        margin-top: 16px;
+    }
+
+        .custom-table th,
+        .custom-table td {
+            padding: 10px;
+            text-align: center;
+            font-size: 24px;
+        }
+
+        .custom-table thead {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .custom-table tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .custom-table tbody tr:hover {
+            background-color: #e2e2e2;
+        }
+
+    .custom-text-center {
+        text-align: center;
+        font-size: 3.5em;
+    }
+
+    .custom-btn-primary {
+        background-color: #007bff;
+        color: #fff;
+    }
+
+    .custom-btn-danger {
+        background-color: #dc3545;
+        color: #fff;
+    }
+
+    .custom-btn {
+        padding: 8px 16px;
+        border-radius: 4px;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 24px;
+    }
+
+    .custom-btn-primary:hover {
+        background-color: mediumspringgreen;
+        color: white;
+    }
+
+    .custom-btn-danger:hover {
+        background-color: red;
+        color: white;
+    }
+
+</style>
+
+<div class="custom-container mt-5">
+    <div class="custom-row justify-content-center">
+        <div class="custom-col-md-8">
+            <h2 class="custom-text-center">Weapon</h2>
+            <table class="custom-table">
                 <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>Price</th>
-                        <th>Type</th>
-                        <th>Weight</th>
-                        <th>Count</th>
-                        <th>Needed count</th>
-                        <th>Edit</th>
-                        <th>Action</th>
+                        <th class="custom-name">Name</th>
+                        <th class="custom-price">Price</th>
+                        <th class="custom-type">Type</th>
+                        <th class="custom-weight">Weight</th>
+                        <th class="custom-count">Count</th>
+                        <th class="custom-needed-count">Needed count</th>
+                        <th class="custom-edit">Edit</th>
+                        <th class="custom-action">Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>@Model.WeaponName</td>
-                        <td>@Model.WeaponPrice</td>
-                        <td>@Model.WeaponType</td>
-                        <td>@Model.WeaponWeight</td>
-                        <td>@Model.WeaponCount</td>
-                        <td>@Model.NeededWeaponCount</td>
-                        <td><a class="btn btn-primary" asp-controller="StatsWeapon" asp-action="Update" asp-route-weaponID="@Model.WeaponID">Edit</a></td>
-                        <td><a class="btn btn-danger" asp-controller="StatsWeapon" asp-action="Delete" asp-route-weaponID="@Model.WeaponID">Delete</a></td>
+                        <td class="custom-name">@Model.WeaponName</td>
+                        <td class="custom-price">@Model.WeaponPrice</td>
+                        <td class="custom-type">@Model.WeaponType</td>
+                        <td class="custom-weight">@Model.WeaponWeight</td>
+                        <td class="custom-count">@Model.WeaponCount</td>
+                        <td class="custom-needed-count">@Model.NeededWeaponCount</td>
+                        <td class="custom-edit"><a class="custom-btn custom-btn-primary" asp-controller="StatsWeapon" asp-action="Update" asp-route-weaponID="@Model.WeaponID">Edit</a></td>
+                        <td class="custom-action"><a class="custom-btn custom-btn-danger" asp-controller="StatsWeapon" asp-action="Delete" asp-route-weaponID="@Model.WeaponID">Delete</a></td>
                     </tr>
                 </tbody>
             </table>
         </div>
     </div>
 </div>
-

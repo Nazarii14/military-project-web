@@ -1,9 +1,54 @@
-﻿@using MilitaryProject.Domain.ViewModels.Stats
+﻿﻿@using MilitaryProject.Domain.ViewModels.Stats
+
 @model StatsAmmunitionViewModel
 
 @{
     ViewData["Title"] = "Edit Ammunition";
 }
+
+<style>
+    .card-header.text-center {
+        font-size: 2.5rem;
+        font-weight: 600;
+        background-color: #32a852;
+        color: antiquewhite;
+    }
+
+    .form-label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-size: 1.5rem;
+        font-weight: 600;
+    }
+
+    .form-control {
+        border-radius: 0.25rem;
+        border: 1px solid #ced4da;
+        transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    }
+
+        .form-control:focus {
+            border-color: #262626;
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+        }
+
+    .text-danger {
+        font-size: 0.875rem;
+        margin-top: 0.25rem;
+    }
+
+    .btn-primary {
+        display: inline-block;
+        font-weight: 400;
+        background-color: #32a852;
+        border-color: #32a852;
+        transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    }
+
+        .btn-primary:hover {
+            background-color: #5bc779;
+        }
+</style>
 
 <div class="container mt-5">
     <div class="row justify-content-center">
@@ -14,32 +59,32 @@
                     <form asp-controller="StatsAmmunition" asp-action="Update" method="post">
                         <input type="hidden" asp-for="AmmunitionID" />
                         <div class="form-group">
-                            <label asp-for="AmmunitionName">Name:</label>
+                            <label asp-for="AmmunitionName" class="form-label">Name:</label>
                             <input asp-for="AmmunitionName" class="form-control" />
                             <span asp-validation-for="AmmunitionName" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label asp-for="AmmunitionType">Type:</label>
+                            <label asp-for="AmmunitionType" class="form-label">Type:</label>
                             <input asp-for="AmmunitionType" class="form-control" />
                             <span asp-validation-for="AmmunitionType" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label asp-for="AmmunitionSize">Size:</label>
+                            <label asp-for="AmmunitionSize" class="form-label">Size:</label>
                             <input asp-for="AmmunitionSize" class="form-control" />
                             <span asp-validation-for="AmmunitionSize" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label asp-for="AmmunitionPrice">Price:</label>
+                            <label asp-for="AmmunitionPrice" class="form-label">Price:</label>
                             <input asp-for="AmmunitionPrice" class="form-control" />
                             <span asp-validation-for="AmmunitionPrice" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label asp-for="AmmunitionCount">Count:</label>
+                            <label asp-for="AmmunitionCount" class="form-label">Count:</label>
                             <input asp-for="AmmunitionCount" class="form-control" />
                             <span asp-validation-for="AmmunitionCount" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label asp-for="NeededAmmunitionCount">Needed count:</label>
+                            <label asp-for="NeededAmmunitionCount" class="form-label">Needed count:</label>
                             <input asp-for="NeededAmmunitionCount" class="form-control" />
                             <span asp-validation-for="NeededAmmunitionCount" class="text-danger"></span>
                         </div>
